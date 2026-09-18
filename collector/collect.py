@@ -265,7 +265,7 @@ def main():
 
     if healthy_sources == 3:
         health_status = "good"
-        network_label = "OPERATIONAL DATA"
+        network_label = "DATA ONLINE"
         health_desc = "Nguồn công khai đang đọc được. Trạng thái được giữ đúng cấp độ Actual / Schedule / Frequency."
     elif healthy_sources:
         health_status = "watch"
