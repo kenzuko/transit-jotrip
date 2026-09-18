@@ -11,7 +11,7 @@ function ageInfo(iso){
   return {minutes:min,label:min<1?'vừa cập nhật':min<60?`${min} phút`:`${Math.round(min/60)} giờ`,level:min<=10?'good':min<=30?'watch':'bad'};
 }
 function fmtTime(v){if(!v)return '-';const d=new Date(v);if(Number.isNaN(d.getTime()))return String(v);return d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Ho_Chi_Minh'});}
-function statusClass(v=''){const s=String(v).toLowerCase();if(/normal|on time|departed|running|đúng giờ|đã xuất bến/.test(s))return'good';if(/delay|watch|limited|boarding|còn ít|gần hết|chậm/.test(s))return'watch';if(/cancel|suspend|closed|hết chỗ|ngừng|hủy/.test(s))return'bad';return'neutral';}
+function statusClass(v=''){const s=String(v).toLowerCase();if(/normal|on time|departed|running|đúng giờ|đã xuất bến|data online/.test(s))return'good';if(/delay|watch|limited|boarding|còn ít|gần hết|chậm|partial data/.test(s))return'watch';if(/cancel|suspend|closed|hết chỗ|ngừng|hủy|no data/.test(s))return'bad';return'neutral';}
 function filteredDepartures(){
   const list=state.data?.departures||[];
   const type=state.view==='sea'?'sea':state.view==='bus'?'bus':state.type;
