@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4f9fc">
+<title>JoTrip Transit Live - Phú Quốc</title>
+<meta name="description" content="Theo dõi tàu cao tốc, phà, xe buýt và các tuyến vận tải cố định tại Phú Quốc.">
+<link rel="canonical" href="https://transit.openphuquoc.com/">
+<link rel="icon" href="./jotrip-logo-wordmark.svg">
+<link rel="stylesheet" href="./style.css?v=20260918a">
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand">
+    <a class="brand-home" href="./" aria-label="JoTrip Transit Live"><img src="./jotrip-logo-wordmark.svg" alt="JoTrip"></a>
+    <span class="brand-divider"></span>
+    <div><h1>Transit Live</h1><p>Phu Quoc transit network</p></div>
+  </div>
+  <div class="top-actions">
+    <div class="mode-switch" id="modeSwitch">
+      <button class="active" data-view="network">NETWORK</button>
+      <button data-view="sea">SEA</button>
+      <button data-view="bus">BUS</button>
+    </div>
+    <button class="icon-button" id="refreshBtn" aria-label="Làm mới">↻</button>
+  </div>
+</header>
+
+<main class="layout">
+<section class="content">
+  <div class="source-strip">
+    <span class="live-pill"><i></i> TRANSIT</span>
+    <span id="healthPill" class="health-pill loading">WAITING</span>
+    <span class="source-label">JoTrip Transit · public operational view</span>
+    <span id="updatedAt" class="updated-at">Đang chờ dữ liệu...</span>
+  </div>
+  <div id="errorBox" class="error-box hidden"></div>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">PHU QUOC · TRANSIT NETWORK</div>
+      <h2>Di chuyển hôm nay</h2>
+      <p>3 giây để biết tàu, phà và bus đang ra sao.</p>
+    </div>
+    <div class="hero-stats">
+      <article><strong id="seaCount">-</strong><span>Chuyến đường biển</span></article>
+      <article><strong id="busCount">-</strong><span>Chuyến / tuyến bus</span></article>
+      <article><strong id="activeRoutes">-</strong><span>Tuyến đang có dữ liệu</span></article>
+      <article><strong id="alertsCount">-</strong><span>Cảnh báo dịch vụ</span></article>
+    </div>
+    <div id="networkState" class="ops-state neutral">WAITING FOR DATA</div>
+    <div class="hero-mark" aria-hidden="true">⇄</div>
+  </section>
+
+  <section class="card" id="nextDeparturesCard">
+    <div class="card-head">
+      <div><span class="section-kicker">NEXT DEPARTURES</span><h3>Chuyến sắp tới</h3><p>Tàu, phà và bus theo dữ liệu mới nhất.</p></div>
+      <div class="segmented compact" id="typeFilter">
+        <button class="active" data-type="all">Tất cả</button>
+        <button data-type="sea">Sea</button>
+        <button data-type="bus">Bus</button>
+      </div>
+    </div>
+    <div class="board-columns" aria-hidden="true"><span>GIỜ</span><span>LOẠI</span><span>HÀNH TRÌNH</span><span>ĐƠN VỊ</span><span>TRẠNG THÁI</span></div>
+    <div id="departureList" class="departure-list"><div class="empty-state">Chưa có dữ liệu chuyến để hiển thị.</div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><div><span class="section-kicker">NETWORK</span><h3>Tình trạng theo nhóm</h3></div></div>
+    <div class="network-grid">
+      <article class="mode-card">
+        <div class="mode-icon sea-icon">≈</div>
+        <div><span>SEA</span><strong id="seaState">Chưa có dữ liệu</strong><p id="seaDescription">Tàu cao tốc và phà.</p></div>
+      </article>
+      <article class="mode-card">
+        <div class="mode-icon bus-icon">B</div>
+        <div><span>BUS</span><strong id="busState">Chưa có dữ liệu</strong><p id="busDescription">Bus công cộng và tuyến cố định.</p></div>
+      </article>
+    </div>
+  </section>
+</section>
+
+<aside class="sidebar">
+  <section class="side-card">
+    <div class="side-head"><div><h3>Service alerts</h3><p>Gián đoạn cần chú ý</p></div><span id="alertBadge" class="count-pill">0</span></div>
+    <div id="alertsList" class="watch-list"><div class="empty-state compact-empty">Chưa có cảnh báo.</div></div>
+  </section>
+
+  <section class="side-card">
+    <div class="side-head"><h3>Data Health</h3><span id="qaBadge" class="qa-badge">WAITING</span></div>
+    <div class="health-summary">
+      <div id="healthIcon" class="health-icon">⋯</div>
+      <div><strong id="healthTitle">NO LIVE DATA YET</strong><p id="healthDescription">Giao diện đã sẵn sàng. Collector chưa ghi snapshot vận hành.</p></div>
+    </div>
+    <dl class="health-meta">
+      <div><dt>Snapshot</dt><dd id="snapshotTime">-</dd></div>
+      <div><dt>Sea source</dt><dd id="seaSource">-</dd></div>
+      <div><dt>Bus source</dt><dd id="busSource">-</dd></div>
+      <div><dt>Freshness</dt><dd id="freshness">-</dd></div>
+    </dl>
+  </section>
+
+  <section class="side-card policy-card">
+    <div class="side-head"><h3>Demand signal</h3><span class="private-badge">AGGREGATED</span></div>
+    <p>Trang public chỉ hiển thị tín hiệu tổng hợp như <b>Nhu cầu cao</b>, <b>Còn ít</b> hoặc <b>Gần hết</b> khi nguồn cho phép. Không công khai số ghế chi tiết.</p>
+  </section>
+</aside>
+</main>
+
+<nav class="mobile-nav">
+  <button class="active" data-mobile-view="network"><span>⌂</span>Network</button>
+  <button data-mobile-view="sea"><span>≈</span>Sea</button>
+  <button data-mobile-view="bus"><span>▣</span>Bus</button>
+  <button id="mobileRefresh"><span>↻</span>Refresh</button>
+</nav>
+</div>
+<script src="./app.js?v=20260918a"></script>
+</body>
+</html>
