@@ -20,7 +20,7 @@ HEADERS = {
     "User-Agent": "JoTrip-Transit/1.0 (+https://transit.openphuquoc.com; public schedule monitor)",
     "Accept": "text/html,application/xhtml+xml",
 }
-TIMEOUT = 20
+TIMEOUT = 20  # keep upstream requests bounded
 
 SOURCES = {
     "thanh_thoi": "https://thanhthoi.vn/?lg=vi",
