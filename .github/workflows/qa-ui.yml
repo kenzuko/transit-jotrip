@@ -1,0 +1,35 @@
+name: QA Transit UI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "style.css"
+      - "app.js"
+
+permissions:
+  contents: read
+
+jobs:
+  ui-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check JavaScript syntax
+        run: node --check app.js
+      - name: Check required UI anchors
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          html=Path("index.html").read_text(encoding="utf-8")
+          js=Path("app.js").read_text(encoding="utf-8")
+          required=["transitBoard","boardRows","boardTabs","searchInput","detailDrawer","healthPill"]
+          missing=[x for x in required if f'id="{x}"' not in html]
+          assert not missing, f"missing UI anchors: {missing}"
+          assert "data/network.json" in js
+          assert "Sắp chạy" in html and "Đến đảo" in html and "Rời đảo" in html
+          print("UI anchors OK")
+          PY
