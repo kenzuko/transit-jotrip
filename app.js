@@ -243,3 +243,4 @@ $('#drawerBackdrop').addEventListener('click',closeDrawer);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
 clock();setInterval(clock,1000);
 load();setInterval(()=>{renderSummary();renderQuick();renderTicker();renderRows();renderHealth();},60000);
+// UI QA trigger - Transit Board V2
