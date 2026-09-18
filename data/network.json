@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-19T00:37:50.050162+07:00",
+  "generated_at": "2026-09-19T03:48:46.328939+07:00",
   "summary": {
     "network": {
       "label": "DATA ONLINE"
@@ -72,7 +72,7 @@
       "departure_time": "2026-09-19T03:30:00+07:00",
       "arrival_time": "2026-09-19T06:30:00+07:00",
       "vessel_or_service": "Thriving 17",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
