@@ -103,6 +103,7 @@ function setView(view){
   state.view=view;
   $$('#modeSwitch button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
   $$('[data-mobile-view]').forEach(b=>b.classList.toggle('active',b.dataset.mobileView===view));
+  $('#nextDeparturesCard')?.classList.toggle('hidden',view==='bus');
   renderDepartures();renderBusServices();renderAlerts();
 }
 $$('#modeSwitch button').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
