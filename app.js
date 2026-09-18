@@ -15,7 +15,22 @@ function statusClass(v=''){const s=String(v).toLowerCase();if(/normal|on time|de
 function filteredDepartures(){
   const list=state.data?.departures||[];
   const type=state.view==='sea'?'sea':state.view==='bus'?'bus':state.type;
-  return list.filter(x=>type==='all'||x.type===type).sort((a,b)=>String(a.departure_time||'').localeCompare(String(b.departure_time||'')));
+  const now=Date.now()-5*60*1000;
+  return list
+    .filter(x=>type==='all'||x.type===type)
+    .filter(x=>{
+      const t=Date.parse(x.departure_time||'');
+      if(!Number.isFinite(t))return true;
+      if(/đã xuất bến|departed/i.test(String(x.status||'')))return false;
+      return t>=now;
+    })
+    .sort((a,b)=>String(a.departure_time||'').localeCompare(String(b.departure_time||'')))
+    .slice(0,18);
+}
+function kindLabel(r){
+  if(r?.data_kind==='operational_public')return'PUBLIC STATUS';
+  if(r?.data_kind==='schedule_frequency')return'FREQUENCY';
+  return'SCHEDULE';
 }
 function renderDepartures(){
   const host=$('#departureList');const rows=filteredDepartures();
@@ -24,8 +39,19 @@ function renderDepartures(){
     <div class="departure-time">${fmtTime(r.departure_time)}</div>
     <span class="type-pill ${r.type==='bus'?'bus':'sea'}">${r.type==='bus'?'BUS':(r.mode||'SEA')}</span>
     <div class="route"><strong>${safe(r.origin,'?')} → ${safe(r.destination,'?')}</strong><small>${safe(r.vessel_or_service,'')}</small></div>
-    <div class="operator">${safe(r.operator,'-')}<small>${safe(r.source_label,'')}</small></div>
+    <div class="operator">${safe(r.operator,'-')}<small>${kindLabel(r)}</small></div>
     <span class="status-pill ${statusClass(r.status)}">${safe(r.status,'Theo lịch')}</span>
+  </article>`).join('');
+}
+function renderBusServices(){
+  const host=$('#busServices'),card=$('#busServicesCard');
+  const rows=(state.data?.services||[]).filter(x=>x.type==='bus');
+  card?.classList.toggle('hidden',state.view==='sea');
+  if(!rows.length){host.innerHTML='<div class="empty-state">Chưa có dữ liệu tuyến bus.</div>';return}
+  host.innerHTML=rows.map(r=>`<article class="service-card">
+    <div class="service-route"><span>ROUTE ${safe(r.route_id,'-')}</span><strong>${safe(r.origin,'?')} → ${safe(r.destination,'?')}</strong></div>
+    <div class="service-meta"><div><small>HOẠT ĐỘNG</small><b>${safe(r.operating_window,'-')}</b></div><div><small>TẦN SUẤT</small><b>${safe(r.frequency,'-')}</b></div></div>
+    <div class="service-foot"><span>${safe(r.operator,'Bus')}</span><span class="data-kind">SCHEDULE / FREQUENCY</span></div>
   </article>`).join('');
 }
 function renderAlerts(){
@@ -37,7 +63,7 @@ function renderAlerts(){
 }
 function renderSummary(){
   const d=state.data||{};const departures=d.departures||[];
-  const sea=departures.filter(x=>x.type==='sea').length,bus=departures.filter(x=>x.type==='bus').length;
+  const sea=departures.filter(x=>x.type==='sea').length,bus=(d.services||[]).filter(x=>x.type==='bus').length;
   text('#seaCount',d.ready?sea:'-');text('#busCount',d.ready?bus:'-');
   text('#activeRoutes',d.ready?safe(d.summary?.active_routes,0):'-');
   text('#alertsCount',d.ready?(d.alerts||[]).length:'-');
@@ -61,7 +87,7 @@ function renderHealth(){
   text('#healthTitle',good?'DATA FRESH':level==='watch'?'DATA DELAYED':'DATA STALE');
   text('#healthDescription',safe(d.health?.description,good?'Snapshot đang đủ mới để theo dõi vận hành.':'Cần kiểm tra độ mới hoặc nguồn dữ liệu.'));
 }
-function render(){renderSummary();renderDepartures();renderAlerts();renderHealth()}
+function render(){renderSummary();renderDepartures();renderBusServices();renderAlerts();renderHealth()}
 async function load(){
   $('#errorBox').classList.add('hidden');
   try{
@@ -77,7 +103,7 @@ function setView(view){
   state.view=view;
   $$('#modeSwitch button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
   $$('[data-mobile-view]').forEach(b=>b.classList.toggle('active',b.dataset.mobileView===view));
-  renderDepartures();renderAlerts();
+  renderDepartures();renderBusServices();renderAlerts();
 }
 $$('#modeSwitch button').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
 $$('[data-mobile-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.mobileView)));
