@@ -1,0 +1,43 @@
+{
+  "verified_at": "2026-09-18",
+  "source": {
+    "label": "VinWonders / VinBus public 2026 schedule",
+    "url": "https://vinwonders.com/vi/wonderpedia/news/xe-bus-di-safari-phu-quoc/",
+    "data_kind": "schedule_frequency"
+  },
+  "services": [
+    {
+      "type": "bus",
+      "route_id": "17",
+      "operator": "VinBus",
+      "origin": "Sân bay Phú Quốc",
+      "destination": "Grand World",
+      "operating_window": "04:00 - 03:10",
+      "frequency": "15 - 30 - 60 phút",
+      "status": "Theo lịch công bố",
+      "data_kind": "schedule_frequency"
+    },
+    {
+      "type": "bus",
+      "route_id": "19",
+      "operator": "VinBus",
+      "origin": "InterContinental",
+      "destination": "Sân bay - Grand World",
+      "operating_window": "06:35 - 00:00",
+      "frequency": "40 - 160 phút",
+      "status": "Theo lịch công bố",
+      "data_kind": "schedule_frequency"
+    },
+    {
+      "type": "bus",
+      "route_id": "20",
+      "operator": "VinBus",
+      "origin": "Cảng Bãi Vòng",
+      "destination": "Grand World",
+      "operating_window": "05:30 - 16:00",
+      "frequency": "30 - 60 phút",
+      "status": "Theo lịch công bố",
+      "data_kind": "schedule_frequency"
+    }
+  ]
+}
