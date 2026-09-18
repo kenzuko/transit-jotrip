@@ -1,10 +1,10 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-18T15:46:09.781523+07:00",
+  "generated_at": "2026-09-18T15:48:01.612944+07:00",
   "summary": {
     "network": {
-      "label": "OPERATIONAL DATA"
+      "label": "DATA ONLINE"
     },
     "sea": {
       "label": "Có dữ liệu",
