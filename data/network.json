@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "ready": false,
+  "generated_at": null,
+  "summary": {
+    "network": {"label": "WAITING FOR DATA"},
+    "sea": {"label": "Chưa có dữ liệu", "description": "Tàu cao tốc và phà."},
+    "bus": {"label": "Chưa có dữ liệu", "description": "Bus công cộng và tuyến cố định."},
+    "active_routes": null
+  },
+  "sources": {
+    "sea": {"label": null, "freshness": null},
+    "bus": {"label": null, "freshness": null}
+  },
+  "health": {
+    "status": "loading",
+    "description": "Collector chưa ghi snapshot vận hành."
+  },
+  "departures": [],
+  "alerts": []
+}
