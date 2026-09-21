@@ -178,10 +178,37 @@ def fetch_json(url: str, params=None):
     return r.json()
 
 
-def pqe_fare_for(route_id: int, boat_type_id: int, day: str):
-    url = SOURCES["phu_quoc_express"].rstrip("/") + "/Booking/GetTicketPrice"
-    data = fetch_json(
-        url,
+def pqe_session():
+    session = requests.Session()
+    session.headers.update(HEADERS)
+    session.headers.update(
+        {
+            "Accept": "application/json,text/javascript,*/*;q=0.01",
+            "X-Requested-With": "XMLHttpRequest",
+            "Referer": SOURCES["phu_quoc_express"],
+        }
+    )
+    landing_headers = dict(HEADERS)
+    landing_headers["Referer"] = "https://phuquocexpress.com/"
+    r = session.get(SOURCES["phu_quoc_express"], headers=landing_headers, timeout=TIMEOUT)
+    r.raise_for_status()
+    return session
+
+
+def pqe_get_json(session, path: str, params=None):
+    base = SOURCES["phu_quoc_express"].rstrip("/")
+    r = session.get(base + path, params=params, timeout=TIMEOUT)
+    r.raise_for_status()
+    text = (r.text or "").strip()
+    if not text:
+        raise ValueError(f"empty JSON response from {path}")
+    return r.json()
+
+
+def pqe_fare_for(session, route_id: int, boat_type_id: int, day: str):
+    data = pqe_get_json(
+        session,
+        "/Booking/GetTicketPrice",
         {
             "RouteId": route_id,
             "BoatTypeId": boat_type_id,
@@ -218,12 +245,13 @@ def pqe_fare_for(route_id: int, boat_type_id: int, day: str):
 
 
 def collect_phu_quoc_express(day: str):
-    base = SOURCES["phu_quoc_express"].rstrip("/")
+    session = pqe_session()
     rows = []
     fare_cache = {}
     for route_id, (origin, destination) in PQE_ROUTES.items():
-        voyages = fetch_json(
-            base + "/Booking/SearchVoyage",
+        voyages = pqe_get_json(
+            session,
+            "/Booking/SearchVoyage",
             {
                 "RouteId": route_id,
                 "DepartDate": day,
@@ -238,7 +266,7 @@ def collect_phu_quoc_express(day: str):
             fare_key = (route_id, boat_type_id)
             if fare_key not in fare_cache:
                 try:
-                    fare_cache[fare_key] = pqe_fare_for(route_id, boat_type_id, day)
+                    fare_cache[fare_key] = pqe_fare_for(session, route_id, boat_type_id, day)
                 except Exception:
                     fare_cache[fare_key] = None
             rows.append(
@@ -263,6 +291,7 @@ def collect_phu_quoc_express(day: str):
                     "vehicle_cargo": fast_ferry_cargo_for("Phú Quốc Express"),
                 }
             )
+    session.close()
     return rows
 
 
