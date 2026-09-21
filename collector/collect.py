@@ -28,7 +28,8 @@ SOURCES = {
 }
 
 
-# Day-board contract: only date-specific sea rows may be presented as a selected-day departure.\nFARE_CATALOG = {
+# Day-board contract: only date-specific sea rows may be presented as a selected-day departure.
+FARE_CATALOG = {
     ("Thạnh Thới", "Hà Tiên", "Phú Quốc"): {
         "adult": 205000,
         "vehicle": {"motorbike": 95000, "motorcycle": 240000, "car_4_5_seat": 1000000, "pickup_4_seat": 1300000},
@@ -274,6 +275,7 @@ def main():
             "status": "ok" if tt else "empty",
             "records": len(tt),
             "data_kind": "operational_public",
+            "date_specific": True,
             "url": SOURCES["thanh_thoi"],
         }
     except Exception as exc:
