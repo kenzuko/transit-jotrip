@@ -25,6 +25,14 @@ TIMEOUT = 20  # keep upstream requests bounded
 SOURCES = {
     "thanh_thoi": "https://thanhthoi.vn/?lg=vi",
     "superdong": "https://online.superdong.com.vn/Home/ScheduleBoat",
+    "phu_quoc_express": "https://online.phuquocexpress.com/",
+}
+
+PQE_ROUTES = {
+    1: ("Rạch Giá", "Phú Quốc"),
+    2: ("Phú Quốc", "Rạch Giá"),
+    3: ("Hà Tiên", "Phú Quốc"),
+    4: ("Phú Quốc", "Hà Tiên"),
 }
 
 
@@ -113,6 +121,101 @@ def fetch(url: str) -> str:
     r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
     r.raise_for_status()
     return r.text
+
+
+def fetch_json(url: str, params=None):
+    headers = dict(HEADERS)
+    headers["Accept"] = "application/json,text/plain,*/*"
+    r = requests.get(url, params=params, headers=headers, timeout=TIMEOUT)
+    r.raise_for_status()
+    return r.json()
+
+
+def pqe_fare_for(route_id: int, boat_type_id: int, day: str):
+    url = SOURCES["phu_quoc_express"].rstrip("/") + "/Booking/GetTicketPrice"
+    data = fetch_json(
+        url,
+        {
+            "RouteId": route_id,
+            "BoatTypeId": boat_type_id,
+            "DepartDate": day,
+        },
+    )
+    adult_classes = {}
+    child_classes = {}
+    senior_classes = {}
+    for row in data if isinstance(data, list) else []:
+        ticket_type = row.get("TicketTypeId")
+        ticket_class = str(row.get("TicketClass") or "").upper()
+        price = row.get("PriceWithVAT")
+        if price is None:
+            continue
+        if ticket_type == 1:
+            adult_classes[ticket_class or "STANDARD"] = price
+        elif ticket_type == 2:
+            child_classes[ticket_class or "STANDARD"] = price
+        elif ticket_type == 3:
+            senior_classes[ticket_class or "STANDARD"] = price
+    adult = adult_classes.get("ECO")
+    if adult is None and adult_classes:
+        adult = min(adult_classes.values())
+    return {
+        "adult": adult,
+        "adult_classes": adult_classes,
+        "child_classes": child_classes,
+        "senior_classes": senior_classes,
+        "currency": "VND",
+        "checked_at": day,
+        "source_url": SOURCES["phu_quoc_express"],
+    }
+
+
+def collect_phu_quoc_express(day: str):
+    base = SOURCES["phu_quoc_express"].rstrip("/")
+    rows = []
+    fare_cache = {}
+    for route_id, (origin, destination) in PQE_ROUTES.items():
+        voyages = fetch_json(
+            base + "/Booking/SearchVoyage",
+            {
+                "RouteId": route_id,
+                "DepartDate": day,
+                "NoOfPassenger": 1,
+            },
+        )
+        for voyage in voyages if isinstance(voyages, list) else []:
+            dep = voyage.get("DepartTime")
+            if not dep:
+                continue
+            boat_type_id = voyage.get("BoatTypeId")
+            fare_key = (route_id, boat_type_id)
+            if fare_key not in fare_cache:
+                try:
+                    fare_cache[fare_key] = pqe_fare_for(route_id, boat_type_id, day)
+                except Exception:
+                    fare_cache[fare_key] = None
+            rows.append(
+                {
+                    "type": "sea",
+                    "mode": "FAST FERRY",
+                    "operator": "Phú Quốc Express",
+                    "origin": origin,
+                    "destination": destination,
+                    "departure_time": iso_at(day, dep),
+                    "arrival_time": None,
+                    "vessel_or_service": voyage.get("BoatNm") or "Phú Quốc Express",
+                    "harbor": voyage.get("Harbor"),
+                    "status": "Theo lịch ngày",
+                    "data_kind": "date_specific_booking",
+                    "date_specific": True,
+                    "service_date_basis": "date_specific_booking",
+                    "source_label": "Phú Quốc Express official booking",
+                    "source_url": SOURCES["phu_quoc_express"],
+                    "confidence": "high",
+                    "fare": fare_cache.get(fare_key),
+                }
+            )
+    return rows
 
 
 def parsed_day_from_thanh_thoi(strings):
@@ -283,6 +386,28 @@ def main():
         errors.append(f"Thạnh Thới: {exc}")
 
     try:
+        day = now.strftime("%Y-%m-%d")
+        pqe = collect_phu_quoc_express(day)
+        departures.extend(pqe)
+        source_state["phu_quoc_express"] = {
+            "label": "Phú Quốc Express official booking",
+            "status": "ok" if pqe else "empty",
+            "records": len(pqe),
+            "data_kind": "date_specific_booking",
+            "date_specific": True,
+            "url": SOURCES["phu_quoc_express"],
+        }
+    except Exception as exc:
+        source_state["phu_quoc_express"] = {
+            "label": "Phú Quốc Express official booking",
+            "status": "error",
+            "records": 0,
+            "date_specific": True,
+            "url": SOURCES["phu_quoc_express"],
+        }
+        errors.append(f"Phú Quốc Express: {exc}")
+
+    try:
         html = fetch(SOURCES["superdong"])
         sd = parse_superdong(html)
         departures.extend(sd)
@@ -312,12 +437,12 @@ def main():
 
     sea_ok = any(x.get("type") == "sea" for x in departures)
     bus_ok = bool(services)
-    healthy_sources = sum(1 for k in ("thanh_thoi", "bus") if source_state.get(k, {}).get("status") == "ok")
+    healthy_sources = sum(1 for k in ("thanh_thoi", "phu_quoc_express", "bus") if source_state.get(k, {}).get("status") == "ok")
 
     if healthy_sources == 3:
         health_status = "good"
         network_label = "DATA ONLINE"
-        health_desc = "Nguồn công khai đang đọc được. Trạng thái được giữ đúng cấp độ Actual / Schedule / Frequency."
+        health_desc = "Các nguồn chính đang đọc được. Chuyến theo ngày được tách khỏi lịch tham khảo."
     elif healthy_sources:
         health_status = "watch"
         network_label = "PARTIAL DATA"
@@ -345,7 +470,7 @@ def main():
             "network": {"label": network_label},
             "sea": {
                 "label": "Có dữ liệu" if sea_ok else "Chưa có dữ liệu",
-                "description": "Thạnh Thới: dữ liệu theo ngày. Superdong: chỉ giữ làm lịch tham khảo cho tới khi có adapter xác nhận ngày."
+                "description": "Thạnh Thới và Phú Quốc Express: dữ liệu theo ngày. Superdong: giữ làm lịch tham khảo cho tới khi hoàn tất adapter ngày."
             },
             "bus": {
                 "label": "Có lịch công bố" if bus_ok else "Chưa có dữ liệu",
@@ -355,7 +480,7 @@ def main():
         },
         "sources": {
             "sea": {
-                "label": "Thạnh Thới date-specific + Superdong reference",
+                "label": "Thạnh Thới + Phú Quốc Express date-specific",
                 "freshness": "mixed",
             },
             "bus": {
@@ -363,14 +488,6 @@ def main():
                 "freshness": f"verified {bus_meta.get('verified_at')}",
             },
             "registry": source_state,
-            "phu_quoc_express": {
-                "label": "Phú Quốc Express official booking",
-                "status": "date_adapter_pending",
-                "data_kind": "date_specific_booking_pending",
-                "date_specific": False,
-                "note": "Không dùng lịch tháng để khẳng định chuyến ngày. Cần adapter truy vấn booking theo tuyến + ngày với tần suất thấp; không poll inventory.",
-                "url": "https://online.phuquocexpress.com/",
-            },
         },
         "health": {
             "status": health_status,
