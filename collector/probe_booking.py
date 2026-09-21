@@ -87,7 +87,7 @@ async def inspect_booking_bundle(page, label):
             if value and value not in unique:
                 unique.append(value)
         print(f"BUNDLE_ENDPOINTS {label} {json.dumps(unique[:180], ensure_ascii=False)}")
-        for needle in ["slRoute", "btnSearchBoat", "SearchVoyage", "ScheduleBoat", "GetRoute", "RouteId", "dpDepartDate"]:
+        for needle in ["slRoute", "btnSearchBoat", "SearchVoyage", "ScheduleBoat", "GetRoute", "getFare", "routeApi.getFare", "getBoat", "RouteId", "dpDepartDate"]:
             pos = text_body.find(needle)
             if pos >= 0:
                 print(f"BUNDLE_SNIP {label} {needle} {compact(text_body[max(0,pos-900):pos+2200], 3200)}")
@@ -205,6 +205,34 @@ async def dump_results(page, label):
     print(f"BODY_TEXT {label} {body}")
 
 
+
+async def probe_superdong_api(page):
+    try:
+        route_data = await page.evaluate("""async () => {
+          const r = await fetch('/api/Route/GetRoute');
+          return {status:r.status, text:await r.text()};
+        }""")
+        print("SUPERDONG_ROUTE_API "+json.dumps(route_data, ensure_ascii=False))
+        parsed = json.loads(route_data.get("text") or "[]")
+        route = None
+        for item in parsed if isinstance(parsed, list) else []:
+            blob = fold(json.dumps(item, ensure_ascii=False))
+            if "rach gia" in blob and "phu quoc" in blob:
+                route = item
+                break
+        if route:
+            rid = route.get("RouteId") or route.get("Id") or route.get("Value") or route.get("id")
+            print("SUPERDONG_ROUTE_PICK "+json.dumps(route, ensure_ascii=False))
+            if rid is not None:
+                boat = await page.evaluate("""async ([rid,day]) => {
+                  const u='/api/Boat/getBoat?RouteId='+encodeURIComponent(rid)+'&DepartDate='+encodeURIComponent(day)+'&NoOfPassenger=1';
+                  const r=await fetch(u); return {url:u,status:r.status,text:await r.text()};
+                }""", [rid, TODAY_ISO])
+                print("SUPERDONG_BOAT_API "+json.dumps(boat, ensure_ascii=False))
+    except Exception as exc:
+        print("SUPERDONG_API_ERROR "+compact(repr(exc), 3000))
+
+
 async def run_target(browser, target):
     context = await browser.new_context(
         locale="vi-VN",
@@ -253,6 +281,8 @@ async def run_target(browser, target):
         await page.wait_for_timeout(2500)
         await inspect_controls(page, name)
         await inspect_booking_bundle(page, name)
+        if name == "Superdong":
+            await probe_superdong_api(page)
         await choose_route(page, target["origin"], target["destination"])
         await set_date(page)
         await set_passenger(page)
