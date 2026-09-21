@@ -27,6 +27,42 @@ SOURCES = {
     "superdong": "https://online.superdong.com.vn/Home/ScheduleBoat",
 }
 
+
+FARE_CATALOG = {
+    ("Thạnh Thới", "Hà Tiên", "Phú Quốc"): {
+        "adult": 205000,
+        "vehicle": {"motorbike": 95000, "motorcycle": 240000, "car_4_5_seat": 1000000, "pickup_4_seat": 1300000},
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi",
+    },
+    ("Thạnh Thới", "Phú Quốc", "Hà Tiên"): {
+        "adult": 205000,
+        "vehicle": {"motorbike": 95000, "motorcycle": 240000, "car_4_5_seat": 1000000, "pickup_4_seat": 1300000},
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi",
+    },
+    ("Thạnh Thới", "Rạch Giá", "Phú Quốc"): {
+        "adult": 315000,
+        "vehicle": {"motorbike": 165000, "car_4_5_seat": 1500000, "pickup_4_seat": 1550000},
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi",
+    },
+    ("Thạnh Thới", "Phú Quốc", "Rạch Giá"): {
+        "adult": 315000,
+        "vehicle": {"motorbike": 165000, "car_4_5_seat": 1500000, "pickup_4_seat": 1550000},
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi",
+    },
+}
+
 ROUTES = [
     ("Phú Quốc", "Hà Tiên"),
     ("Hà Tiên", "Phú Quốc"),
@@ -67,6 +103,11 @@ def iso_at(day: str, hhmm: str):
     return d.replace(hour=h, minute=m, tzinfo=TZ).isoformat()
 
 
+def fare_for(operator: str, origin: str, destination: str):
+    fare = FARE_CATALOG.get((operator, origin, destination))
+    return dict(fare) if fare else None
+
+
 def fetch(url: str) -> str:
     r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
     r.raise_for_status()
@@ -79,13 +120,15 @@ def parsed_day_from_thanh_thoi(strings):
         if m:
             dd, mm, yyyy = map(int, m.groups())
             return f"{yyyy:04d}-{mm:02d}-{dd:02d}"
-    return datetime.now(TZ).strftime("%Y-%m-%d")
+    return None
 
 
 def parse_thanh_thoi(html: str):
     soup = BeautifulSoup(html, "html.parser")
     strings = list(soup.stripped_strings)
     day = parsed_day_from_thanh_thoi(strings)
+    if not day:
+        return []
     rows = []
     seen = set()
 
@@ -136,6 +179,9 @@ def parse_thanh_thoi(html: str):
                 "source_label": "Thạnh Thới public schedule",
                 "source_url": SOURCES["thanh_thoi"],
                 "confidence": "high" if status else "medium",
+                "date_specific": True,
+                "service_date_basis": "date_specific",
+                "fare": fare_for("Thạnh Thới", origin, destination),
             }
         )
     return rows
@@ -180,8 +226,10 @@ def parse_superdong(html: str):
                     "departure_time": iso_at(day, dep),
                     "arrival_time": None,
                     "vessel_or_service": "Superdong",
-                    "status": "Theo lịch công bố",
-                    "data_kind": "schedule",
+                    "status": "Lịch tham khảo - chưa xác nhận ngày",
+                    "data_kind": "schedule_reference",
+                    "date_specific": False,
+                    "service_date_basis": "undated_public_schedule",
                     "source_label": "Superdong public schedule",
                     "source_url": SOURCES["superdong"],
                     "confidence": "medium",
@@ -238,9 +286,10 @@ def main():
         departures.extend(sd)
         source_state["superdong"] = {
             "label": "Superdong public schedule",
-            "status": "ok" if sd else "empty",
+            "status": "reference_only" if sd else "empty",
             "records": len(sd),
-            "data_kind": "schedule",
+            "data_kind": "schedule_reference",
+            "date_specific": False,
             "url": SOURCES["superdong"],
         }
     except Exception as exc:
@@ -261,7 +310,7 @@ def main():
 
     sea_ok = any(x.get("type") == "sea" for x in departures)
     bus_ok = bool(services)
-    healthy_sources = sum(1 for k in ("thanh_thoi", "superdong", "bus") if source_state.get(k, {}).get("status") == "ok")
+    healthy_sources = sum(1 for k in ("thanh_thoi", "bus") if source_state.get(k, {}).get("status") == "ok")
 
     if healthy_sources == 3:
         health_status = "good"
@@ -294,7 +343,7 @@ def main():
             "network": {"label": network_label},
             "sea": {
                 "label": "Có dữ liệu" if sea_ok else "Chưa có dữ liệu",
-                "description": "Thạnh Thới: trạng thái công khai. Superdong: lịch công bố."
+                "description": "Thạnh Thới: dữ liệu theo ngày. Superdong: chỉ giữ làm lịch tham khảo cho tới khi có adapter xác nhận ngày."
             },
             "bus": {
                 "label": "Có lịch công bố" if bus_ok else "Chưa có dữ liệu",
@@ -304,7 +353,7 @@ def main():
         },
         "sources": {
             "sea": {
-                "label": "Thạnh Thới + Superdong",
+                "label": "Thạnh Thới date-specific + Superdong reference",
                 "freshness": "mixed",
             },
             "bus": {
@@ -313,11 +362,12 @@ def main():
             },
             "registry": source_state,
             "phu_quoc_express": {
-                "label": "Phú Quốc Express public monthly schedule",
-                "status": "reference_only",
-                "data_kind": "schedule_image",
-                "note": "Booking system excluded from automated collection due to published non-commercial-use terms.",
-                "url": "https://phuquocexpress.com/lichtaucactuyen",
+                "label": "Phú Quốc Express official booking",
+                "status": "date_adapter_pending",
+                "data_kind": "date_specific_booking_pending",
+                "date_specific": False,
+                "note": "Không dùng lịch tháng để khẳng định chuyến ngày. Cần adapter truy vấn booking theo tuyến + ngày với tần suất thấp; không poll inventory.",
+                "url": "https://online.phuquocexpress.com/",
             },
         },
         "health": {
