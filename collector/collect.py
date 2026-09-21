@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+import time
 import unicodedata
 from datetime import datetime
 from pathlib import Path
@@ -175,7 +176,52 @@ def fetch_json(url: str, params=None):
     headers["Accept"] = "application/json,text/plain,*/*"
     r = requests.get(url, params=params, headers=headers, timeout=TIMEOUT)
     r.raise_for_status()
+    text = (r.text or "").strip()
+    if not text:
+        raise ValueError(f"empty JSON response from {r.url}")
     return r.json()
+
+
+def load_previous_snapshot():
+    if not DATA_PATH.exists():
+        return {}
+    try:
+        return json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def previous_operator_rows(snapshot, operator: str, day: str):
+    rows = []
+    for row in snapshot.get("departures", []):
+        if row.get("operator") != operator:
+            continue
+        departure = str(row.get("departure_time") or "")
+        if not departure.startswith(day):
+            continue
+        item = dict(row)
+        item["source_label"] = "Nguồn chính thức"
+        if operator == "Phú Quốc Express":
+            item["vehicle_cargo"] = fast_ferry_cargo_for(operator)
+        rows.append(item)
+    return rows
+
+
+def collect_pqe_with_retry(day: str, attempts: int = 3):
+    last_error = None
+    for attempt in range(attempts):
+        try:
+            rows = collect_phu_quoc_express(day)
+            if rows:
+                return rows
+            last_error = ValueError("empty PQE result")
+        except Exception as exc:
+            last_error = exc
+        if attempt < attempts - 1:
+            time.sleep(1.5 * (attempt + 1))
+    if last_error:
+        raise last_error
+    return []
 
 
 def pqe_fare_for(route_id: int, boat_type_id: int, day: str):
@@ -482,6 +528,7 @@ def main():
     source_state = {}
     errors = []
     departures = []
+    previous_snapshot = load_previous_snapshot()
 
     try:
         html = fetch(SOURCES["thanh_thoi"])
@@ -499,9 +546,9 @@ def main():
         source_state["thanh_thoi"] = {"label": "Thạnh Thới", "status": "error", "records": 0}
         errors.append(f"Thạnh Thới: {exc}")
 
+    day = now.strftime("%Y-%m-%d")
     try:
-        day = now.strftime("%Y-%m-%d")
-        pqe = collect_phu_quoc_express(day)
+        pqe = collect_pqe_with_retry(day)
         departures.extend(pqe)
         source_state["phu_quoc_express"] = {
             "label": "Phú Quốc Express",
@@ -509,17 +556,24 @@ def main():
             "records": len(pqe),
             "data_kind": "date_specific_booking",
             "date_specific": True,
+            "freshness": "fresh",
+            "checked_at": now.isoformat(),
             "url": SOURCES["phu_quoc_express"],
         }
     except Exception as exc:
+        cached_pqe = previous_operator_rows(previous_snapshot, "Phú Quốc Express", day)
+        departures.extend(cached_pqe)
         source_state["phu_quoc_express"] = {
             "label": "Phú Quốc Express",
-            "status": "error",
-            "records": 0,
+            "status": "cached" if cached_pqe else "error",
+            "records": len(cached_pqe),
+            "data_kind": "date_specific_booking",
             "date_specific": True,
+            "freshness": "cached" if cached_pqe else "unavailable",
+            "last_success_at": previous_snapshot.get("generated_at") if cached_pqe else None,
             "url": SOURCES["phu_quoc_express"],
         }
-        errors.append(f"Phú Quốc Express: {exc}")
+        errors.append("Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày." if cached_pqe else "Một nguồn tàu cao tốc hiện chưa phản hồi.")
 
     try:
         day = now.strftime("%Y-%m-%d")
