@@ -2,6 +2,13 @@ name: Update Transit Snapshot
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "collector/**"
+      - "config/**"
+      - "requirements.txt"
+      - ".github/workflows/update-transit.yml"
   schedule:
     - cron: "*/30 * * * *"
   push:
@@ -39,12 +46,16 @@ jobs:
           p=json.load(open("data/network.json", encoding="utf-8"))
           assert p["schema_version"] == "1.1"
           assert "departures" in p and "services" in p
+          for row in p["departures"]:
+              if row.get("data_kind") == "operational_public":
+                  assert row.get("date_specific") is True
           print("ready", p["ready"])
           print("departures", len(p["departures"]))
           print("services", len(p["services"]))
           print("health", p["health"]["status"])
           PY
       - name: Commit changed snapshot
+        if: github.event_name != 'pull_request'
         run: |
           if git diff --quiet -- data/network.json; then
             echo "No snapshot change"
