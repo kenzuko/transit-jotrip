@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-22T00:09:49.902087+07:00",
+  "generated_at": "2026-09-22T04:12:34.819648+07:00",
   "summary": {
     "network": {
       "label": "DATA ONLINE"
@@ -40,7 +40,7 @@
         "data_kind": "date_specific_official",
         "date_specific": true,
         "freshness": "fresh",
-        "checked_at": "2026-09-22T00:09:49.902087+07:00"
+        "checked_at": "2026-09-22T04:12:34.819648+07:00"
       },
       "superdong": {
         "label": "Tàu cao tốc",
@@ -73,7 +73,7 @@
       "departure_time": "2026-09-22T03:30:00+07:00",
       "arrival_time": "2026-09-22T06:30:00+07:00",
       "vessel_or_service": "Thriving 17",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
