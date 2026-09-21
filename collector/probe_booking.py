@@ -285,6 +285,43 @@ async def probe_superdong_api(page):
         print("SUPERDONG_API_ERROR "+compact(repr(exc), 3000))
 
 
+
+async def probe_superdong_routes_and_fares(page):
+    try:
+        inp = page.locator("#slRoute-selectized:visible")
+        if not await inp.count():
+            print("SUPERDONG_ROUTE_MAP no_selectize")
+            return
+        await inp.fill("Phú Quốc")
+        await page.wait_for_timeout(1700)
+        opts = await page.locator(".selectize-dropdown-content .option:visible").evaluate_all(
+            """els => els.map(e => ({value:e.getAttribute('data-value'), text:(e.textContent||'').trim()}))"""
+        )
+        print("SUPERDONG_ROUTE_MAP "+json.dumps(opts, ensure_ascii=False))
+        wanted = []
+        for o in opts:
+            ft = fold(o.get("text") or "")
+            if "pha f1" in ft:
+                continue
+            if ("rach gia" in ft or "ha tien" in ft) and "phu quoc" in ft:
+                wanted.append(o)
+        for o in wanted:
+            rid = o.get("value")
+            if not rid:
+                continue
+            boat = await page.evaluate("""async ([rid,day]) => {
+              const u='/api/Boat/getBoat?RouteId='+encodeURIComponent(rid)+'&DepartDate='+encodeURIComponent(day)+'&NoOfPassenger=1';
+              const r=await fetch(u); return {url:u,status:r.status,text:await r.text()};
+            }""", [rid, TODAY_ISO])
+            fare = await page.evaluate("""async ([rid,day]) => {
+              const u='/api/Route/GetFare?NoOfPassenger=1&RouteId='+encodeURIComponent(rid)+'&DepartDate='+encodeURIComponent(day)+'&ReturnDate=&voucher=';
+              const r=await fetch(u); return {url:u,status:r.status,text:await r.text()};
+            }""", [rid, TODAY_ISO])
+            print("SUPERDONG_ROUTE_DETAIL "+json.dumps({"route":o,"boat":boat,"fare":fare}, ensure_ascii=False))
+    except Exception as exc:
+        print("SUPERDONG_ROUTE_MAP_ERROR "+compact(repr(exc), 3000))
+
+
 async def run_target(browser, target):
     context = await browser.new_context(
         locale="vi-VN",
@@ -336,6 +373,7 @@ async def run_target(browser, target):
         await inspect_all_route_scripts(page, name)
         if name == "Superdong":
             await probe_superdong_api(page)
+            await probe_superdong_routes_and_fares(page)
         await choose_route(page, target["origin"], target["destination"])
         await set_date(page)
         await set_passenger(page)
