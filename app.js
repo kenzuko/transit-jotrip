@@ -216,8 +216,7 @@ function openDrawer(r){
       <div><span>Trạng thái</span><b>${safe(r.status,'Theo lịch')}</b></div>
       <div><span>Cấp dữ liệu</span><b>${kindLabel(r)}</b></div>
       <div><span>Độ tin cậy</span><b>${safe(r.confidence,isBus?'schedule':'-')}</b></div>
-    </div>
-    ${r.source_url?`<a class="source-link" href="${r.source_url}" target="_blank" rel="noopener">Mở nguồn công khai ↗</a>`:''}`;
+    </div>`;
   drawer.classList.remove('hidden');back.classList.remove('hidden');drawer.setAttribute('aria-hidden','false');
 }
 function closeDrawer(){

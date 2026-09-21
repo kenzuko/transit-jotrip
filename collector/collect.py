@@ -523,6 +523,49 @@ def unique_routes(departures, services):
     return len(keys)
 
 
+def sanitize_public_payload(payload):
+    """Remove collection mechanics from the public snapshot while preserving provenance quality."""
+    for row in payload.get("departures", []):
+        row.pop("source_url", None)
+        if row.get("source_label"):
+            row["source_label"] = "Nguồn chính thức"
+        if row.get("data_kind") == "date_specific_booking":
+            row["data_kind"] = "date_specific_official"
+        if row.get("service_date_basis") == "date_specific_booking":
+            row["service_date_basis"] = "date_specific"
+        fare = row.get("fare")
+        if isinstance(fare, dict):
+            fare.pop("source_url", None)
+
+    for row in payload.get("services", []):
+        row.pop("source_url", None)
+        if row.get("source_label"):
+            row["source_label"] = "Nguồn chính thức"
+
+    sources = payload.get("sources") or {}
+    if isinstance(sources.get("sea"), dict):
+        sources["sea"]["label"] = "Nguồn chính thức theo ngày"
+    if isinstance(sources.get("bus"), dict):
+        sources["bus"]["label"] = "Nguồn chính thức"
+
+    registry = sources.get("registry") or {}
+    for source_id, meta in registry.items():
+        if not isinstance(meta, dict):
+            continue
+        meta.pop("url", None)
+        if meta.get("data_kind") == "date_specific_booking":
+            meta["data_kind"] = "date_specific_official"
+        if source_id == "thanh_thoi":
+            meta["label"] = "Phà"
+        elif source_id in {"phu_quoc_express", "superdong"}:
+            meta["label"] = "Tàu cao tốc"
+        elif source_id == "bus":
+            meta["label"] = "Bus"
+
+    return payload
+
+
+
 def main():
     now = datetime.now(TZ)
     source_state = {}
@@ -673,6 +716,7 @@ def main():
         "alerts": alerts,
     }
 
+    payload = sanitize_public_payload(payload)
     DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
     DATA_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
