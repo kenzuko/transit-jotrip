@@ -97,6 +97,32 @@ async def inspect_booking_bundle(page, label):
                 print(f"BUNDLE_OCCURRENCE {label} {needle} {idx} {compact(text_body[max(0,pos-1200):pos+2600], 3900)}")
 
 
+
+async def inspect_all_route_scripts(page, label):
+    data = await page.evaluate("""() => ({
+      external: Array.from(document.scripts).map(s=>s.src).filter(Boolean).filter(x=>x.includes(location.host)),
+      inline: Array.from(document.scripts).map(s=>s.src?'':(s.textContent||'')).filter(x=>/GetRoute|slRoute|selectize/i.test(x))
+    })""")
+    for idx, inline in enumerate(data.get("inline") or []):
+        for needle in ["GetRoute", "slRoute", "selectize"]:
+            pos = inline.find(needle)
+            if pos >= 0:
+                print(f"INLINE_SNIP {label} {idx} {needle} {compact(inline[max(0,pos-1600):pos+4000], 5600)}")
+    for src in data.get("external") or []:
+        if "BookingJs" in src:
+            continue
+        try:
+            body = await page.evaluate("""async (url) => await (await fetch(url)).text()""", src)
+        except Exception:
+            continue
+        if re.search(r"GetRoute|slRoute|selectize", body, flags=re.I):
+            print(f"ROUTE_SCRIPT_SRC {label} {src}")
+            for needle in ["GetRoute", "slRoute", "selectize"]:
+                pos = body.find(needle)
+                if pos >= 0:
+                    print(f"ROUTE_SCRIPT_SNIP {label} {needle} {compact(body[max(0,pos-1500):pos+4000], 5500)}")
+
+
 async def choose_route(page, origin, destination):
     selects = page.locator("select:visible")
     n = await selects.count()
@@ -289,6 +315,7 @@ async def run_target(browser, target):
         await page.wait_for_timeout(2500)
         await inspect_controls(page, name)
         await inspect_booking_bundle(page, name)
+        await inspect_all_route_scripts(page, name)
         if name == "Superdong":
             await probe_superdong_api(page)
         await choose_route(page, target["origin"], target["destination"])
