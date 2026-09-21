@@ -1,14 +1,14 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-21T07:05:30.522764+07:00",
+  "generated_at": "2026-09-21T10:40:41.789527+07:00",
   "summary": {
     "network": {
       "label": "DATA ONLINE"
     },
     "sea": {
       "label": "Có dữ liệu",
-      "description": "Thạnh Thới: trạng thái công khai. Superdong: lịch công bố."
+      "description": "Thạnh Thới, Phú Quốc Express và Superdong: dữ liệu theo đúng ngày từ nguồn hãng."
     },
     "bus": {
       "label": "Có lịch công bố",
@@ -18,7 +18,7 @@
   },
   "sources": {
     "sea": {
-      "label": "Thạnh Thới + Superdong",
+      "label": "Thạnh Thới + Phú Quốc Express + Superdong date-specific",
       "freshness": "mixed"
     },
     "bus": {
@@ -31,14 +31,24 @@
         "status": "ok",
         "records": 22,
         "data_kind": "operational_public",
+        "date_specific": true,
         "url": "https://thanhthoi.vn/?lg=vi"
       },
-      "superdong": {
-        "label": "Superdong public schedule",
+      "phu_quoc_express": {
+        "label": "Phú Quốc Express official booking",
         "status": "ok",
-        "records": 16,
-        "data_kind": "schedule",
-        "url": "https://online.superdong.com.vn/Home/ScheduleBoat"
+        "records": 4,
+        "data_kind": "date_specific_booking",
+        "date_specific": true,
+        "url": "https://online.phuquocexpress.com/"
+      },
+      "superdong": {
+        "label": "Superdong official booking",
+        "status": "ok",
+        "records": 4,
+        "data_kind": "date_specific_booking",
+        "date_specific": true,
+        "url": "https://online.superdong.com.vn/Booking"
       },
       "bus": {
         "label": "VinWonders / VinBus public 2026 schedule",
@@ -48,18 +58,11 @@
         "url": "https://vinwonders.com/vi/wonderpedia/news/xe-bus-di-safari-phu-quoc/",
         "verified_at": "2026-09-18"
       }
-    },
-    "phu_quoc_express": {
-      "label": "Phú Quốc Express public monthly schedule",
-      "status": "reference_only",
-      "data_kind": "schedule_image",
-      "note": "Booking system excluded from automated collection due to published non-commercial-use terms.",
-      "url": "https://phuquocexpress.com/lichtaucactuyen"
     }
   },
   "health": {
     "status": "good",
-    "description": "Nguồn công khai đang đọc được. Trạng thái được giữ đúng cấp độ Actual / Schedule / Frequency.",
+    "description": "Các nguồn chính đang đọc được. Chuyến theo ngày được tách khỏi lịch tham khảo.",
     "source_errors": []
   },
   "departures": [
@@ -76,7 +79,22 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -91,7 +109,22 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -106,7 +139,22 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -121,22 +169,22 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Hà Tiên",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-21T06:15:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -151,7 +199,21 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -162,41 +224,25 @@
       "departure_time": "2026-09-21T06:45:00+07:00",
       "arrival_time": "2026-09-21T10:00:00+07:00",
       "vessel_or_service": "Thriving 16",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Rạch Giá",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-21T07:00:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Phú Quốc",
-      "destination": "Rạch Giá",
-      "departure_time": "2026-09-21T07:10:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -207,86 +253,26 @@
       "departure_time": "2026-09-21T07:30:00+07:00",
       "arrival_time": "2026-09-21T10:10:00+07:00",
       "vessel_or_service": "Thriving 20",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Hà Tiên",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-21T07:30:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Phú Quốc",
-      "destination": "Hà Tiên",
-      "departure_time": "2026-09-21T08:00:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Hà Tiên",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-21T08:00:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Rạch Giá",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-21T08:10:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Phú Quốc",
-      "destination": "Hà Tiên",
-      "departure_time": "2026-09-21T08:20:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -297,11 +283,26 @@
       "departure_time": "2026-09-21T08:30:00+07:00",
       "arrival_time": "2026-09-21T10:10:00+07:00",
       "vessel_or_service": "Thriving 8",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -312,56 +313,26 @@
       "departure_time": "2026-09-21T09:30:00+07:00",
       "arrival_time": "2026-09-21T12:30:00+07:00",
       "vessel_or_service": "Thriving 7",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Phú Quốc",
-      "destination": "Hà Tiên",
-      "departure_time": "2026-09-21T09:45:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Phú Quốc",
-      "destination": "Rạch Giá",
-      "departure_time": "2026-09-21T10:10:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Rạch Giá",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-21T10:30:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -376,7 +347,21 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -391,7 +376,21 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -406,7 +405,58 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FAST FERRY",
+      "operator": "Phú Quốc Express",
+      "origin": "Hà Tiên",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-21T11:45:00+07:00",
+      "arrival_time": null,
+      "vessel_or_service": "PQE9 - PHÚ QUỐC EXPRESS 9",
+      "harbor": "BẾN TÀU HÀ TIÊN",
+      "status": "Theo lịch ngày",
+      "data_kind": "date_specific_booking",
+      "date_specific": true,
+      "service_date_basis": "date_specific_booking",
+      "source_label": "Phú Quốc Express official booking",
+      "source_url": "https://online.phuquocexpress.com/",
+      "confidence": "high",
+      "fare": {
+        "adult": 216000,
+        "adult_classes": {
+          "ECO": 216000,
+          "VIP": 330000
+        },
+        "child_classes": {
+          "ECO": 148000,
+          "VIP": 330000
+        },
+        "senior_classes": {
+          "ECO": 182000,
+          "VIP": 330000
+        },
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://online.phuquocexpress.com/"
+      }
     },
     {
       "type": "sea",
@@ -421,7 +471,22 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -436,37 +501,58 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
       "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Phú Quốc",
-      "destination": "Rạch Giá",
+      "operator": "Phú Quốc Express",
+      "origin": "Rạch Giá",
+      "destination": "Phú Quốc",
       "departure_time": "2026-09-21T13:00:00+07:00",
       "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Phú Quốc",
-      "destination": "Hà Tiên",
-      "departure_time": "2026-09-21T13:00:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
+      "vessel_or_service": "PQE18 - PHÚ QUỐC EXPRESS 18",
+      "harbor": "BẾN TÀU RẠCH GIÁ",
+      "status": "Theo lịch ngày",
+      "data_kind": "date_specific_booking",
+      "date_specific": true,
+      "service_date_basis": "date_specific_booking",
+      "source_label": "Phú Quốc Express official booking",
+      "source_url": "https://online.phuquocexpress.com/",
+      "confidence": "high",
+      "fare": {
+        "adult": 315000,
+        "adult_classes": {
+          "ECO": 315000,
+          "VIP": 500000
+        },
+        "child_classes": {
+          "ECO": 225000,
+          "VIP": 500000
+        },
+        "senior_classes": {
+          "ECO": 265000,
+          "VIP": 500000
+        },
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://online.phuquocexpress.com/"
+      }
     },
     {
       "type": "sea",
@@ -476,12 +562,26 @@
       "destination": "Phú Quốc",
       "departure_time": "2026-09-21T13:10:00+07:00",
       "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
+      "vessel_or_service": "Superdong IX",
+      "status": "Theo lịch ngày",
+      "data_kind": "date_specific_booking",
+      "date_specific": true,
+      "service_date_basis": "date_specific_booking",
+      "source_label": "Superdong official booking",
+      "source_url": "https://online.superdong.com.vn/Booking",
+      "confidence": "high",
+      "fare": {
+        "adult": 324000.0,
+        "adult_classes": {
+          "STANDARD": 324000.0
+        },
+        "child": 235636.0,
+        "senior": 274909.0,
+        "vip": null,
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://online.superdong.com.vn/Booking"
+      }
     },
     {
       "type": "sea",
@@ -489,14 +589,122 @@
       "operator": "Superdong",
       "origin": "Hà Tiên",
       "destination": "Phú Quốc",
-      "departure_time": "2026-09-21T13:45:00+07:00",
+      "departure_time": "2026-09-21T13:15:00+07:00",
       "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
+      "vessel_or_service": "Superdong III",
+      "status": "Theo lịch ngày",
+      "data_kind": "date_specific_booking",
+      "date_specific": true,
+      "service_date_basis": "date_specific_booking",
+      "source_label": "Superdong official booking",
+      "source_url": "https://online.superdong.com.vn/Booking",
+      "confidence": "high",
+      "fare": {
+        "adult": 225818.0,
+        "adult_classes": {
+          "STANDARD": 225818.0
+        },
+        "child": 157091.0,
+        "senior": 191455.0,
+        "vip": null,
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://online.superdong.com.vn/Booking"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FAST FERRY",
+      "operator": "Phú Quốc Express",
+      "origin": "Phú Quốc",
+      "destination": "Rạch Giá",
+      "departure_time": "2026-09-21T13:20:00+07:00",
+      "arrival_time": null,
+      "vessel_or_service": "PQE27 - PHÚ QUỐC EXPRESS 27",
+      "harbor": "CẢNG BÃI VÒNG",
+      "status": "Theo lịch ngày",
+      "data_kind": "date_specific_booking",
+      "date_specific": true,
+      "service_date_basis": "date_specific_booking",
+      "source_label": "Phú Quốc Express official booking",
+      "source_url": "https://online.phuquocexpress.com/",
+      "confidence": "high",
+      "fare": {
+        "adult": 315000,
+        "adult_classes": {
+          "ECO": 315000,
+          "VIP": 500000
+        },
+        "child_classes": {
+          "ECO": 225000,
+          "VIP": 500000
+        },
+        "senior_classes": {
+          "ECO": 265000,
+          "VIP": 500000
+        },
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://online.phuquocexpress.com/"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FAST FERRY",
+      "operator": "Superdong",
+      "origin": "Phú Quốc",
+      "destination": "Hà Tiên",
+      "departure_time": "2026-09-21T13:30:00+07:00",
+      "arrival_time": null,
+      "vessel_or_service": "Superdong V",
+      "status": "Theo lịch ngày",
+      "data_kind": "date_specific_booking",
+      "date_specific": true,
+      "service_date_basis": "date_specific_booking",
+      "source_label": "Superdong official booking",
+      "source_url": "https://online.superdong.com.vn/Booking",
+      "confidence": "high",
+      "fare": {
+        "adult": 225818.0,
+        "adult_classes": {
+          "STANDARD": 225818.0
+        },
+        "child": 157091.0,
+        "senior": 191455.0,
+        "vip": null,
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://online.superdong.com.vn/Booking"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FAST FERRY",
+      "operator": "Superdong",
+      "origin": "Phú Quốc",
+      "destination": "Rạch Giá",
+      "departure_time": "2026-09-21T13:30:00+07:00",
+      "arrival_time": null,
+      "vessel_or_service": "Superdong XII",
+      "status": "Theo lịch ngày",
+      "data_kind": "date_specific_booking",
+      "date_specific": true,
+      "service_date_basis": "date_specific_booking",
+      "source_label": "Superdong official booking",
+      "source_url": "https://online.superdong.com.vn/Booking",
+      "confidence": "high",
+      "fare": {
+        "adult": 324000.0,
+        "adult_classes": {
+          "STANDARD": 324000.0
+        },
+        "child": 235636.0,
+        "senior": 274909.0,
+        "vip": null,
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://online.superdong.com.vn/Booking"
+      }
     },
     {
       "type": "sea",
@@ -511,22 +719,58 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
       "mode": "FAST FERRY",
-      "operator": "Superdong",
+      "operator": "Phú Quốc Express",
       "origin": "Phú Quốc",
-      "destination": "Rạch Giá",
+      "destination": "Hà Tiên",
       "departure_time": "2026-09-21T14:00:00+07:00",
       "arrival_time": null,
-      "vessel_or_service": "Superdong",
-      "status": "Theo lịch công bố",
-      "data_kind": "schedule",
-      "source_label": "Superdong public schedule",
-      "source_url": "https://online.superdong.com.vn/Home/ScheduleBoat",
-      "confidence": "medium"
+      "vessel_or_service": "PQE9 - PHÚ QUỐC EXPRESS 9",
+      "harbor": "CẢNG BÃI VÒNG",
+      "status": "Theo lịch ngày",
+      "data_kind": "date_specific_booking",
+      "date_specific": true,
+      "service_date_basis": "date_specific_booking",
+      "source_label": "Phú Quốc Express official booking",
+      "source_url": "https://online.phuquocexpress.com/",
+      "confidence": "high",
+      "fare": {
+        "adult": 216000,
+        "adult_classes": {
+          "ECO": 216000,
+          "VIP": 330000
+        },
+        "child_classes": {
+          "ECO": 148000,
+          "VIP": 330000
+        },
+        "senior_classes": {
+          "ECO": 182000,
+          "VIP": 330000
+        },
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://online.phuquocexpress.com/"
+      }
     },
     {
       "type": "sea",
@@ -541,7 +785,22 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -556,7 +815,21 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -571,7 +844,21 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -586,7 +873,22 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -601,7 +903,22 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -616,7 +933,22 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     },
     {
       "type": "sea",
@@ -631,7 +963,22 @@
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
-      "confidence": "high"
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21",
+        "source_url": "https://thanhthoi.vn/?lg=vi"
+      }
     }
   ],
   "services": [
