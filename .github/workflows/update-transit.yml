@@ -49,6 +49,13 @@ jobs:
           for row in p["departures"]:
               if row.get("data_kind") == "operational_public":
                   assert row.get("date_specific") is True
+              assert "NoOfRemain" not in row, "seat inventory must not be persisted"
+          pqe=[r for r in p["departures"] if r.get("operator")=="Phú Quốc Express"]
+          assert pqe, "Phú Quốc Express date-specific rows missing"
+          assert all(r.get("date_specific") is True for r in pqe)
+          assert any((r.get("fare") or {}).get("adult") for r in pqe), "Phú Quốc Express fare missing"
+          print("pqe_rows", len(pqe))
+          print("pqe_sample", {k:pqe[0].get(k) for k in ("origin","destination","departure_time","vessel_or_service","fare")})
           print("ready", p["ready"])
           print("departures", len(p["departures"]))
           print("services", len(p["services"]))
