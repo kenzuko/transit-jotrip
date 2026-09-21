@@ -64,6 +64,35 @@ async def inspect_controls(page, label):
     print(f"CONTROL_DUMP {label} {json.dumps(data, ensure_ascii=False)}")
 
 
+
+async def inspect_booking_bundle(page, label):
+    scripts = await page.locator("script[src*='BookingJs']").evaluate_all("els => els.map(x => x.src)")
+    for src in scripts:
+        try:
+            text_body = await page.evaluate("""async (url) => await (await fetch(url)).text()""", src)
+        except Exception as exc:
+            print(f"BUNDLE_ERROR {label} {src} {compact(exc)}")
+            continue
+        print(f"BUNDLE_SRC {label} {src}")
+        patterns = [
+            r"""["']([^"'\n]*(?:/api/|/Booking/|/Home/|DataSource/)[^"'\n]*)["']""",
+            r"""\b(?:Get|Search|Load|Find)[A-Za-z0-9_]{3,}\b""",
+        ]
+        hits = []
+        for pattern in patterns:
+            hits.extend(re.findall(pattern, text_body, flags=re.I))
+        unique = []
+        for hit in hits:
+            value = hit if isinstance(hit, str) else " ".join(hit)
+            if value and value not in unique:
+                unique.append(value)
+        print(f"BUNDLE_ENDPOINTS {label} {json.dumps(unique[:180], ensure_ascii=False)}")
+        for needle in ["slRoute", "btnSearchBoat", "SearchVoyage", "ScheduleBoat", "GetRoute", "RouteId", "dpDepartDate"]:
+            pos = text_body.find(needle)
+            if pos >= 0:
+                print(f"BUNDLE_SNIP {label} {needle} {compact(text_body[max(0,pos-900):pos+2200], 3200)}")
+
+
 async def choose_route(page, origin, destination):
     selects = page.locator("select:visible")
     n = await selects.count()
@@ -223,6 +252,7 @@ async def run_target(browser, target):
         await page.goto(target["url"], wait_until="domcontentloaded", timeout=60000)
         await page.wait_for_timeout(2500)
         await inspect_controls(page, name)
+        await inspect_booking_bundle(page, name)
         await choose_route(page, target["origin"], target["destination"])
         await set_date(page)
         await set_passenger(page)
