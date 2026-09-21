@@ -79,6 +79,46 @@ FARE_CATALOG = {
     },
 }
 
+FAST_FERRY_CARGO = {
+    "Phú Quốc Express": {
+        "accepted": True,
+        "booking_required": True,
+        "availability": "vessel_dependent",
+        "price_label": "Xe máy từ 90.000đ · hàng từ 20.000đ/kiện",
+        "motorbike": {
+            "manual": 90000,
+            "scooter": 100000,
+            "large_scooter": 120000,
+            "large_motorcycle": 150000,
+        },
+        "cargo": {
+            "under_20kg": 20000,
+            "from_21_to_50kg": 40000,
+            "over_50kg": 90000,
+        },
+        "currency": "VND",
+        "contact_required": True,
+        "contact_note": "Cần đăng ký trước với phòng vé/đại lý vì chỗ nhận xe và hàng phụ thuộc tàu/chuyến.",
+        "checked_at": "2026-09-21",
+    },
+    "Superdong": {
+        "accepted": True,
+        "booking_required": True,
+        "availability": "vessel_dependent",
+        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
+        "currency": "VND",
+        "contact_required": True,
+        "contact_note": "Cần đăng ký trước với hãng để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
+        "checked_at": "2026-09-21",
+    },
+}
+
+
+def fast_ferry_cargo_for(operator: str):
+    cargo = FAST_FERRY_CARGO.get(operator)
+    return dict(cargo) if cargo else None
+
+
 ROUTES = [
     ("Phú Quốc", "Hà Tiên"),
     ("Hà Tiên", "Phú Quốc"),
@@ -220,6 +260,7 @@ def collect_phu_quoc_express(day: str):
                     "source_url": SOURCES["phu_quoc_express"],
                     "confidence": "high",
                     "fare": fare_cache.get(fare_key),
+                    "vehicle_cargo": fast_ferry_cargo_for("Phú Quốc Express"),
                 }
             )
     return rows
@@ -335,6 +376,7 @@ def collect_superdong_date_specific(day: str):
                     "source_url": SOURCES["superdong"],
                     "confidence": "high",
                     "fare": fare_cache.get(route_id),
+                    "vehicle_cargo": fast_ferry_cargo_for("Superdong"),
                 }
             )
     session.close()
