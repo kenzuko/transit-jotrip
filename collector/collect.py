@@ -9,6 +9,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import requests
+from curl_cffi import requests as curl_requests
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -179,11 +180,9 @@ def fetch_json(url: str, params=None):
 
 
 def pqe_session():
-    session = requests.Session()
-    session.headers.update(HEADERS)
+    session = curl_requests.Session(impersonate="chrome")
     session.headers.update(
         {
-            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36",
             "Accept": "*/*",
             "Accept-Language": "vi-VN",
             "Content-Type": "application/json; charset=utf-8",
@@ -192,18 +191,11 @@ def pqe_session():
             "Referer": SOURCES["phu_quoc_express"],
         }
     )
-    landing_headers = {
-        "User-Agent": session.headers["User-Agent"],
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": session.headers["Accept-Language"],
-        "Referer": "https://phuquocexpress.com/",
-    }
-    r = session.get(SOURCES["phu_quoc_express"], headers=landing_headers, timeout=TIMEOUT)
+    r = session.get(SOURCES["phu_quoc_express"], timeout=TIMEOUT)
     r.raise_for_status()
     if not session.cookies.get("culture"):
         session.cookies.set("culture", "vi-VN", domain="online.phuquocexpress.com", path="/")
     return session
-
 
 def pqe_get_json(session, path: str, params=None):
     base = SOURCES["phu_quoc_express"].rstrip("/")
