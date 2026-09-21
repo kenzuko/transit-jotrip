@@ -1,0 +1,22 @@
+name: Probe PQE Request Context
+on:
+  push:
+    branches: ["probe/pqe-request-context"]
+    paths:
+      - "collector/probe_pqe_context.py"
+      - ".github/workflows/probe-pqe-context.yml"
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: |
+          pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - run: python collector/probe_pqe_context.py
