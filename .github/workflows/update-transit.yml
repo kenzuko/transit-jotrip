@@ -46,6 +46,9 @@ jobs:
           p=json.load(open("data/network.json", encoding="utf-8"))
           assert p["schema_version"] == "1.1"
           assert "departures" in p and "services" in p
+          public_blob=json.dumps(p, ensure_ascii=False)
+          assert "source_url" not in public_blob, "public snapshot must not expose source URLs"
+          assert "date_specific_booking" not in public_blob, "public snapshot must not expose collection mechanics"
           for row in p["departures"]:
               if row.get("data_kind") == "operational_public":
                   assert row.get("date_specific") is True
