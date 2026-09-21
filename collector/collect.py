@@ -28,7 +28,7 @@ SOURCES = {
 }
 
 
-FARE_CATALOG = {
+# Day-board contract: only date-specific sea rows may be presented as a selected-day departure.\nFARE_CATALOG = {
     ("Thạnh Thới", "Hà Tiên", "Phú Quốc"): {
         "adult": 205000,
         "vehicle": {"motorbike": 95000, "motorcycle": 240000, "car_4_5_seat": 1000000, "pickup_4_seat": 1300000},
