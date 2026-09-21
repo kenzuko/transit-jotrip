@@ -1,4 +1,4 @@
-from __future__ import annotations
+# One-time network probe for date-specific public booking search.\nfrom __future__ import annotations
 
 import asyncio
 import json
