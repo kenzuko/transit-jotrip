@@ -183,13 +183,20 @@ def pqe_session():
     session.headers.update(HEADERS)
     session.headers.update(
         {
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
             "Accept": "application/json,text/javascript,*/*;q=0.01",
+            "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
             "X-Requested-With": "XMLHttpRequest",
             "Referer": SOURCES["phu_quoc_express"],
+            "Origin": "https://online.phuquocexpress.com",
         }
     )
-    landing_headers = dict(HEADERS)
-    landing_headers["Referer"] = "https://phuquocexpress.com/"
+    landing_headers = {
+        "User-Agent": session.headers["User-Agent"],
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": session.headers["Accept-Language"],
+        "Referer": "https://phuquocexpress.com/",
+    }
     r = session.get(SOURCES["phu_quoc_express"], headers=landing_headers, timeout=TIMEOUT)
     r.raise_for_status()
     return session
