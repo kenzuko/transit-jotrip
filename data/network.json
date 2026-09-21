@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-21T04:45:29.159601+07:00",
+  "generated_at": "2026-09-21T07:05:30.522764+07:00",
   "summary": {
     "network": {
       "label": "DATA ONLINE"
@@ -102,7 +102,7 @@
       "departure_time": "2026-09-21T05:00:00+07:00",
       "arrival_time": "2026-09-21T07:45:00+07:00",
       "vessel_or_service": "Thriving 7",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
@@ -117,7 +117,7 @@
       "departure_time": "2026-09-21T05:30:00+07:00",
       "arrival_time": "2026-09-21T08:40:00+07:00",
       "vessel_or_service": "Thriving 3",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
@@ -147,7 +147,7 @@
       "departure_time": "2026-09-21T06:45:00+07:00",
       "arrival_time": "2026-09-21T09:45:00+07:00",
       "vessel_or_service": "Thriving 18",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Thạnh Thới public schedule",
       "source_url": "https://thanhthoi.vn/?lg=vi",
