@@ -1,14 +1,14 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-21T10:40:41.789527+07:00",
+  "generated_at": "2026-09-21T11:19:05.556467+07:00",
   "summary": {
     "network": {
-      "label": "DATA ONLINE"
+      "label": "PARTIAL DATA"
     },
     "sea": {
       "label": "Có dữ liệu",
-      "description": "Thạnh Thới, Phú Quốc Express và Superdong: dữ liệu theo đúng ngày từ nguồn hãng."
+      "description": "Thông tin chuyến được cập nhật theo đúng ngày từ các nguồn chính thức."
     },
     "bus": {
       "label": "Có lịch công bố",
@@ -18,7 +18,7 @@
   },
   "sources": {
     "sea": {
-      "label": "Thạnh Thới + Phú Quốc Express + Superdong date-specific",
+      "label": "Nguồn chính thức theo ngày",
       "freshness": "mixed"
     },
     "bus": {
@@ -27,7 +27,7 @@
     },
     "registry": {
       "thanh_thoi": {
-        "label": "Thạnh Thới public operational schedule",
+        "label": "Thạnh Thới",
         "status": "ok",
         "records": 22,
         "data_kind": "operational_public",
@@ -35,15 +35,17 @@
         "url": "https://thanhthoi.vn/?lg=vi"
       },
       "phu_quoc_express": {
-        "label": "Phú Quốc Express official booking",
-        "status": "ok",
+        "label": "Phú Quốc Express",
+        "status": "cached",
         "records": 4,
         "data_kind": "date_specific_booking",
         "date_specific": true,
+        "freshness": "cached",
+        "last_success_at": "2026-09-21T10:40:41.789527+07:00",
         "url": "https://online.phuquocexpress.com/"
       },
       "superdong": {
-        "label": "Superdong official booking",
+        "label": "Superdong",
         "status": "ok",
         "records": 4,
         "data_kind": "date_specific_booking",
@@ -61,9 +63,11 @@
     }
   },
   "health": {
-    "status": "good",
-    "description": "Các nguồn chính đang đọc được. Chuyến theo ngày được tách khỏi lịch tham khảo.",
-    "source_errors": []
+    "status": "watch",
+    "description": "Một phần nguồn đang thiếu hoặc thay đổi cấu trúc. Không suy diễn trạng thái từ dữ liệu thiếu.",
+    "source_errors": [
+      "Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày."
+    ]
   },
   "departures": [
     {
@@ -77,7 +81,7 @@
       "vessel_or_service": "Thriving 17",
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -107,7 +111,7 @@
       "vessel_or_service": "Thriving 8",
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -137,7 +141,7 @@
       "vessel_or_service": "Thriving 7",
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -167,7 +171,7 @@
       "vessel_or_service": "Thriving 3",
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -197,7 +201,7 @@
       "vessel_or_service": "Thriving 18",
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -226,7 +230,7 @@
       "vessel_or_service": "Thriving 16",
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -255,7 +259,7 @@
       "vessel_or_service": "Thriving 20",
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -285,7 +289,7 @@
       "vessel_or_service": "Thriving 8",
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -315,7 +319,7 @@
       "vessel_or_service": "Thriving 7",
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -343,9 +347,9 @@
       "departure_time": "2026-09-21T10:45:00+07:00",
       "arrival_time": "2026-09-21T13:45:00+07:00",
       "vessel_or_service": "Thriving 16",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -372,9 +376,9 @@
       "departure_time": "2026-09-21T10:45:00+07:00",
       "arrival_time": "2026-09-21T14:00:00+07:00",
       "vessel_or_service": "Thriving 18",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -401,9 +405,9 @@
       "departure_time": "2026-09-21T11:00:00+07:00",
       "arrival_time": "2026-09-21T13:30:00+07:00",
       "vessel_or_service": "Thriving 20",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -436,7 +440,7 @@
       "data_kind": "date_specific_booking",
       "date_specific": true,
       "service_date_basis": "date_specific_booking",
-      "source_label": "Phú Quốc Express official booking",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://online.phuquocexpress.com/",
       "confidence": "high",
       "fare": {
@@ -456,6 +460,27 @@
         "currency": "VND",
         "checked_at": "2026-09-21",
         "source_url": "https://online.phuquocexpress.com/"
+      },
+      "vehicle_cargo": {
+        "accepted": true,
+        "booking_required": true,
+        "availability": "vessel_dependent",
+        "price_label": "Xe máy từ 90.000đ · hàng từ 20.000đ/kiện",
+        "motorbike": {
+          "manual": 90000,
+          "scooter": 100000,
+          "large_scooter": 120000,
+          "large_motorcycle": 150000
+        },
+        "cargo": {
+          "under_20kg": 20000,
+          "from_21_to_50kg": 40000,
+          "over_50kg": 90000
+        },
+        "currency": "VND",
+        "contact_required": true,
+        "contact_note": "Cần đăng ký trước vì chỗ nhận xe và hàng phụ thuộc tàu/chuyến.",
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -469,7 +494,7 @@
       "vessel_or_service": "Thriving 3",
       "status": "Mở bán",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -499,7 +524,7 @@
       "vessel_or_service": "Thriving 8",
       "status": "Mở bán",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -532,7 +557,7 @@
       "data_kind": "date_specific_booking",
       "date_specific": true,
       "service_date_basis": "date_specific_booking",
-      "source_label": "Phú Quốc Express official booking",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://online.phuquocexpress.com/",
       "confidence": "high",
       "fare": {
@@ -552,6 +577,27 @@
         "currency": "VND",
         "checked_at": "2026-09-21",
         "source_url": "https://online.phuquocexpress.com/"
+      },
+      "vehicle_cargo": {
+        "accepted": true,
+        "booking_required": true,
+        "availability": "vessel_dependent",
+        "price_label": "Xe máy từ 90.000đ · hàng từ 20.000đ/kiện",
+        "motorbike": {
+          "manual": 90000,
+          "scooter": 100000,
+          "large_scooter": 120000,
+          "large_motorcycle": 150000
+        },
+        "cargo": {
+          "under_20kg": 20000,
+          "from_21_to_50kg": 40000,
+          "over_50kg": 90000
+        },
+        "currency": "VND",
+        "contact_required": true,
+        "contact_note": "Cần đăng ký trước vì chỗ nhận xe và hàng phụ thuộc tàu/chuyến.",
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -563,11 +609,11 @@
       "departure_time": "2026-09-21T13:10:00+07:00",
       "arrival_time": null,
       "vessel_or_service": "Superdong IX",
-      "status": "Theo lịch ngày",
+      "status": "Cập nhật theo ngày",
       "data_kind": "date_specific_booking",
       "date_specific": true,
       "service_date_basis": "date_specific_booking",
-      "source_label": "Superdong official booking",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://online.superdong.com.vn/Booking",
       "confidence": "high",
       "fare": {
@@ -581,6 +627,16 @@
         "currency": "VND",
         "checked_at": "2026-09-21",
         "source_url": "https://online.superdong.com.vn/Booking"
+      },
+      "vehicle_cargo": {
+        "accepted": true,
+        "booking_required": true,
+        "availability": "vessel_dependent",
+        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
+        "currency": "VND",
+        "contact_required": true,
+        "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -592,11 +648,11 @@
       "departure_time": "2026-09-21T13:15:00+07:00",
       "arrival_time": null,
       "vessel_or_service": "Superdong III",
-      "status": "Theo lịch ngày",
+      "status": "Cập nhật theo ngày",
       "data_kind": "date_specific_booking",
       "date_specific": true,
       "service_date_basis": "date_specific_booking",
-      "source_label": "Superdong official booking",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://online.superdong.com.vn/Booking",
       "confidence": "high",
       "fare": {
@@ -610,6 +666,16 @@
         "currency": "VND",
         "checked_at": "2026-09-21",
         "source_url": "https://online.superdong.com.vn/Booking"
+      },
+      "vehicle_cargo": {
+        "accepted": true,
+        "booking_required": true,
+        "availability": "vessel_dependent",
+        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
+        "currency": "VND",
+        "contact_required": true,
+        "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -626,7 +692,7 @@
       "data_kind": "date_specific_booking",
       "date_specific": true,
       "service_date_basis": "date_specific_booking",
-      "source_label": "Phú Quốc Express official booking",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://online.phuquocexpress.com/",
       "confidence": "high",
       "fare": {
@@ -646,6 +712,27 @@
         "currency": "VND",
         "checked_at": "2026-09-21",
         "source_url": "https://online.phuquocexpress.com/"
+      },
+      "vehicle_cargo": {
+        "accepted": true,
+        "booking_required": true,
+        "availability": "vessel_dependent",
+        "price_label": "Xe máy từ 90.000đ · hàng từ 20.000đ/kiện",
+        "motorbike": {
+          "manual": 90000,
+          "scooter": 100000,
+          "large_scooter": 120000,
+          "large_motorcycle": 150000
+        },
+        "cargo": {
+          "under_20kg": 20000,
+          "from_21_to_50kg": 40000,
+          "over_50kg": 90000
+        },
+        "currency": "VND",
+        "contact_required": true,
+        "contact_note": "Cần đăng ký trước vì chỗ nhận xe và hàng phụ thuộc tàu/chuyến.",
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -657,11 +744,11 @@
       "departure_time": "2026-09-21T13:30:00+07:00",
       "arrival_time": null,
       "vessel_or_service": "Superdong V",
-      "status": "Theo lịch ngày",
+      "status": "Cập nhật theo ngày",
       "data_kind": "date_specific_booking",
       "date_specific": true,
       "service_date_basis": "date_specific_booking",
-      "source_label": "Superdong official booking",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://online.superdong.com.vn/Booking",
       "confidence": "high",
       "fare": {
@@ -675,6 +762,16 @@
         "currency": "VND",
         "checked_at": "2026-09-21",
         "source_url": "https://online.superdong.com.vn/Booking"
+      },
+      "vehicle_cargo": {
+        "accepted": true,
+        "booking_required": true,
+        "availability": "vessel_dependent",
+        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
+        "currency": "VND",
+        "contact_required": true,
+        "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -686,11 +783,11 @@
       "departure_time": "2026-09-21T13:30:00+07:00",
       "arrival_time": null,
       "vessel_or_service": "Superdong XII",
-      "status": "Theo lịch ngày",
+      "status": "Cập nhật theo ngày",
       "data_kind": "date_specific_booking",
       "date_specific": true,
       "service_date_basis": "date_specific_booking",
-      "source_label": "Superdong official booking",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://online.superdong.com.vn/Booking",
       "confidence": "high",
       "fare": {
@@ -704,6 +801,16 @@
         "currency": "VND",
         "checked_at": "2026-09-21",
         "source_url": "https://online.superdong.com.vn/Booking"
+      },
+      "vehicle_cargo": {
+        "accepted": true,
+        "booking_required": true,
+        "availability": "vessel_dependent",
+        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
+        "currency": "VND",
+        "contact_required": true,
+        "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -717,7 +824,7 @@
       "vessel_or_service": "Thriving 7",
       "status": "Mở bán",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -750,7 +857,7 @@
       "data_kind": "date_specific_booking",
       "date_specific": true,
       "service_date_basis": "date_specific_booking",
-      "source_label": "Phú Quốc Express official booking",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://online.phuquocexpress.com/",
       "confidence": "high",
       "fare": {
@@ -770,6 +877,27 @@
         "currency": "VND",
         "checked_at": "2026-09-21",
         "source_url": "https://online.phuquocexpress.com/"
+      },
+      "vehicle_cargo": {
+        "accepted": true,
+        "booking_required": true,
+        "availability": "vessel_dependent",
+        "price_label": "Xe máy từ 90.000đ · hàng từ 20.000đ/kiện",
+        "motorbike": {
+          "manual": 90000,
+          "scooter": 100000,
+          "large_scooter": 120000,
+          "large_motorcycle": 150000
+        },
+        "cargo": {
+          "under_20kg": 20000,
+          "from_21_to_50kg": 40000,
+          "over_50kg": 90000
+        },
+        "currency": "VND",
+        "contact_required": true,
+        "contact_note": "Cần đăng ký trước vì chỗ nhận xe và hàng phụ thuộc tàu/chuyến.",
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -783,7 +911,7 @@
       "vessel_or_service": "Thriving 20",
       "status": "Mở bán",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -813,7 +941,7 @@
       "vessel_or_service": "Thriving 18",
       "status": "Mở bán",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -842,7 +970,7 @@
       "vessel_or_service": "Thriving 16",
       "status": "Mở bán",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -871,7 +999,7 @@
       "vessel_or_service": "Thriving 17",
       "status": "Mở bán",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -901,7 +1029,7 @@
       "vessel_or_service": "Thriving 8",
       "status": "Mở bán",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -931,7 +1059,7 @@
       "vessel_or_service": "Thriving 20",
       "status": "Mở bán",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -961,7 +1089,7 @@
       "vessel_or_service": "Thriving 7",
       "status": "Mở bán",
       "data_kind": "operational_public",
-      "source_label": "Thạnh Thới public schedule",
+      "source_label": "Nguồn chính thức",
       "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
@@ -1025,5 +1153,12 @@
       "verified_at": "2026-09-18"
     }
   ],
-  "alerts": []
+  "alerts": [
+    {
+      "type": "data",
+      "title": "Nguồn dữ liệu cần kiểm tra",
+      "description": "Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày.",
+      "severity": "watch"
+    }
+  ]
 }
