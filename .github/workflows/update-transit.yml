@@ -56,6 +56,13 @@ jobs:
           assert any((r.get("fare") or {}).get("adult") for r in pqe), "Phú Quốc Express fare missing"
           print("pqe_rows", len(pqe))
           print("pqe_sample", {k:pqe[0].get(k) for k in ("origin","destination","departure_time","vessel_or_service","fare")})
+          sd=[r for r in p["departures"] if r.get("operator")=="Superdong"]
+          assert sd, "Superdong date-specific rows missing"
+          assert all(r.get("date_specific") is True for r in sd)
+          assert all("NoOfRemain" not in r and "NoOfSeat" not in r for r in sd), "Superdong seat inventory leaked"
+          assert any((r.get("fare") or {}).get("adult") for r in sd), "Superdong fare missing"
+          print("superdong_rows", len(sd))
+          print("superdong_sample", {k:sd[0].get(k) for k in ("origin","destination","departure_time","vessel_or_service","fare")})
           print("ready", p["ready"])
           print("departures", len(p["departures"]))
           print("services", len(p["services"]))
