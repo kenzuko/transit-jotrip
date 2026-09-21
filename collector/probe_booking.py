@@ -91,6 +91,10 @@ async def inspect_booking_bundle(page, label):
             pos = text_body.find(needle)
             if pos >= 0:
                 print(f"BUNDLE_SNIP {label} {needle} {compact(text_body[max(0,pos-900):pos+2200], 3200)}")
+        for needle in ["routeApi.getRoute", "api/Route/GetRoute", "$.get(routeApi.getRoute", "$.post(routeApi.getRoute"]:
+            positions = [m.start() for m in re.finditer(re.escape(needle), text_body)]
+            for idx, pos in enumerate(positions[:8]):
+                print(f"BUNDLE_OCCURRENCE {label} {needle} {idx} {compact(text_body[max(0,pos-1200):pos+2600], 3900)}")
 
 
 async def choose_route(page, origin, destination):
