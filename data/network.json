@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-21T11:23:13.961186+07:00",
+  "generated_at": "2026-09-21T12:21:03.578601+07:00",
   "summary": {
     "network": {
       "label": "DATA ONLINE"
@@ -36,11 +36,11 @@
       "phu_quoc_express": {
         "label": "Tàu cao tốc",
         "status": "ok",
-        "records": 4,
+        "records": 3,
         "data_kind": "date_specific_official",
         "date_specific": true,
         "freshness": "fresh",
-        "checked_at": "2026-09-21T11:23:13.961186+07:00"
+        "checked_at": "2026-09-21T12:21:03.578601+07:00"
       },
       "superdong": {
         "label": "Tàu cao tốc",
@@ -393,61 +393,6 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Phú Quốc Express",
-      "origin": "Hà Tiên",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-21T11:45:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "PQE9 - PHÚ QUỐC EXPRESS 9",
-      "harbor": "BẾN TÀU HÀ TIÊN",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 216000,
-        "adult_classes": {
-          "ECO": 216000,
-          "VIP": 330000
-        },
-        "child_classes": {
-          "ECO": 148000,
-          "VIP": 330000
-        },
-        "senior_classes": {
-          "ECO": 182000,
-          "VIP": 330000
-        },
-        "currency": "VND",
-        "checked_at": "2026-09-21"
-      },
-      "vehicle_cargo": {
-        "accepted": true,
-        "booking_required": true,
-        "availability": "vessel_dependent",
-        "price_label": "Xe máy từ 90.000đ · hàng từ 20.000đ/kiện",
-        "motorbike": {
-          "manual": 90000,
-          "scooter": 100000,
-          "large_scooter": 120000,
-          "large_motorcycle": 150000
-        },
-        "cargo": {
-          "under_20kg": 20000,
-          "from_21_to_50kg": 40000,
-          "over_50kg": 90000
-        },
-        "currency": "VND",
-        "contact_required": true,
-        "contact_note": "Cần đăng ký trước vì chỗ nhận xe và hàng phụ thuộc tàu/chuyến.",
         "checked_at": "2026-09-21"
       }
     },
