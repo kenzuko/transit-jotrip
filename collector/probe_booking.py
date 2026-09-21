@@ -208,10 +208,13 @@ async def dump_results(page, label):
 
 async def probe_superdong_api(page):
     try:
-        route_data = await page.evaluate("""async () => {
-          const r = await fetch('/api/Route/GetRoute');
-          return {status:r.status, text:await r.text()};
-        }""")
+        globals_data = await page.evaluate("""() => ({SiteRoot: window.SiteRoot, routeApi: window.routeApi, boatApi: window.boatApi})""")
+        print("SUPERDONG_GLOBALS "+json.dumps(globals_data, ensure_ascii=False))
+        route_url = (globals_data.get("routeApi") or {}).get("getRoute") or ((globals_data.get("SiteRoot") or "/") + "api/Route/GetRoute")
+        route_data = await page.evaluate("""async (url) => {
+          const r = await fetch(url);
+          return {url,status:r.status, text:await r.text()};
+        }""", route_url)
         print("SUPERDONG_ROUTE_API "+json.dumps(route_data, ensure_ascii=False))
         parsed = json.loads(route_data.get("text") or "[]")
         route = None
@@ -224,10 +227,11 @@ async def probe_superdong_api(page):
             rid = route.get("RouteId") or route.get("Id") or route.get("Value") or route.get("id")
             print("SUPERDONG_ROUTE_PICK "+json.dumps(route, ensure_ascii=False))
             if rid is not None:
-                boat = await page.evaluate("""async ([rid,day]) => {
-                  const u='/api/Boat/getBoat?RouteId='+encodeURIComponent(rid)+'&DepartDate='+encodeURIComponent(day)+'&NoOfPassenger=1';
+                boat_base = (globals_data.get("boatApi") or {}).get("getBoat") or ((globals_data.get("SiteRoot") or "/") + "api/Boat/getBoat")
+                boat = await page.evaluate("""async ([base,rid,day]) => {
+                  const u=base+'?RouteId='+encodeURIComponent(rid)+'&DepartDate='+encodeURIComponent(day)+'&NoOfPassenger=1';
                   const r=await fetch(u); return {url:u,status:r.status,text:await r.text()};
-                }""", [rid, TODAY_ISO])
+                }""", [boat_base, rid, TODAY_ISO])
                 print("SUPERDONG_BOAT_API "+json.dumps(boat, ensure_ascii=False))
     except Exception as exc:
         print("SUPERDONG_API_ERROR "+compact(repr(exc), 3000))
