@@ -414,57 +414,6 @@ def parse_thanh_thoi(html: str):
     return rows
 
 
-def parse_superdong(html: str):
-    soup = BeautifulSoup(html, "html.parser")
-    strings = list(soup.stripped_strings)
-    day = datetime.now(TZ).strftime("%Y-%m-%d")
-    rows = []
-    seen = set()
-
-    for i, token in enumerate(strings):
-        route = route_from_text(token)
-        if not route:
-            continue
-        origin, destination = route
-        times = []
-        for nxt in strings[i + 1 : min(len(strings), i + 14)]:
-            if route_from_text(nxt):
-                break
-            if fold(nxt).startswith("tuyen ") and times:
-                break
-            for t in times_from_text(nxt):
-                if t not in times:
-                    times.append(t)
-            if len(times) >= 6:
-                break
-
-        for dep in times:
-            key = ("Superdong", origin, destination, day, dep)
-            if key in seen:
-                continue
-            seen.add(key)
-            rows.append(
-                {
-                    "type": "sea",
-                    "mode": "FAST FERRY",
-                    "operator": "Superdong",
-                    "origin": origin,
-                    "destination": destination,
-                    "departure_time": iso_at(day, dep),
-                    "arrival_time": None,
-                    "vessel_or_service": "Superdong",
-                    "status": "Lịch tham khảo - chưa xác nhận ngày",
-                    "data_kind": "schedule_reference",
-                    "date_specific": False,
-                    "service_date_basis": "undated_public_schedule",
-                    "source_label": "Superdong public schedule",
-                    "source_url": SOURCES["superdong"],
-                    "confidence": "medium",
-                }
-            )
-    return rows
-
-
 def load_bus_services():
     data = json.loads(BUS_CONFIG.read_text(encoding="utf-8"))
     services = []
