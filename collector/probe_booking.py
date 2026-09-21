@@ -140,6 +140,24 @@ async def choose_route(page, origin, destination):
                     return True
                 except Exception as exc:
                     print(f"SELECT_ROUTE_ERROR select={i} option={idx} err={compact(exc)}")
+    selectize = page.locator("#slRoute-selectized:visible")
+    if await selectize.count():
+        try:
+            await selectize.fill(origin)
+            await page.wait_for_timeout(1800)
+            options = page.locator(".selectize-dropdown-content .option:visible")
+            texts = await options.all_text_contents()
+            print(f"SELECTIZE_OPTIONS {json.dumps(texts[:80], ensure_ascii=False)}")
+            for idx, text_value in enumerate(texts):
+                fv = fold(text_value)
+                if wanted_a in fv and wanted_b in fv:
+                    await options.nth(idx).click()
+                    await page.wait_for_timeout(700)
+                    selected = await page.locator("#slRoute").input_value()
+                    print(f"SELECTED_ROUTE selectize value={selected} text={compact(text_value)}")
+                    return True
+        except Exception as exc:
+            print(f"SELECTIZE_ROUTE_ERROR {compact(repr(exc), 2500)}")
     print("SELECTED_ROUTE none")
     return False
 
