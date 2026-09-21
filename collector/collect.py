@@ -183,12 +183,13 @@ def pqe_session():
     session.headers.update(HEADERS)
     session.headers.update(
         {
-            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
-            "Accept": "application/json,text/javascript,*/*;q=0.01",
-            "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36",
+            "Accept": "*/*",
+            "Accept-Language": "vi-VN",
+            "Content-Type": "application/json; charset=utf-8",
             "X-Requested-With": "XMLHttpRequest",
+            "X-Recaptcha-Token": "",
             "Referer": SOURCES["phu_quoc_express"],
-            "Origin": "https://online.phuquocexpress.com",
         }
     )
     landing_headers = {
@@ -199,6 +200,8 @@ def pqe_session():
     }
     r = session.get(SOURCES["phu_quoc_express"], headers=landing_headers, timeout=TIMEOUT)
     r.raise_for_status()
+    if not session.cookies.get("culture"):
+        session.cookies.set("culture", "vi-VN", domain="online.phuquocexpress.com", path="/")
     return session
 
 
