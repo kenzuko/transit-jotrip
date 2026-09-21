@@ -79,6 +79,46 @@ FARE_CATALOG = {
     },
 }
 
+FAST_FERRY_CARGO = {
+    "Phú Quốc Express": {
+        "accepted": True,
+        "booking_required": True,
+        "availability": "vessel_dependent",
+        "price_label": "Xe máy từ 90.000đ · hàng từ 20.000đ/kiện",
+        "motorbike": {
+            "manual": 90000,
+            "scooter": 100000,
+            "large_scooter": 120000,
+            "large_motorcycle": 150000,
+        },
+        "cargo": {
+            "under_20kg": 20000,
+            "from_21_to_50kg": 40000,
+            "over_50kg": 90000,
+        },
+        "currency": "VND",
+        "contact_required": True,
+        "contact_note": "Cần đăng ký trước vì chỗ nhận xe và hàng phụ thuộc tàu/chuyến.",
+        "checked_at": "2026-09-21",
+    },
+    "Superdong": {
+        "accepted": True,
+        "booking_required": True,
+        "availability": "vessel_dependent",
+        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
+        "currency": "VND",
+        "contact_required": True,
+        "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
+        "checked_at": "2026-09-21",
+    },
+}
+
+
+def fast_ferry_cargo_for(operator: str):
+    cargo = FAST_FERRY_CARGO.get(operator)
+    return dict(cargo) if cargo else None
+
+
 ROUTES = [
     ("Phú Quốc", "Hà Tiên"),
     ("Hà Tiên", "Phú Quốc"),
@@ -212,14 +252,15 @@ def collect_phu_quoc_express(day: str):
                     "arrival_time": None,
                     "vessel_or_service": voyage.get("BoatNm") or "Phú Quốc Express",
                     "harbor": voyage.get("Harbor"),
-                    "status": "Theo lịch ngày",
+                    "status": "Cập nhật theo ngày",
                     "data_kind": "date_specific_booking",
                     "date_specific": True,
                     "service_date_basis": "date_specific_booking",
-                    "source_label": "Phú Quốc Express official booking",
+                    "source_label": "Nguồn chính thức",
                     "source_url": SOURCES["phu_quoc_express"],
                     "confidence": "high",
                     "fare": fare_cache.get(fare_key),
+                    "vehicle_cargo": fast_ferry_cargo_for("Phú Quốc Express"),
                 }
             )
     return rows
@@ -327,14 +368,15 @@ def collect_superdong_date_specific(day: str):
                     "departure_time": iso_at(day, dep),
                     "arrival_time": None,
                     "vessel_or_service": boat.get("BoatNm") or "Superdong",
-                    "status": "Theo lịch ngày",
+                    "status": "Cập nhật theo ngày",
                     "data_kind": "date_specific_booking",
                     "date_specific": True,
                     "service_date_basis": "date_specific_booking",
-                    "source_label": "Superdong official booking",
+                    "source_label": "Nguồn chính thức",
                     "source_url": SOURCES["superdong"],
                     "confidence": "high",
                     "fare": fare_cache.get(route_id),
+                    "vehicle_cargo": fast_ferry_cargo_for("Superdong"),
                 }
             )
     session.close()
@@ -403,7 +445,7 @@ def parse_thanh_thoi(html: str):
                 "vessel_or_service": vessel or "Thạnh Thới",
                 "status": status or "Theo lịch công bố",
                 "data_kind": "operational_public",
-                "source_label": "Thạnh Thới public schedule",
+                "source_label": "Nguồn chính thức",
                 "source_url": SOURCES["thanh_thoi"],
                 "confidence": "high" if status else "medium",
                 "date_specific": True,
@@ -446,7 +488,7 @@ def main():
         tt = parse_thanh_thoi(html)
         departures.extend(tt)
         source_state["thanh_thoi"] = {
-            "label": "Thạnh Thới public operational schedule",
+            "label": "Thạnh Thới",
             "status": "ok" if tt else "empty",
             "records": len(tt),
             "data_kind": "operational_public",
@@ -462,7 +504,7 @@ def main():
         pqe = collect_phu_quoc_express(day)
         departures.extend(pqe)
         source_state["phu_quoc_express"] = {
-            "label": "Phú Quốc Express official booking",
+            "label": "Phú Quốc Express",
             "status": "ok" if pqe else "empty",
             "records": len(pqe),
             "data_kind": "date_specific_booking",
@@ -471,7 +513,7 @@ def main():
         }
     except Exception as exc:
         source_state["phu_quoc_express"] = {
-            "label": "Phú Quốc Express official booking",
+            "label": "Phú Quốc Express",
             "status": "error",
             "records": 0,
             "date_specific": True,
@@ -484,7 +526,7 @@ def main():
         sd = collect_superdong_date_specific(day)
         departures.extend(sd)
         source_state["superdong"] = {
-            "label": "Superdong official booking",
+            "label": "Superdong",
             "status": "ok" if sd else "empty",
             "records": len(sd),
             "data_kind": "date_specific_booking",
@@ -493,7 +535,7 @@ def main():
         }
     except Exception as exc:
         source_state["superdong"] = {
-            "label": "Superdong official booking",
+            "label": "Superdong",
             "status": "error",
             "records": 0,
             "date_specific": True,
@@ -548,7 +590,7 @@ def main():
             "network": {"label": network_label},
             "sea": {
                 "label": "Có dữ liệu" if sea_ok else "Chưa có dữ liệu",
-                "description": "Thạnh Thới, Phú Quốc Express và Superdong: dữ liệu theo đúng ngày từ nguồn hãng."
+                "description": "Thông tin chuyến được cập nhật theo đúng ngày từ các nguồn chính thức."
             },
             "bus": {
                 "label": "Có lịch công bố" if bus_ok else "Chưa có dữ liệu",
@@ -558,7 +600,7 @@ def main():
         },
         "sources": {
             "sea": {
-                "label": "Thạnh Thới + Phú Quốc Express + Superdong date-specific",
+                "label": "Nguồn chính thức theo ngày",
                 "freshness": "mixed",
             },
             "bus": {
