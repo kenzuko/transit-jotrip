@@ -1,10 +1,10 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-21T11:19:05.556467+07:00",
+  "generated_at": "2026-09-21T11:23:13.961186+07:00",
   "summary": {
     "network": {
-      "label": "PARTIAL DATA"
+      "label": "DATA ONLINE"
     },
     "sea": {
       "label": "Có dữ liệu",
@@ -22,52 +22,46 @@
       "freshness": "mixed"
     },
     "bus": {
-      "label": "VinWonders / VinBus public 2026 schedule",
+      "label": "Nguồn chính thức",
       "freshness": "verified 2026-09-18"
     },
     "registry": {
       "thanh_thoi": {
-        "label": "Thạnh Thới",
+        "label": "Phà",
         "status": "ok",
         "records": 22,
         "data_kind": "operational_public",
-        "date_specific": true,
-        "url": "https://thanhthoi.vn/?lg=vi"
+        "date_specific": true
       },
       "phu_quoc_express": {
-        "label": "Phú Quốc Express",
-        "status": "cached",
-        "records": 4,
-        "data_kind": "date_specific_booking",
-        "date_specific": true,
-        "freshness": "cached",
-        "last_success_at": "2026-09-21T10:40:41.789527+07:00",
-        "url": "https://online.phuquocexpress.com/"
-      },
-      "superdong": {
-        "label": "Superdong",
+        "label": "Tàu cao tốc",
         "status": "ok",
         "records": 4,
-        "data_kind": "date_specific_booking",
+        "data_kind": "date_specific_official",
         "date_specific": true,
-        "url": "https://online.superdong.com.vn/Booking"
+        "freshness": "fresh",
+        "checked_at": "2026-09-21T11:23:13.961186+07:00"
+      },
+      "superdong": {
+        "label": "Tàu cao tốc",
+        "status": "ok",
+        "records": 4,
+        "data_kind": "date_specific_official",
+        "date_specific": true
       },
       "bus": {
-        "label": "VinWonders / VinBus public 2026 schedule",
+        "label": "Bus",
         "status": "ok",
         "records": 3,
         "data_kind": "schedule_frequency",
-        "url": "https://vinwonders.com/vi/wonderpedia/news/xe-bus-di-safari-phu-quoc/",
         "verified_at": "2026-09-18"
       }
     }
   },
   "health": {
-    "status": "watch",
-    "description": "Một phần nguồn đang thiếu hoặc thay đổi cấu trúc. Không suy diễn trạng thái từ dữ liệu thiếu.",
-    "source_errors": [
-      "Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày."
-    ]
+    "status": "good",
+    "description": "Các nguồn chính đang đọc được. Chuyến theo ngày được tách khỏi lịch tham khảo.",
+    "source_errors": []
   },
   "departures": [
     {
@@ -82,7 +76,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -96,8 +89,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -112,7 +104,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -126,8 +117,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -142,7 +132,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -156,8 +145,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -172,7 +160,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -186,8 +173,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -202,7 +188,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -215,8 +200,7 @@
         },
         "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -231,7 +215,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -244,8 +227,7 @@
         },
         "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -260,7 +242,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -274,8 +255,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -290,7 +270,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -304,8 +283,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -320,7 +298,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -334,8 +311,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -350,7 +326,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -363,8 +338,7 @@
         },
         "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -379,7 +353,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -392,8 +365,7 @@
         },
         "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -408,7 +380,6 @@
       "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -422,8 +393,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -436,12 +406,11 @@
       "arrival_time": null,
       "vessel_or_service": "PQE9 - PHÚ QUỐC EXPRESS 9",
       "harbor": "BẾN TÀU HÀ TIÊN",
-      "status": "Theo lịch ngày",
-      "data_kind": "date_specific_booking",
+      "status": "Cập nhật theo ngày",
+      "data_kind": "date_specific_official",
       "date_specific": true,
-      "service_date_basis": "date_specific_booking",
+      "service_date_basis": "date_specific",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://online.phuquocexpress.com/",
       "confidence": "high",
       "fare": {
         "adult": 216000,
@@ -458,8 +427,7 @@
           "VIP": 330000
         },
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://online.phuquocexpress.com/"
+        "checked_at": "2026-09-21"
       },
       "vehicle_cargo": {
         "accepted": true,
@@ -495,7 +463,6 @@
       "status": "Mở bán",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -509,8 +476,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -525,7 +491,6 @@
       "status": "Mở bán",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -539,8 +504,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -553,12 +517,11 @@
       "arrival_time": null,
       "vessel_or_service": "PQE18 - PHÚ QUỐC EXPRESS 18",
       "harbor": "BẾN TÀU RẠCH GIÁ",
-      "status": "Theo lịch ngày",
-      "data_kind": "date_specific_booking",
+      "status": "Cập nhật theo ngày",
+      "data_kind": "date_specific_official",
       "date_specific": true,
-      "service_date_basis": "date_specific_booking",
+      "service_date_basis": "date_specific",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://online.phuquocexpress.com/",
       "confidence": "high",
       "fare": {
         "adult": 315000,
@@ -575,8 +538,7 @@
           "VIP": 500000
         },
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://online.phuquocexpress.com/"
+        "checked_at": "2026-09-21"
       },
       "vehicle_cargo": {
         "accepted": true,
@@ -610,11 +572,10 @@
       "arrival_time": null,
       "vessel_or_service": "Superdong IX",
       "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_booking",
+      "data_kind": "date_specific_official",
       "date_specific": true,
-      "service_date_basis": "date_specific_booking",
+      "service_date_basis": "date_specific",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://online.superdong.com.vn/Booking",
       "confidence": "high",
       "fare": {
         "adult": 324000.0,
@@ -625,8 +586,7 @@
         "senior": 274909.0,
         "vip": null,
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://online.superdong.com.vn/Booking"
+        "checked_at": "2026-09-21"
       },
       "vehicle_cargo": {
         "accepted": true,
@@ -649,11 +609,10 @@
       "arrival_time": null,
       "vessel_or_service": "Superdong III",
       "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_booking",
+      "data_kind": "date_specific_official",
       "date_specific": true,
-      "service_date_basis": "date_specific_booking",
+      "service_date_basis": "date_specific",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://online.superdong.com.vn/Booking",
       "confidence": "high",
       "fare": {
         "adult": 225818.0,
@@ -664,8 +623,7 @@
         "senior": 191455.0,
         "vip": null,
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://online.superdong.com.vn/Booking"
+        "checked_at": "2026-09-21"
       },
       "vehicle_cargo": {
         "accepted": true,
@@ -688,12 +646,11 @@
       "arrival_time": null,
       "vessel_or_service": "PQE27 - PHÚ QUỐC EXPRESS 27",
       "harbor": "CẢNG BÃI VÒNG",
-      "status": "Theo lịch ngày",
-      "data_kind": "date_specific_booking",
+      "status": "Cập nhật theo ngày",
+      "data_kind": "date_specific_official",
       "date_specific": true,
-      "service_date_basis": "date_specific_booking",
+      "service_date_basis": "date_specific",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://online.phuquocexpress.com/",
       "confidence": "high",
       "fare": {
         "adult": 315000,
@@ -710,8 +667,7 @@
           "VIP": 500000
         },
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://online.phuquocexpress.com/"
+        "checked_at": "2026-09-21"
       },
       "vehicle_cargo": {
         "accepted": true,
@@ -745,11 +701,10 @@
       "arrival_time": null,
       "vessel_or_service": "Superdong V",
       "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_booking",
+      "data_kind": "date_specific_official",
       "date_specific": true,
-      "service_date_basis": "date_specific_booking",
+      "service_date_basis": "date_specific",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://online.superdong.com.vn/Booking",
       "confidence": "high",
       "fare": {
         "adult": 225818.0,
@@ -760,8 +715,7 @@
         "senior": 191455.0,
         "vip": null,
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://online.superdong.com.vn/Booking"
+        "checked_at": "2026-09-21"
       },
       "vehicle_cargo": {
         "accepted": true,
@@ -784,11 +738,10 @@
       "arrival_time": null,
       "vessel_or_service": "Superdong XII",
       "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_booking",
+      "data_kind": "date_specific_official",
       "date_specific": true,
-      "service_date_basis": "date_specific_booking",
+      "service_date_basis": "date_specific",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://online.superdong.com.vn/Booking",
       "confidence": "high",
       "fare": {
         "adult": 324000.0,
@@ -799,8 +752,7 @@
         "senior": 274909.0,
         "vip": null,
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://online.superdong.com.vn/Booking"
+        "checked_at": "2026-09-21"
       },
       "vehicle_cargo": {
         "accepted": true,
@@ -825,7 +777,6 @@
       "status": "Mở bán",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -839,8 +790,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -853,12 +803,11 @@
       "arrival_time": null,
       "vessel_or_service": "PQE9 - PHÚ QUỐC EXPRESS 9",
       "harbor": "CẢNG BÃI VÒNG",
-      "status": "Theo lịch ngày",
-      "data_kind": "date_specific_booking",
+      "status": "Cập nhật theo ngày",
+      "data_kind": "date_specific_official",
       "date_specific": true,
-      "service_date_basis": "date_specific_booking",
+      "service_date_basis": "date_specific",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://online.phuquocexpress.com/",
       "confidence": "high",
       "fare": {
         "adult": 216000,
@@ -875,8 +824,7 @@
           "VIP": 330000
         },
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://online.phuquocexpress.com/"
+        "checked_at": "2026-09-21"
       },
       "vehicle_cargo": {
         "accepted": true,
@@ -912,7 +860,6 @@
       "status": "Mở bán",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -926,8 +873,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -942,7 +888,6 @@
       "status": "Mở bán",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -955,8 +900,7 @@
         },
         "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -971,7 +915,6 @@
       "status": "Mở bán",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -984,8 +927,7 @@
         },
         "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -1000,7 +942,6 @@
       "status": "Mở bán",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -1014,8 +955,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -1030,7 +970,6 @@
       "status": "Mở bán",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -1044,8 +983,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -1060,7 +998,6 @@
       "status": "Mở bán",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -1074,8 +1011,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -1090,7 +1026,6 @@
       "status": "Mở bán",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
-      "source_url": "https://thanhthoi.vn/?lg=vi",
       "confidence": "high",
       "date_specific": true,
       "service_date_basis": "date_specific",
@@ -1104,8 +1039,7 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21",
-        "source_url": "https://thanhthoi.vn/?lg=vi"
+        "checked_at": "2026-09-21"
       }
     }
   ],
@@ -1120,8 +1054,7 @@
       "frequency": "15 - 30 - 60 phút",
       "status": "Theo lịch công bố",
       "data_kind": "schedule_frequency",
-      "source_label": "VinWonders / VinBus public 2026 schedule",
-      "source_url": "https://vinwonders.com/vi/wonderpedia/news/xe-bus-di-safari-phu-quoc/",
+      "source_label": "Nguồn chính thức",
       "verified_at": "2026-09-18"
     },
     {
@@ -1134,8 +1067,7 @@
       "frequency": "40 - 160 phút",
       "status": "Theo lịch công bố",
       "data_kind": "schedule_frequency",
-      "source_label": "VinWonders / VinBus public 2026 schedule",
-      "source_url": "https://vinwonders.com/vi/wonderpedia/news/xe-bus-di-safari-phu-quoc/",
+      "source_label": "Nguồn chính thức",
       "verified_at": "2026-09-18"
     },
     {
@@ -1148,17 +1080,9 @@
       "frequency": "30 - 60 phút",
       "status": "Theo lịch công bố",
       "data_kind": "schedule_frequency",
-      "source_label": "VinWonders / VinBus public 2026 schedule",
-      "source_url": "https://vinwonders.com/vi/wonderpedia/news/xe-bus-di-safari-phu-quoc/",
+      "source_label": "Nguồn chính thức",
       "verified_at": "2026-09-18"
     }
   ],
-  "alerts": [
-    {
-      "type": "data",
-      "title": "Nguồn dữ liệu cần kiểm tra",
-      "description": "Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày.",
-      "severity": "watch"
-    }
-  ]
+  "alerts": []
 }
