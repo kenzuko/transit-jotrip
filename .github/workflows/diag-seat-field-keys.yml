@@ -1,0 +1,52 @@
+name: Diagnostic - Seat field keys
+
+on:
+  push:
+    branches:
+      - "diag/seat-field-keys-20260922"
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect public booking response field names only
+        run: |
+          python - <<'PY'
+          import requests, json
+          UA={"User-Agent":"Mozilla/5.0","Accept":"application/json,text/plain,*/*"}
+
+          def dump(label,url,params,session=None):
+              s=session or requests.Session()
+              r=s.get(url,params=params,headers=UA,timeout=20)
+              print(label,"status",r.status_code,"ctype",r.headers.get("content-type"))
+              r.raise_for_status()
+              data=r.json()
+              if isinstance(data,list):
+                  print(label,"count",len(data))
+                  if data and isinstance(data[0],dict):
+                      print(label,"keys",sorted(data[0].keys()))
+              elif isinstance(data,dict):
+                  print(label,"keys",sorted(data.keys()))
+                  for k,v in data.items():
+                      if isinstance(v,list) and v and isinstance(v[0],dict):
+                          print(label,"nested_list",k,"keys",sorted(v[0].keys()))
+                          break
+
+          dump(
+              "PQE",
+              "https://online.phuquocexpress.com/Booking/SearchVoyage",
+              {"RouteId":3,"DepartDate":"2026-09-22","NoOfPassenger":1}
+          )
+
+          s=requests.Session()
+          s.get("https://online.superdong.com.vn/Booking",headers={"User-Agent":"Mozilla/5.0","Referer":"https://www.superdong.com.vn/"},timeout=20)
+          dump(
+              "SUPERDONG",
+              "https://online.superdong.com.vn/api/Boat/getBoat",
+              {"RouteId":3,"DepartDate":"2026-09-22","NoOfPassenger":1},
+              s
+          )
+          PY
