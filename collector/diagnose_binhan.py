@@ -168,6 +168,14 @@ def main():
     print("\nVEHICLE_REQ", r.url)
     print("VEHICLE_STATUS", r.status_code, r.headers.get("content-type"), "final", r.url, "history", [(x.status_code,x.headers.get("location")) for x in r.history], "len", len(r.text))
     soup = dump_relevant("VEHICLE_PAGE", r.text)
+    for sel in soup.select("select.TypePrice"):
+        print("VEHICLE_SELECT_OUTER", str(sel))
+        print("VEHICLE_SELECT_OPTIONS", [
+            {"text": opt.get_text(" ", strip=True), "attrs": dict(opt.attrs)}
+            for opt in sel.find_all("option")
+        ])
+        parent = sel.find_parent(class_=re.compile(r"Form(?:Moto|Oto)Infor")) or sel.parent
+        print("VEHICLE_FORM_BLOCK", str(parent)[:12000])
     inspect_scripts(s, r.url, soup)
 
 if __name__ == "__main__":
