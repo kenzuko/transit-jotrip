@@ -58,4 +58,25 @@ jobs:
               print("SUPERDONG","keys",sorted(data[0].keys()))
           elif isinstance(data,dict):
               print("SUPERDONG","keys",sorted(data.keys()))
+          # Inspect Phu Quoc Express booking JavaScript for public boat/capacity calls.
+          html=requests.get("https://online.phuquocexpress.com/",headers={"User-Agent":"Mozilla/5.0"},timeout=20).text
+          from bs4 import BeautifulSoup
+          from urllib.parse import urljoin
+          soup=BeautifulSoup(html,"html.parser")
+          scripts=[urljoin("https://online.phuquocexpress.com/",x.get("src")) for x in soup.find_all("script") if x.get("src")]
+          print("PQE script_count",len(scripts))
+          for u in scripts:
+              try:
+                  body=requests.get(u,headers={"User-Agent":"Mozilla/5.0"},timeout=20).text
+              except Exception:
+                  continue
+              low=body.lower()
+              if "searchvoyage" in low or "noofremain" in low or "noofseat" in low or "boattype" in low:
+                  print("PQE relevant_script",u)
+                  for line in body.splitlines():
+                      ll=line.lower()
+                      if any(k in ll for k in ("searchvoyage","noofremain","noofseat","boattype","boatid")):
+                          cleaned=" ".join(line.strip().split())
+                          if len(cleaned)>500: cleaned=cleaned[:500]
+                          print("PQE js",cleaned)
           PY
