@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "network.json"
 BUS_CONFIG = ROOT / "config" / "bus_public.json"
 TZ = ZoneInfo("Asia/Ho_Chi_Minh")
+BINHAN_HISTORY_DIR = ROOT / "data" / "history" / "binhan"
 
 HEADERS = {
     "User-Agent": "JoTrip-Transit/1.0 (+https://transit.openphuquoc.com; public schedule monitor)",
@@ -27,6 +28,7 @@ SOURCES = {
     "thanh_thoi": "https://thanhthoi.vn/?lg=vi",
     "superdong": "https://online.superdong.com.vn/Booking",
     "phu_quoc_express": "https://online.phuquocexpress.com/",
+    "binh_an": "https://www.binhanhatien.vn/dat-ve",
 }
 
 PQE_ROUTES = {
@@ -41,6 +43,11 @@ SUPERDONG_ROUTES = {
     4: ("Phú Quốc", "Hà Tiên"),
     5: ("Rạch Giá", "Phú Quốc"),
     6: ("Phú Quốc", "Rạch Giá"),
+}
+
+BINHAN_ROUTES = {
+    76: ("Phú Quốc", "Hà Tiên"),
+    77: ("Hà Tiên", "Phú Quốc"),
 }
 
 
@@ -429,6 +436,169 @@ def collect_superdong_date_specific(day: str):
     return rows
 
 
+
+def binhan_session():
+    session = requests.Session()
+    session.headers.update(
+        {
+            **HEADERS,
+            "User-Agent": "Mozilla/5.0 (compatible; JoTrip-Transit/1.0; public booking reader)",
+            "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.7",
+        }
+    )
+    r = session.get(SOURCES["binh_an"], timeout=TIMEOUT)
+    r.raise_for_status()
+    return session
+
+
+def binhan_get_html(session, path: str, params=None, referer=None):
+    headers = {
+        "Accept": "*/*",
+        "X-Requested-With": "XMLHttpRequest",
+        "Referer": referer or SOURCES["binh_an"],
+    }
+    r = session.get(
+        "https://www.binhanhatien.vn" + path,
+        params=params,
+        headers=headers,
+        timeout=TIMEOUT,
+    )
+    r.raise_for_status()
+    return r.text
+
+
+def parse_vnd_amount(value: str):
+    digits = re.sub(r"[^0-9]", "", value or "")
+    return int(digits) if digits else None
+
+
+def binhan_fare_for(session, trip_id: int, day: str):
+    html = binhan_get_html(
+        session,
+        "/Booking/CheckPriceSelectTrip",
+        {
+            "tripId": trip_id,
+            "rTripId": 0,
+            "slAdult": 1,
+            "slElderly": 0,
+            "slChildren": 0,
+            "slVeterans": 0,
+        },
+    )
+    text = " ".join(BeautifulSoup(html, "html.parser").stripped_strings)
+    m = re.search(r"Người\s+lớn\s+([0-9.]+)\s*đ", text, flags=re.I)
+    adult = parse_vnd_amount(m.group(1)) if m else None
+    return {
+        "adult": adult,
+        "currency": "VND",
+        "checked_at": day,
+        "source_url": SOURCES["binh_an"],
+    }
+
+
+def collect_binhan_date_specific(day: str):
+    session = binhan_session()
+    rows = []
+    try:
+        display_day = datetime.strptime(day, "%Y-%m-%d").strftime("%d/%m/%Y")
+        for route_id, (origin, destination) in BINHAN_ROUTES.items():
+            route_name = f"{origin}-{destination}"
+            html = binhan_get_html(
+                session,
+                "/Home/GetScheduleTripsOfDay",
+                {
+                    "tripsId": route_id,
+                    "day": display_day,
+                    "tripName": route_name,
+                    "total": 1,
+                },
+            )
+            soup = BeautifulSoup(html, "html.parser")
+            for item in soup.select(".booking-item"):
+                radio = item.select_one("input[name='tripOne']")
+                if radio is None:
+                    continue
+                raw_trip_id = str(radio.get("value") or "").strip()
+                if not raw_trip_id.isdigit():
+                    continue
+                times = times_from_text(item.get_text(" ", strip=True))
+                if not times:
+                    continue
+                dep = times[0]
+                arr = times[1] if len(times) > 1 else None
+                trip_id = int(raw_trip_id)
+                try:
+                    fare = binhan_fare_for(session, trip_id, day)
+                except Exception:
+                    fare = None
+                rows.append(
+                    {
+                        "type": "sea",
+                        "mode": "FERRY",
+                        "operator": "Bình An",
+                        "origin": origin,
+                        "destination": destination,
+                        "departure_time": iso_at(day, dep),
+                        "arrival_time": iso_at(day, arr) if arr else None,
+                        "vessel_or_service": "Phà Bình An",
+                        "status": "Có thể đặt vé",
+                        "data_kind": "date_specific_booking",
+                        "date_specific": True,
+                        "service_date_basis": "date_specific_booking",
+                        "source_label": "Nguồn chính thức",
+                        "source_url": SOURCES["binh_an"],
+                        "confidence": "high",
+                        "fare": fare,
+                        "_internal_trip_id": trip_id,
+                    }
+                )
+        return rows
+    finally:
+        session.close()
+
+
+def append_binhan_history(now: datetime, source_state, rows):
+    """Persist aggregate operational snapshots only. No customer or booking PII is stored."""
+    BINHAN_HISTORY_DIR.mkdir(parents=True, exist_ok=True)
+    path = BINHAN_HISTORY_DIR / f"{now.strftime('%Y-%m-%d')}.jsonl"
+
+    route_summaries = []
+    for route_id, (origin, destination) in BINHAN_ROUTES.items():
+        route_rows = [
+            r
+            for r in rows
+            if r.get("operator") == "Bình An"
+            and r.get("origin") == origin
+            and r.get("destination") == destination
+        ]
+        route_summaries.append(
+            {
+                "route_id": route_id,
+                "origin": origin,
+                "destination": destination,
+                "bookable_departures": len(route_rows),
+                "departures": [
+                    {
+                        "departure_time": r.get("departure_time"),
+                        "arrival_time": r.get("arrival_time"),
+                        "adult_fare": (r.get("fare") or {}).get("adult"),
+                    }
+                    for r in route_rows
+                ],
+            }
+        )
+
+    record = {
+        "schema_version": "1.0",
+        "checked_at": now.isoformat(),
+        "source_status": (source_state or {}).get("status"),
+        "routes": route_summaries,
+        "note": "Demand proxy only: schedule/bookability snapshots, not passenger counts.",
+    }
+    with path.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n")
+
+
 def parsed_day_from_thanh_thoi(strings):
     for s in strings[:80]:
         m = re.search(r"Ngày\s*:\s*(\d{1,2})/(\d{1,2})/(\d{4})", s, flags=re.I)
@@ -555,7 +725,7 @@ def sanitize_public_payload(payload):
         meta.pop("url", None)
         if meta.get("data_kind") == "date_specific_booking":
             meta["data_kind"] = "date_specific_official"
-        if source_id == "thanh_thoi":
+        if source_id in {"thanh_thoi", "binh_an"}:
             meta["label"] = "Phà"
         elif source_id in {"phu_quoc_express", "superdong"}:
             meta["label"] = "Tàu cao tốc"
@@ -640,6 +810,34 @@ def main():
         }
         errors.append(f"Superdong: {exc}")
 
+    try:
+        day = now.strftime("%Y-%m-%d")
+        ba = collect_binhan_date_specific(day)
+        departures.extend(ba)
+        source_state["binh_an"] = {
+            "label": "Bình An",
+            "status": "ok" if ba else "empty",
+            "records": len(ba),
+            "data_kind": "date_specific_booking",
+            "date_specific": True,
+            "url": SOURCES["binh_an"],
+        }
+    except Exception as exc:
+        ba = []
+        source_state["binh_an"] = {
+            "label": "Bình An",
+            "status": "error",
+            "records": 0,
+            "date_specific": True,
+            "url": SOURCES["binh_an"],
+        }
+        errors.append(f"Bình An: {exc}")
+
+    try:
+        append_binhan_history(now, source_state.get("binh_an"), ba)
+    except Exception as exc:
+        errors.append(f"Bình An history: {exc}")
+
     services, bus_meta = load_bus_services()
     source_state["bus"] = {
         "label": bus_meta["source"]["label"],
@@ -654,9 +852,9 @@ def main():
 
     sea_ok = any(x.get("type") == "sea" for x in departures)
     bus_ok = bool(services)
-    healthy_sources = sum(1 for k in ("thanh_thoi", "phu_quoc_express", "superdong", "bus") if source_state.get(k, {}).get("status") == "ok")
+    healthy_sources = sum(1 for k in ("thanh_thoi", "phu_quoc_express", "superdong", "binh_an", "bus") if source_state.get(k, {}).get("status") == "ok")
 
-    if healthy_sources == 4:
+    if healthy_sources == 5:
         health_status = "good"
         network_label = "DATA ONLINE"
         health_desc = "Các nguồn chính đang đọc được. Chuyến theo ngày được tách khỏi lịch tham khảo."
@@ -715,6 +913,9 @@ def main():
         "services": services,
         "alerts": alerts,
     }
+
+    for row in departures:
+        row.pop("_internal_trip_id", None)
 
     payload = sanitize_public_payload(payload)
     DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
