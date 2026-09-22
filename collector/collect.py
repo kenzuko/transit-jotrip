@@ -541,7 +541,7 @@ def collect_binhan_date_specific(day: str):
                         "departure_time": iso_at(day, dep),
                         "arrival_time": iso_at(day, arr) if arr else None,
                         "vessel_or_service": "Phà Bình An",
-                        "status": "Có thể đặt vé",
+                        "status": "Cập nhật theo ngày",
                         "data_kind": "date_specific_booking",
                         "date_specific": True,
                         "service_date_basis": "date_specific_booking",
@@ -573,10 +573,9 @@ def append_binhan_history(now: datetime, source_state, rows):
         ]
         route_summaries.append(
             {
-                "route_id": route_id,
                 "origin": origin,
                 "destination": destination,
-                "bookable_departures": len(route_rows),
+                "listed_departures": len(route_rows),
                 "departures": [
                     {
                         "departure_time": r.get("departure_time"),
@@ -593,7 +592,7 @@ def append_binhan_history(now: datetime, source_state, rows):
         "checked_at": now.isoformat(),
         "source_status": (source_state or {}).get("status"),
         "routes": route_summaries,
-        "note": "Demand proxy only: schedule/bookability snapshots, not passenger counts.",
+        "note": "Demand proxy only: schedule/listing snapshots, not passenger counts or seat inventory.",
     }
     with path.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n")
