@@ -3,130 +3,128 @@ from __future__ import annotations
 import re
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin, urlparse
 
 BASE = "https://www.binhanhatien.vn"
-URLS = [BASE + "/", BASE + "/dat-ve"]
+DAY = "22/09/2026"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
     "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
 }
 
-KEYWORDS = re.compile(r"(ajax|fetch\(|axios|\.get\(|\.post\(|url\s*:|schedule|price|fare|route|booking|dat-ve|search|voyage|ticket|gia|lịch|lich|chuyến|chuyen)", re.I)
-PATHS = re.compile(r"""(?:"|')((?:https?:)?//[^"'\s]+|/[A-Za-z0-9_./?=&%-]+)(?:"|')""")
-
-def dump_forms(html: str):
-    soup = BeautifulSoup(html, "html.parser")
-    for idx, form in enumerate(soup.find_all("form"), 1):
-        print(f"FORM {idx}: method={form.get('method')} action={form.get('action')} id={form.get('id')} class={form.get('class')}")
-        for el in form.find_all(["input", "select", "button"]):
-            print(" ", el.name, "name=", el.get("name"), "id=", el.get("id"), "type=", el.get("type"), "value=", el.get("value"))
-            if el.name == "select":
-                for opt in el.find_all("option")[:40]:
-                    print("   OPTION", repr(opt.get_text(" ", strip=True)), "value=", repr(opt.get("value")))
-    return soup
-
-def inspect_scripts(s: requests.Session, page_url: str, soup: BeautifulSoup):
-    scripts = []
-    for sc in soup.find_all("script"):
-        src = sc.get("src")
-        if src:
-            full = urljoin(page_url, src)
-            scripts.append(full)
-            print("SCRIPT_SRC", full)
-        else:
-            txt = sc.get_text("\n", strip=False)
-            if KEYWORDS.search(txt or ""):
-                print("INLINE_JS_BEGIN")
-                print((txt or "")[:12000])
-                print("INLINE_JS_END")
-
-    for js_url in scripts:
-        host = urlparse(js_url).hostname or ""
-        if host not in {urlparse(page_url).hostname, "binhanhatien.vn", "www.binhanhatien.vn"}:
-            continue
-        try:
-            h = {
-                "Accept": "application/javascript,text/javascript,*/*;q=0.1",
-                "Referer": page_url,
-                "Sec-Fetch-Dest": "script",
-                "Sec-Fetch-Mode": "no-cors",
-                "Sec-Fetch-Site": "same-origin",
-            }
-            jr = s.get(js_url, headers=h, timeout=20)
-            ctype = jr.headers.get("content-type", "")
-            print("\nJS", js_url, "status", jr.status_code, "ctype", ctype, "len", len(jr.text))
-            txt = jr.text
-            print("JS_HEAD", repr(txt[:300]))
-            if KEYWORDS.search(txt):
-                for line in txt.splitlines():
-                    if KEYWORDS.search(line):
-                        print("MATCH", line[:2000])
-                found = []
-                for m in PATHS.finditer(txt):
-                    p = m.group(1)
-                    if any(k in p.lower() for k in ["api", "book", "dat-ve", "schedule", "price", "fare", "route", "ticket", "search", "trip"]):
-                        if p not in found:
-                            found.append(p)
-                for p in found[:300]:
-                    print("PATH", p)
-        except Exception as exc:
-            print("JS_ERROR", js_url, repr(exc))
-
-def inspect_booking_post(s: requests.Session):
-    payload = {
-        "idLog": "1914",
-        "booking_type": "1",
-        "PFrom": "77",
-        "DFrom": "22/09/2026",
-        "DBack": "",
-        "Adults": "1",
-        "Elderlys": "0",
-        "Children": "0",
-        "Humans": "0",
-        "Motorbikes": "0",
-        "Cars": "0",
+def xhr_headers(referer: str):
+    return {
+        "Accept": "*/*",
+        "Referer": referer,
+        "X-Requested-With": "XMLHttpRequest",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
     }
-    print("\n=== POST /booking route 77 22/09/2026 ===")
-    r = s.post(
-        BASE + "/booking",
-        data=payload,
-        headers={"Referer": BASE + "/dat-ve", "Origin": BASE},
-        timeout=25,
-        allow_redirects=True,
-    )
-    print("status", r.status_code, "final", r.url, "history", [(x.status_code, x.headers.get("location")) for x in r.history], "len", len(r.text))
-    print("ctype", r.headers.get("content-type"))
-    soup = dump_forms(r.text)
 
-    text = "\n".join(soup.stripped_strings)
-    for line in text.splitlines():
-        if re.search(r"(Hà Tiên|Phú Quốc|22/09/2026|22-09-2026|\b\d{1,2}:\d{2}\b|giá|vé|chuyến|lịch)", line, re.I):
-            print("BOOKING_TEXT", line[:1000])
-
-    for sc in soup.find_all("script"):
-        txt = sc.get_text("\n", strip=False)
-        if KEYWORDS.search(txt or ""):
-            print("BOOKING_INLINE_JS_BEGIN")
-            print((txt or "")[:15000])
-            print("BOOKING_INLINE_JS_END")
+def dump_html(label: str, html: str):
+    print("\n===", label, "len", len(html), "===")
+    soup = BeautifulSoup(html, "html.parser")
+    text = " | ".join(soup.stripped_strings)
+    print("TEXT", text[:12000])
+    for el in soup.find_all(["input", "button", "a", "option", "select"]):
+        attrs = {k: v for k, v in el.attrs.items() if k in {"id","name","value","class","href","onclick","data-id","data-value","data-trip","data-schedule"}}
+        if attrs:
+            print("EL", el.name, attrs, "TEXT=", el.get_text(" ", strip=True)[:300])
 
 def main():
     s = requests.Session()
     s.headers.update(HEADERS)
 
-    for url in URLS:
-        print("\n=== PAGE", url, "===")
-        r = s.get(url, timeout=25)
-        print("status", r.status_code, "final", r.url, "len", len(r.text))
-        print("server", r.headers.get("server"))
-        print("set-cookie", r.headers.get("set-cookie"))
-        soup = dump_forms(r.text)
-        inspect_scripts(s, r.url, soup)
+    landing = s.get(BASE + "/dat-ve", headers={"Accept":"text/html,*/*"}, timeout=25)
+    print("LANDING", landing.status_code, landing.url, "cookies", s.cookies.get_dict())
 
-    inspect_booking_post(s)
+    # Booking.js: show only business logic around public endpoints.
+    js = s.get(
+        BASE + "/Scripts/js/Booking.js",
+        headers={
+            "Accept": "application/javascript,text/javascript,*/*;q=0.1",
+            "Referer": BASE + "/dat-ve",
+            "Sec-Fetch-Dest": "script",
+            "Sec-Fetch-Mode": "no-cors",
+            "Sec-Fetch-Site": "same-origin",
+        },
+        timeout=25,
+    )
+    print("BOOKING_JS", js.status_code, len(js.text))
+    for needle in [
+        "/Home/GetScheduleTripsOfDay",
+        "/Home/GetScheduleTripsOfRoundTrip",
+        "/Booking/CheckPriceSelectTrip",
+        "/thong-tin-phuong-tien",
+    ]:
+        p = js.text.find(needle)
+        print("\nJS_SNIP", needle)
+        print(js.text[max(0,p-1800): p+2600] if p >= 0 else "NOT FOUND")
+
+    routes = {
+        76: "Phú Quốc-Hà Tiên",
+        77: "Hà Tiên-Phú Quốc",
+    }
+
+    trip_candidates = []
+
+    for route_id, route_name in routes.items():
+        r = s.get(
+            BASE + "/Home/GetScheduleTripsOfDay",
+            params={
+                "tripsId": route_id,
+                "day": DAY,
+                "tripName": route_name,
+                "total": 1,
+            },
+            headers=xhr_headers(BASE + "/dat-ve"),
+            timeout=25,
+        )
+        print("\nSCHEDULE_REQ", r.url)
+        print("SCHEDULE_STATUS", route_id, r.status_code, r.headers.get("content-type"), "len", len(r.text))
+        dump_html(f"SCHEDULE {route_id}", r.text)
+
+        soup = BeautifulSoup(r.text, "html.parser")
+        for el in soup.find_all(["input","button","a"]):
+            blob = " ".join(str(v) for v in el.attrs.values())
+            if re.search(r"trip|schedule|select|booking", blob, re.I) or el.get("value"):
+                trip_candidates.append((route_id, dict(el.attrs), el.get_text(" ", strip=True)))
+
+    print("\n=== TRIP_CANDIDATES ===")
+    for c in trip_candidates[:200]:
+        print(c)
+
+    # Extract likely numeric trip IDs from returned markup attributes.
+    ids = []
+    for _, attrs, _ in trip_candidates:
+        for k, v in attrs.items():
+            vals = v if isinstance(v, list) else [v]
+            for item in vals:
+                for m in re.findall(r"(?<!\d)(\d{2,8})(?!\d)", str(item)):
+                    n = int(m)
+                    if n not in {76,77,2026} and n not in ids:
+                        ids.append(n)
+    print("LIKELY_TRIP_IDS", ids[:50])
+
+    # Try fare lookup on first plausible returned trip IDs; no purchase/action occurs.
+    for trip_id in ids[:8]:
+        r = s.get(
+            BASE + "/Booking/CheckPriceSelectTrip",
+            params={
+                "tripId": trip_id,
+                "rTripId": 0,
+                "slAdult": 1,
+                "slElderly": 0,
+                "slChildren": 0,
+                "slVeterans": 0,
+            },
+            headers=xhr_headers(BASE + "/dat-ve"),
+            timeout=25,
+        )
+        print("\nPRICE_REQ", r.url)
+        print("PRICE_STATUS", trip_id, r.status_code, r.headers.get("content-type"), "len", len(r.text))
+        dump_html(f"PRICE {trip_id}", r.text)
 
 if __name__ == "__main__":
     main()
