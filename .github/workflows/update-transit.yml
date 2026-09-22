@@ -53,6 +53,7 @@ jobs:
               if row.get("data_kind") == "operational_public":
                   assert row.get("date_specific") is True
               assert "NoOfRemain" not in row, "seat inventory must not be persisted"
+              assert "_internal_trip_id" not in row and "tripId" not in row, "internal trip id leaked"
           pqe=[r for r in p["departures"] if r.get("operator")=="Phú Quốc Express"]
           pqe_state=(p.get("sources",{}).get("registry",{}).get("phu_quoc_express") or {})
           if pqe:
@@ -71,6 +72,28 @@ jobs:
           assert any((r.get("fare") or {}).get("adult") for r in sd), "Superdong fare missing"
           print("superdong_rows", len(sd))
           print("superdong_sample", {k:sd[0].get(k) for k in ("origin","destination","departure_time","vessel_or_service","fare")})
+          ba=[r for r in p["departures"] if r.get("operator")=="Bình An"]
+          ba_state=(p.get("sources",{}).get("registry",{}).get("binh_an") or {})
+          if ba:
+              assert all(r.get("mode")=="FERRY" for r in ba)
+              assert all(r.get("date_specific") is True for r in ba)
+              assert all("_internal_trip_id" not in r and "tripId" not in r for r in ba)
+              assert any((r.get("fare") or {}).get("adult") for r in ba), "Bình An fare missing"
+              print("binhan_rows", len(ba))
+              print("binhan_sample", {k:ba[0].get(k) for k in ("origin","destination","departure_time","arrival_time","fare")})
+          else:
+              assert ba_state.get("status") in {"error","empty"}, f"unexpected Bình An state: {ba_state}"
+              print("binhan_rows", 0, "status", ba_state.get("status"))
+          import pathlib
+          history_files=list(pathlib.Path("data/history/binhan").glob("*.jsonl"))
+          assert history_files, "Bình An history snapshot missing"
+          latest=history_files[-1]
+          for line in latest.read_text(encoding="utf-8").splitlines():
+              h=json.loads(line)
+              blob=json.dumps(h, ensure_ascii=False).lower()
+              for forbidden in ("tripid","_internal_trip_id","phone","telephone","licenseplates","sessionid","booking_code","customer"):
+                  assert forbidden not in blob, f"forbidden history field: {forbidden}"
+          print("binhan_history", str(latest))
           print("ready", p["ready"])
           print("departures", len(p["departures"]))
           print("services", len(p["services"]))
@@ -79,12 +102,12 @@ jobs:
       - name: Commit changed snapshot
         if: github.event_name != 'pull_request'
         run: |
-          if git diff --quiet -- data/network.json; then
+          if git diff --quiet -- data/network.json data/history/binhan; then
             echo "No snapshot change"
             exit 0
           fi
           git config user.name "jotrip-transit-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/network.json
+          git add data/network.json data/history/binhan
           git commit -m "data: refresh transit snapshot"
           git push
