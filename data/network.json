@@ -1,10 +1,10 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-25T00:49:54.583450+07:00",
+  "generated_at": "2026-09-25T04:25:56.280660+07:00",
   "summary": {
     "network": {
-      "label": "DATA ONLINE"
+      "label": "PARTIAL DATA"
     },
     "sea": {
       "label": "Có dữ liệu",
@@ -35,12 +35,12 @@
       },
       "phu_quoc_express": {
         "label": "Tàu cao tốc",
-        "status": "ok",
+        "status": "cached",
         "records": 12,
         "data_kind": "date_specific_official",
         "date_specific": true,
-        "freshness": "fresh",
-        "checked_at": "2026-09-25T00:49:54.583450+07:00"
+        "freshness": "cached",
+        "last_success_at": "2026-09-25T00:49:54.583450+07:00"
       },
       "superdong": {
         "label": "Tàu cao tốc",
@@ -52,7 +52,7 @@
       "binh_an": {
         "label": "Phà",
         "status": "ok",
-        "records": 8,
+        "records": 7,
         "data_kind": "date_specific_official",
         "date_specific": true
       },
@@ -66,9 +66,11 @@
     }
   },
   "health": {
-    "status": "good",
-    "description": "Các nguồn chính đang đọc được. Chuyến theo ngày được tách khỏi lịch tham khảo.",
-    "source_errors": []
+    "status": "watch",
+    "description": "Một phần nguồn đang thiếu hoặc thay đổi cấu trúc. Không suy diễn trạng thái từ dữ liệu thiếu.",
+    "source_errors": [
+      "Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày."
+    ]
   },
   "departures": [
     {
@@ -80,7 +82,7 @@
       "departure_time": "2026-09-25T03:30:00+07:00",
       "arrival_time": "2026-09-25T06:30:00+07:00",
       "vessel_or_service": "Thriving 17",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -108,7 +110,7 @@
       "departure_time": "2026-09-25T04:00:00+07:00",
       "arrival_time": "2026-09-25T06:50:00+07:00",
       "vessel_or_service": "Thriving 8",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -125,27 +127,6 @@
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
         "checked_at": "2026-09-21"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FERRY",
-      "operator": "Bình An",
-      "origin": "Hà Tiên",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-25T04:20:00+07:00",
-      "arrival_time": "2026-09-25T07:20:00+07:00",
-      "vessel_or_service": "Phà Bình An",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 185000,
-        "currency": "VND",
-        "checked_at": "2026-09-25"
       }
     },
     {
@@ -1995,5 +1976,12 @@
       "verified_at": "2026-09-18"
     }
   ],
-  "alerts": []
+  "alerts": [
+    {
+      "type": "data",
+      "title": "Nguồn dữ liệu cần kiểm tra",
+      "description": "Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày.",
+      "severity": "watch"
+    }
+  ]
 }
