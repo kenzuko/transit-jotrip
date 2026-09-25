@@ -1,0 +1,975 @@
+{
+  "schema_version": "1.0",
+  "generated_for": "2026-09-25",
+  "source": "OpenStreetMap Overpass raw 2026-09-25; named route match Transit 17/19/20; two KLC old-name candidate stops",
+  "operator_confirmation": false,
+  "warning": "Dữ liệu GPS OSM tham chiếu; vị trí, chiều đón và hoạt động trạm chưa được VinBus xác nhận. Luôn kiểm tra maps.vinbus.vn/pq.",
+  "published_scope": "named_reference_only",
+  "original_matched": 72,
+  "klc_candidates": 2,
+  "unresolved": [
+    {
+      "name": "Điện máy Chợ Lớn",
+      "address": "200A Nguyễn Trung Trực, Phú Quốc",
+      "reason": "Có địa chỉ cửa hàng, chưa có pin trạm xe buýt đúng chiều"
+    },
+    {
+      "name": "Nhà hát Corona",
+      "area_anchor": {
+        "lat": 10.32884,
+        "lon": 103.85686
+      },
+      "reason": "Tọa độ công trình chỉ để tìm khu vực, KHÔNG phải trạm xe buýt"
+    }
+  ],
+  "stops": [
+    {
+      "name": "Bus station T2 (departures for line 17,19 and 20)",
+      "route_ids": [
+        "17",
+        "19",
+        "20"
+      ],
+      "lat": 10.326854,
+      "lon": 103.8646293,
+      "osm_id": "node/13518302709",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/13518302709"
+    },
+    {
+      "name": "VinHolidays Fiesta (Ngoại Khu)",
+      "route_ids": [
+        "17",
+        "19",
+        "20"
+      ],
+      "lat": 10.3247916,
+      "lon": 103.8581792,
+      "osm_id": "node/12104426705",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426705"
+    },
+    {
+      "name": "Wyndham Garden (Ngoại Khu)",
+      "route_ids": [
+        "17",
+        "19",
+        "20"
+      ],
+      "lat": 10.3239393,
+      "lon": 103.8559496,
+      "osm_id": "node/12104426706",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426706"
+    },
+    {
+      "name": "Quảng Trường Biển (Ngoại Khu)",
+      "route_ids": [
+        "17",
+        "19",
+        "20"
+      ],
+      "lat": 10.3228976,
+      "lon": 103.8532153,
+      "osm_id": "node/12104426707",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426707"
+    },
+    {
+      "name": "Gần Cây xăng Phương Vy",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.3209129,
+      "lon": 103.8754903,
+      "osm_id": "node/11795128170",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795128170"
+    },
+    {
+      "name": "Gần Cây xăng Phương Vy",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.3200323,
+      "lon": 103.8757704,
+      "osm_id": "node/11795370170",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795370170"
+    },
+    {
+      "name": "Ngã ba Fusion Resort Phú Quốc",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.3158728,
+      "lon": 103.8860984,
+      "osm_id": "node/11795131669",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795131669"
+    },
+    {
+      "name": "Ngã ba Fusion Resort Phú Quốc",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.3152057,
+      "lon": 103.8864853,
+      "osm_id": "node/11795370171",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795370171"
+    },
+    {
+      "name": "Gần Ngã 3 Cửa Cạn",
+      "route_ids": [
+        "17",
+        "19",
+        "20"
+      ],
+      "lat": 10.3028152,
+      "lon": 103.9184749,
+      "osm_id": "node/11795386269",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795386269"
+    },
+    {
+      "name": "Gần Ngã 3 Cửa Cạn",
+      "route_ids": [
+        "17",
+        "19",
+        "20"
+      ],
+      "lat": 10.3026426,
+      "lon": 103.9187836,
+      "osm_id": "node/11795126469",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795126469"
+    },
+    {
+      "name": "Mộ Bà Lớn Tướng",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2875083,
+      "lon": 103.9313215,
+      "osm_id": "node/11795123469",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795123469"
+    },
+    {
+      "name": "Mộ Bà Lớn Tướng",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2871417,
+      "lon": 103.9313661,
+      "osm_id": "node/11591718769",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11591718769"
+    },
+    {
+      "name": "Gần Ngã 3 Ông Lang",
+      "route_ids": [
+        "17",
+        "19",
+        "20"
+      ],
+      "lat": 10.2647419,
+      "lon": 103.94319,
+      "osm_id": "node/11795117869",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795117869"
+    },
+    {
+      "name": "Gần Ngã 3 Ông Lang",
+      "route_ids": [
+        "17",
+        "19",
+        "20"
+      ],
+      "lat": 10.2647154,
+      "lon": 103.9430811,
+      "osm_id": "node/11795384470",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795384470"
+    },
+    {
+      "name": "Gần Ngã 3 đường vào Dinh Bà Ông Lang",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2618329,
+      "lon": 103.9457753,
+      "osm_id": "node/11795116369",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795116369"
+    },
+    {
+      "name": "Gần Ngã 3 đường vào Dinh Bà Ông Lang",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2614569,
+      "lon": 103.9460162,
+      "osm_id": "node/11591711071",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11591711071"
+    },
+    {
+      "name": "Gần Khu dân cư Bắc Dương Đông",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2416291,
+      "lon": 103.9604743,
+      "osm_id": "node/11795385670",
+      "precision": "osm_bus_stop_node",
+      "review": "direction_review",
+      "source_url": "https://www.openstreetmap.org/node/11795385670"
+    },
+    {
+      "name": "Gần Khu dân cư Bắc Dương Đông",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2399895,
+      "lon": 103.9610131,
+      "osm_id": "node/11795107971",
+      "precision": "osm_bus_stop_node",
+      "review": "direction_review",
+      "source_url": "https://www.openstreetmap.org/node/11795107971"
+    },
+    {
+      "name": "Siêu thị K+ MARK",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2324931,
+      "lon": 103.9670255,
+      "osm_id": "node/11795107969",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795107969"
+    },
+    {
+      "name": "Siêu thị K+ MARK",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2319968,
+      "lon": 103.9672108,
+      "osm_id": "node/11795386271",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795386271"
+    },
+    {
+      "name": "Sân bay cũ",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2240338,
+      "lon": 103.9635146,
+      "osm_id": "node/11795405875",
+      "precision": "osm_bus_stop_node",
+      "review": "entrance_review",
+      "source_url": "https://www.openstreetmap.org/node/11795405875"
+    },
+    {
+      "name": "Sân bay cũ",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2239038,
+      "lon": 103.9634845,
+      "osm_id": "node/11591755469",
+      "precision": "osm_bus_stop_node",
+      "review": "entrance_review",
+      "source_url": "https://www.openstreetmap.org/node/11591755469"
+    },
+    {
+      "name": "Highlands Coffee - 10B Hùng Vương",
+      "route_ids": [
+        "17",
+        "19",
+        "20"
+      ],
+      "lat": 10.2186144,
+      "lon": 103.971696,
+      "osm_id": "node/11591711272",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11591711272"
+    },
+    {
+      "name": "Đối diện Highlands Coffee - 10B Hùng Vương",
+      "route_ids": [
+        "17",
+        "19",
+        "20"
+      ],
+      "lat": 10.218445,
+      "lon": 103.971438,
+      "osm_id": "node/11591755470",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11591755470"
+    },
+    {
+      "name": "Chùa Sùng Hưng Cổ Tự",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2152366,
+      "lon": 103.9597863,
+      "osm_id": "node/7187686985",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/7187686985"
+    },
+    {
+      "name": "Ngân hàng BIDV Phú Quốc",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2151374,
+      "lon": 103.961434,
+      "osm_id": "node/11795410670",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795410670"
+    },
+    {
+      "name": "Chùa Sùng Hưng Cổ Tự",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2149248,
+      "lon": 103.9596873,
+      "osm_id": "node/11591767869",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11591767869"
+    },
+    {
+      "name": "Ngân hàng BIDV Phú Quốc",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2148672,
+      "lon": 103.9620786,
+      "osm_id": "node/11795416670",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795416670"
+    },
+    {
+      "name": "Gần Bệnh viện Đa khoa Phú Quốc",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2144927,
+      "lon": 103.9667531,
+      "osm_id": "node/11795415869",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795415869"
+    },
+    {
+      "name": "Gần Bệnh viện Đa khoa Phú Quốc",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2138684,
+      "lon": 103.9662121,
+      "osm_id": "node/11795386270",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11795386270"
+    },
+    {
+      "name": "Hòa Bình Resort",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2100612,
+      "lon": 103.9606241,
+      "osm_id": "node/11591767870",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11591767870"
+    },
+    {
+      "name": "Hòa Bình Resort",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2098634,
+      "lon": 103.9609938,
+      "osm_id": "node/7041853986",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/7041853986"
+    },
+    {
+      "name": "Gần Cổng chào Suối Đá",
+      "route_ids": [
+        "20"
+      ],
+      "lat": 10.2071267,
+      "lon": 103.9895664,
+      "osm_id": "node/12104426729",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426729"
+    },
+    {
+      "name": "Gần Cổng chào Suối Đá",
+      "route_ids": [
+        "20"
+      ],
+      "lat": 10.2070731,
+      "lon": 103.9898988,
+      "osm_id": "node/12104426737",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426737"
+    },
+    {
+      "name": "Holiday Sense",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2050471,
+      "lon": 103.9639154,
+      "osm_id": "node/11795324044",
+      "precision": "osm_bus_stop_node",
+      "review": "direction_review",
+      "source_url": "https://www.openstreetmap.org/node/11795324044"
+    },
+    {
+      "name": "Holiday Sense",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.2032577,
+      "lon": 103.9643202,
+      "osm_id": "node/11795415870",
+      "precision": "osm_bus_stop_node",
+      "review": "direction_review",
+      "source_url": "https://www.openstreetmap.org/node/11795415870"
+    },
+    {
+      "name": "Bảo tàng Cội Nguồn",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1936837,
+      "lon": 103.9673901,
+      "osm_id": "node/6266143985",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/6266143985"
+    },
+    {
+      "name": "Bảo tàng Cội Nguồn",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1928595,
+      "lon": 103.9669607,
+      "osm_id": "node/11804867969",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11804867969"
+    },
+    {
+      "name": "Long Beach Center",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1888333,
+      "lon": 103.9691292,
+      "osm_id": "node/12104426711",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426711"
+    },
+    {
+      "name": "Long Beach Center",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1882715,
+      "lon": 103.9695713,
+      "osm_id": "node/11591786169",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11591786169"
+    },
+    {
+      "name": "Gần Ngã Ba Suối Mây",
+      "route_ids": [
+        "20"
+      ],
+      "lat": 10.1870442,
+      "lon": 103.9937069,
+      "osm_id": "node/12104426736",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426736"
+    },
+    {
+      "name": "Gần Ngã Ba Suối Mây",
+      "route_ids": [
+        "20"
+      ],
+      "lat": 10.186815,
+      "lon": 103.9936015,
+      "osm_id": "node/12104426730",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426730"
+    },
+    {
+      "name": "Khu nghỉ dưỡng Salinda",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1840136,
+      "lon": 103.9684135,
+      "osm_id": "node/11765213493",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11765213493"
+    },
+    {
+      "name": "Khu nghỉ dưỡng Salinda",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1831724,
+      "lon": 103.9686992,
+      "osm_id": "node/11591711069",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11591711069"
+    },
+    {
+      "name": "Eden Resort",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1796719,
+      "lon": 103.968852,
+      "osm_id": "node/11591791269",
+      "precision": "osm_bus_stop_node",
+      "review": "direction_review",
+      "source_url": "https://www.openstreetmap.org/node/11591791269"
+    },
+    {
+      "name": "Eden Resort",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1785259,
+      "lon": 103.9705487,
+      "osm_id": "node/11774825112",
+      "precision": "osm_bus_stop_node",
+      "review": "direction_review",
+      "source_url": "https://www.openstreetmap.org/node/11774825112"
+    },
+    {
+      "name": "Trường Mầm non Hồ Thị Nghiêm",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1758547,
+      "lon": 103.9710369,
+      "osm_id": "node/11765213479",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11765213479"
+    },
+    {
+      "name": "KDL Suối Tranh",
+      "route_ids": [
+        "20"
+      ],
+      "lat": 10.1753394,
+      "lon": 104.0168506,
+      "osm_id": "node/12104426735",
+      "precision": "osm_bus_stop_node",
+      "review": "entrance_review",
+      "source_url": "https://www.openstreetmap.org/node/12104426735"
+    },
+    {
+      "name": "KDL Suối Tranh",
+      "route_ids": [
+        "20"
+      ],
+      "lat": 10.1751809,
+      "lon": 104.0165831,
+      "osm_id": "node/11815940032",
+      "precision": "osm_bus_stop_node",
+      "review": "entrance_review",
+      "source_url": "https://www.openstreetmap.org/node/11815940032"
+    },
+    {
+      "name": "Trường Mầm non Hồ Thị Nghiêm",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1748262,
+      "lon": 103.9711031,
+      "osm_id": "node/11765213472",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/11765213472"
+    },
+    {
+      "name": "Gần Ngã ba Sân bay quốc tế",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.167867,
+      "lon": 103.9733409,
+      "osm_id": "node/12104426704",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426704"
+    },
+    {
+      "name": "Gần Ngã ba Sân bay quốc tế",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1676256,
+      "lon": 103.9741321,
+      "osm_id": "node/12104426712",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426712"
+    },
+    {
+      "name": "Đối diện Trường Trung cấp Việt Hàn",
+      "route_ids": [
+        "20"
+      ],
+      "lat": 10.1673107,
+      "lon": 104.0190712,
+      "osm_id": "node/12104426734",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426734"
+    },
+    {
+      "name": "Đối diện Trường Trung cấp Việt Hàn",
+      "route_ids": [
+        "20"
+      ],
+      "lat": 10.1671045,
+      "lon": 104.0191278,
+      "osm_id": "node/12104426731",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426731"
+    },
+    {
+      "name": "Sân bay Phú Quốc",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.1625372,
+      "lon": 103.9984349,
+      "osm_id": "node/12104426713",
+      "precision": "osm_bus_stop_node",
+      "review": "direction_review",
+      "source_url": "https://www.openstreetmap.org/node/12104426713"
+    },
+    {
+      "name": "Sân bay Phú Quốc",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.161779,
+      "lon": 103.9967277,
+      "osm_id": "node/12104426703",
+      "precision": "osm_bus_stop_node",
+      "review": "direction_review",
+      "source_url": "https://www.openstreetmap.org/node/12104426703"
+    },
+    {
+      "name": "Sunset Sanato",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1540175,
+      "lon": 103.9785099,
+      "osm_id": "node/12104426722",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426722"
+    },
+    {
+      "name": "Sunset Sanato",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1540115,
+      "lon": 103.9794162,
+      "osm_id": "node/12104426720",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426720"
+    },
+    {
+      "name": "Vòng xoay Bãi Vòng",
+      "route_ids": [
+        "20"
+      ],
+      "lat": 10.1506014,
+      "lon": 104.0336845,
+      "osm_id": "node/12104426733",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426733"
+    },
+    {
+      "name": "Vòng xoay Bãi Vòng",
+      "route_ids": [
+        "20"
+      ],
+      "lat": 10.1505404,
+      "lon": 104.033592,
+      "osm_id": "node/12104426732",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426732"
+    },
+    {
+      "name": "Cảng Bãi Vòng",
+      "route_ids": [
+        "20"
+      ],
+      "lat": 10.1498952,
+      "lon": 104.0374008,
+      "osm_id": "node/7001221886",
+      "precision": "osm_bus_stop_node",
+      "review": "entrance_review",
+      "source_url": "https://www.openstreetmap.org/node/7001221886"
+    },
+    {
+      "name": "Khách Sạn Sol Beach",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1462967,
+      "lon": 103.9773786,
+      "osm_id": "node/12104426723",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426723"
+    },
+    {
+      "name": "Khách Sạn Sol Beach",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1460367,
+      "lon": 103.9775471,
+      "osm_id": "node/12104426719",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426719"
+    },
+    {
+      "name": "Ngã tư Staff house",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1438039,
+      "lon": 103.9777162,
+      "osm_id": "node/12104426724",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426724"
+    },
+    {
+      "name": "Ngã tư Staff house",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1429768,
+      "lon": 103.9780756,
+      "osm_id": "node/12104426718",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426718"
+    },
+    {
+      "name": "Mường Thanh Hotel",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.132393,
+      "lon": 103.9804903,
+      "osm_id": "node/12104426717",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426717"
+    },
+    {
+      "name": "Mường Thanh Hotel",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1323459,
+      "lon": 103.979591,
+      "osm_id": "node/12104426725",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426725"
+    },
+    {
+      "name": "Novotel Resort",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1291487,
+      "lon": 103.9814051,
+      "osm_id": "node/12104426726",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426726"
+    },
+    {
+      "name": "Novotel Resort",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1290624,
+      "lon": 103.9815511,
+      "osm_id": "node/6743318385",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/6743318385"
+    },
+    {
+      "name": "Pullman Resort",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1205781,
+      "lon": 103.9843268,
+      "osm_id": "node/12104426727",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426727"
+    },
+    {
+      "name": "Pullman Resort",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1203365,
+      "lon": 103.9845252,
+      "osm_id": "node/12104426716",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426716"
+    },
+    {
+      "name": "InterContinental Resort",
+      "route_ids": [
+        "19"
+      ],
+      "lat": 10.1143623,
+      "lon": 103.9828054,
+      "osm_id": "node/12104426714",
+      "precision": "osm_bus_stop_node",
+      "review": "osm_reference",
+      "source_url": "https://www.openstreetmap.org/node/12104426714"
+    },
+    {
+      "name": "KLC Holidays Phú Quốc (OSM: Gold Beach Hotel)",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.200684,
+      "lon": 103.9664319,
+      "osm_id": "node/11591711269",
+      "precision": "osm_bus_stop_node",
+      "review": "old_name_direction_review",
+      "source_url": "https://www.openstreetmap.org/node/11591711269"
+    },
+    {
+      "name": "KLC Holidays Phú Quốc (OSM: Gold Beach Hotel)",
+      "route_ids": [
+        "17",
+        "19"
+      ],
+      "lat": 10.199608,
+      "lon": 103.9677409,
+      "osm_id": "node/12104426710",
+      "precision": "osm_bus_stop_node",
+      "review": "old_name_direction_review",
+      "source_url": "https://www.openstreetmap.org/node/12104426710"
+    }
+  ]
+}
