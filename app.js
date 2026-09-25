@@ -206,7 +206,7 @@ function busStopPanel(routeId){
     const caution=s.review!=="osm_reference"?" · cần rà chiều đón":"";
     return '<a class="bus-stop-link" href="'+url+'" target="_blank" rel="noopener"><strong>'+title+'</strong><small>GPS OSM'+caution+' ↗</small></a>';
   }).join("");
-  return '<section class="bus-stops-reference"><h3>Điểm dừng theo tuyến '+String(routeId||"")+'</h3><p>GPS từ OpenStreetMap chỉ để tham khảo. Địa điểm hai chiều và trạm chưa xác nhận cần kiểm tra trên VinBus.</p><div class="bus-stop-link-grid">'+(links||'<p>Chưa có GPS đối chiếu.</p>')+'</div><p><a href="https://maps.vinbus.vn/pq" target="_blank" rel="noopener">Bản đồ chính thức VinBus ↗</a> · <a href="https://cms.openphuquoc.com/bus/" target="_blank" rel="noopener">Tra theo danh sách điểm dừng ↗</a></p></section>';
+  return '<section class="bus-stops-reference"><h3>Điểm dừng theo tuyến '+String(routeId||"")+'</h3><p>GPS từ OpenStreetMap chỉ để tham khảo. Địa điểm hai chiều và trạm chưa xác nhận cần kiểm tra trên VinBus. <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors (ODbL)</a>.</p><div class="bus-stop-link-grid">'+(links||'<p>Chưa có GPS đối chiếu.</p>')+'</div><p><a href="https://maps.vinbus.vn/pq" target="_blank" rel="noopener">Bản đồ chính thức VinBus ↗</a> · <a href="https://cms.openphuquoc.com/bus/" target="_blank" rel="noopener">Tra theo danh sách điểm dừng ↗</a></p></section>';
 }
 function openDrawer(r){
   const drawer=$('#detailDrawer'),back=$('#drawerBackdrop'),content=$('#drawerContent');
