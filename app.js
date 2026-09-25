@@ -1,5 +1,6 @@
 const DATA_URL='./data/network.json';
-const state={data:null,view:'next',query:''};
+const BUS_GPS_URL='./data/bus_stops_osm.json';
+const state={data:null,busStops:[],view:'next',query:''};
 const $=s=>document.querySelector(s);
 const $$=s=>[...document.querySelectorAll(s)];
 const setText=(s,v)=>{const el=$(s);if(el)el.textContent=v};
@@ -197,6 +198,16 @@ function setView(view){
   $$('[data-mobile-view]').forEach(b=>b.classList.toggle('active',b.dataset.mobileView===view));
   renderRows();
 }
+function busStopPanel(routeId){
+  const stops=(state.busStops||[]).filter(s=>Array.isArray(s.route_ids)&&s.route_ids.includes(String(routeId||"")));
+  const links=stops.map(s=>{
+    const url="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(s.lat+","+s.lon);
+    const title=String(s.name||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+    const caution=s.review!=="osm_reference"?" · cần rà chiều đón":"";
+    return '<a class="bus-stop-link" href="'+url+'" target="_blank" rel="noopener"><strong>'+title+'</strong><small>GPS OSM'+caution+' ↗</small></a>';
+  }).join("");
+  return '<section class="bus-stops-reference"><h3>Điểm dừng theo tuyến '+String(routeId||"")+'</h3><p>GPS từ OpenStreetMap chỉ để tham khảo. Địa điểm hai chiều và trạm chưa xác nhận cần kiểm tra trên VinBus.</p><div class="bus-stop-link-grid">'+(links||'<p>Chưa có GPS đối chiếu.</p>')+'</div><p><a href="https://maps.vinbus.vn/pq" target="_blank" rel="noopener">Bản đồ chính thức VinBus ↗</a> · <a href="https://cms.openphuquoc.com/bus/" target="_blank" rel="noopener">Tra theo danh sách điểm dừng ↗</a></p></section>';
+}
 function openDrawer(r){
   const drawer=$('#detailDrawer'),back=$('#drawerBackdrop'),content=$('#drawerContent');
   const isBus=r.type==='bus';
@@ -216,7 +227,7 @@ function openDrawer(r){
       <div><span>Trạng thái</span><b>${safe(r.status,'Theo lịch')}</b></div>
       <div><span>Cấp dữ liệu</span><b>${kindLabel(r)}</b></div>
       <div><span>Độ tin cậy</span><b>${safe(r.confidence,isBus?'schedule':'-')}</b></div>
-    </div>`;
+    </div>${isBus?busStopPanel(r.route_id):""}`;
   drawer.classList.remove('hidden');back.classList.remove('hidden');drawer.setAttribute('aria-hidden','false');
 }
 function closeDrawer(){
@@ -225,8 +236,9 @@ function closeDrawer(){
 async function load(){
   $('#errorBox').classList.add('hidden');
   try{
-    const res=await fetch(`${DATA_URL}?t=${Date.now()}`,{cache:'no-store'});
+    const [res,gps]=await Promise.all([fetch(`${DATA_URL}?t=${Date.now()}`,{cache:'no-store'}),fetch(BUS_GPS_URL+'?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():{stops:[]}).catch(()=>({stops:[]}))]);
     if(!res.ok)throw new Error(`HTTP ${res.status}`);
+    state.busStops=Array.isArray(gps.stops)?gps.stops:[];
     state.data=await res.json();render();
   }catch(err){
     $('#errorBox').textContent='Không đọc được snapshot Transit lúc này. Trang không dùng dữ liệu giả để thay thế.';
