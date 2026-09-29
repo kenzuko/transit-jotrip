@@ -44,7 +44,13 @@ jobs:
           python - <<'PY'
           import json
           p=json.load(open("data/network.json", encoding="utf-8"))
+          h=json.load(open("data/health.json", encoding="utf-8"))
           assert p["schema_version"] == "1.1"
+          assert h["schema_version"] == "transit-health-v1"
+          assert h["generated_at"] == p["generated_at"]
+          assert h["ready"] == p["ready"]
+          assert h["summary"]["departures"] == len(p["departures"])
+          assert h["summary"]["services"] == len(p["services"])
           assert "departures" in p and "services" in p
           public_blob=json.dumps(p, ensure_ascii=False)
           assert "source_url" not in public_blob, "public snapshot must not expose source URLs"
@@ -102,12 +108,12 @@ jobs:
       - name: Commit changed snapshot
         if: github.event_name != 'pull_request'
         run: |
-          if git diff --quiet -- data/network.json data/history/binhan; then
+          if git diff --quiet -- data/network.json data/health.json data/history/binhan; then
             echo "No snapshot change"
             exit 0
           fi
           git config user.name "jotrip-transit-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/network.json data/history/binhan
+          git add data/network.json data/health.json data/history/binhan
           git commit -m "data: refresh transit snapshot"
           git push
