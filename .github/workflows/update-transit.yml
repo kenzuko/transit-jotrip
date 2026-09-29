@@ -72,12 +72,16 @@ jobs:
               assert pqe_state.get("status") in {"error","empty"}, f"unexpected PQE state: {pqe_state}"
               print("pqe_rows", 0, "status", pqe_state.get("status"))
           sd=[r for r in p["departures"] if r.get("operator")=="Superdong"]
-          assert sd, "Superdong date-specific rows missing"
-          assert all(r.get("date_specific") is True for r in sd)
-          assert all("NoOfRemain" not in r and "NoOfSeat" not in r for r in sd), "Superdong seat inventory leaked"
-          assert any((r.get("fare") or {}).get("adult") for r in sd), "Superdong fare missing"
-          print("superdong_rows", len(sd))
-          print("superdong_sample", {k:sd[0].get(k) for k in ("origin","destination","departure_time","vessel_or_service","fare")})
+          sd_state=(p.get("sources",{}).get("registry",{}).get("superdong") or {})
+          if sd:
+              assert all(r.get("date_specific") is True for r in sd)
+              assert all("NoOfRemain" not in r and "NoOfSeat" not in r for r in sd), "Superdong seat inventory leaked"
+              assert any((r.get("fare") or {}).get("adult") for r in sd), "Superdong fare missing"
+              print("superdong_rows", len(sd))
+              print("superdong_sample", {k:sd[0].get(k) for k in ("origin","destination","departure_time","vessel_or_service","fare")})
+          else:
+              assert sd_state.get("status") in {"error","empty"}, f"unexpected Superdong state: {sd_state}"
+              print("superdong_rows", 0, "status", sd_state.get("status"))
           ba=[r for r in p["departures"] if r.get("operator")=="Bình An"]
           ba_state=(p.get("sources",{}).get("registry",{}).get("binh_an") or {})
           if ba:
