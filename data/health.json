@@ -1,19 +1,16 @@
 {
   "schema_version": "transit-health-v1",
-  "generated_at": "2026-09-30T01:50:19.947811+07:00",
+  "generated_at": "2026-09-30T05:55:01.508558+07:00",
   "service_date": "2026-09-30",
   "ready": true,
   "health": {
-    "status": "watch",
-    "description": "Một phần nguồn đang thiếu hoặc thay đổi cấu trúc. Không suy diễn trạng thái từ dữ liệu thiếu.",
-    "source_errors": [
-      "Thạnh Thới: HTTPSConnectionPool(host='thanhthoi.vn', port=443): Max retries exceeded with url: /?lg=vi (Caused by ConnectTimeoutError(<HTTPSConnection(host='thanhthoi.vn', port=443) at 0x7fb7600a9d90>, 'Connection to thanhthoi.vn timed out. (connect timeout=20)'))",
-      "Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày."
-    ]
+    "status": "good",
+    "description": "Các nguồn chính đang đọc được. Chuyến theo ngày được tách khỏi lịch tham khảo.",
+    "source_errors": []
   },
   "summary": {
     "network": {
-      "label": "PARTIAL DATA"
+      "label": "DATA ONLINE"
     },
     "sea": {
       "label": "Có dữ liệu",
@@ -24,23 +21,25 @@
       "description": "Tuyến VinBus công khai, hiện ở cấp Schedule/Frequency."
     },
     "active_routes": 7,
-    "departures": 32,
+    "departures": 54,
     "services": 3
   },
   "sources": {
     "thanh_thoi": {
       "label": "Phà",
-      "status": "error",
-      "records": 0
+      "status": "ok",
+      "records": 24,
+      "data_kind": "operational_public",
+      "date_specific": true
     },
     "phu_quoc_express": {
       "label": "Tàu cao tốc",
-      "status": "cached",
+      "status": "ok",
       "records": 12,
       "data_kind": "date_specific_official",
       "date_specific": true,
-      "freshness": "cached",
-      "last_success_at": "2026-09-30T00:00:43.095592+07:00"
+      "freshness": "fresh",
+      "checked_at": "2026-09-30T05:55:01.508558+07:00"
     },
     "superdong": {
       "label": "Tàu cao tốc",
@@ -52,7 +51,7 @@
     "binh_an": {
       "label": "Phà",
       "status": "ok",
-      "records": 8,
+      "records": 6,
       "data_kind": "date_specific_official",
       "date_specific": true
     },

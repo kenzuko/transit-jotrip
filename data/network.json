@@ -1,10 +1,10 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-30T01:50:19.947811+07:00",
+  "generated_at": "2026-09-30T05:55:01.508558+07:00",
   "summary": {
     "network": {
-      "label": "PARTIAL DATA"
+      "label": "DATA ONLINE"
     },
     "sea": {
       "label": "Có dữ liệu",
@@ -28,17 +28,19 @@
     "registry": {
       "thanh_thoi": {
         "label": "Phà",
-        "status": "error",
-        "records": 0
+        "status": "ok",
+        "records": 24,
+        "data_kind": "operational_public",
+        "date_specific": true
       },
       "phu_quoc_express": {
         "label": "Tàu cao tốc",
-        "status": "cached",
+        "status": "ok",
         "records": 12,
         "data_kind": "date_specific_official",
         "date_specific": true,
-        "freshness": "cached",
-        "last_success_at": "2026-09-30T00:00:43.095592+07:00"
+        "freshness": "fresh",
+        "checked_at": "2026-09-30T05:55:01.508558+07:00"
       },
       "superdong": {
         "label": "Tàu cao tốc",
@@ -50,7 +52,7 @@
       "binh_an": {
         "label": "Phà",
         "status": "ok",
-        "records": 8,
+        "records": 6,
         "data_kind": "date_specific_official",
         "date_specific": true
       },
@@ -64,54 +66,121 @@
     }
   },
   "health": {
-    "status": "watch",
-    "description": "Một phần nguồn đang thiếu hoặc thay đổi cấu trúc. Không suy diễn trạng thái từ dữ liệu thiếu.",
-    "source_errors": [
-      "Thạnh Thới: HTTPSConnectionPool(host='thanhthoi.vn', port=443): Max retries exceeded with url: /?lg=vi (Caused by ConnectTimeoutError(<HTTPSConnection(host='thanhthoi.vn', port=443) at 0x7fb7600a9d90>, 'Connection to thanhthoi.vn timed out. (connect timeout=20)'))",
-      "Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày."
-    ]
+    "status": "good",
+    "description": "Các nguồn chính đang đọc được. Chuyến theo ngày được tách khỏi lịch tham khảo.",
+    "source_errors": []
   },
   "departures": [
     {
       "type": "sea",
       "mode": "FERRY",
-      "operator": "Bình An",
+      "operator": "Thạnh Thới",
       "origin": "Hà Tiên",
       "destination": "Phú Quốc",
-      "departure_time": "2026-09-30T04:20:00+07:00",
-      "arrival_time": "2026-09-30T07:20:00+07:00",
-      "vessel_or_service": "Phà Bình An",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
+      "departure_time": "2026-09-30T03:30:00+07:00",
+      "arrival_time": "2026-09-30T06:30:00+07:00",
+      "vessel_or_service": "Thriving 17",
+      "status": "Đã xuất bến",
+      "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
       "fare": {
-        "adult": 185000,
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-30"
+        "checked_at": "2026-09-21"
       }
     },
     {
       "type": "sea",
       "mode": "FERRY",
-      "operator": "Bình An",
-      "origin": "Phú Quốc",
-      "destination": "Hà Tiên",
-      "departure_time": "2026-09-30T05:20:00+07:00",
-      "arrival_time": "2026-09-30T08:20:00+07:00",
-      "vessel_or_service": "Phà Bình An",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
+      "operator": "Thạnh Thới",
+      "origin": "Hà Tiên",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-30T04:00:00+07:00",
+      "arrival_time": "2026-09-30T07:00:00+07:00",
+      "vessel_or_service": "Thriving 3",
+      "status": "Đã xuất bến",
+      "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
       "fare": {
-        "adult": 185000,
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-30"
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Hà Tiên",
+      "departure_time": "2026-09-30T05:00:00+07:00",
+      "arrival_time": "2026-09-30T07:45:00+07:00",
+      "vessel_or_service": "Thriving 7",
+      "status": "Đã xuất bến",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Hà Tiên",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-30T05:30:00+07:00",
+      "arrival_time": "2026-09-30T08:30:00+07:00",
+      "vessel_or_service": "Thriving 4",
+      "status": "Đã xuất bến",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -148,6 +217,60 @@
         "currency": "VND",
         "contact_required": true,
         "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Rạch Giá",
+      "departure_time": "2026-09-30T06:45:00+07:00",
+      "arrival_time": "2026-09-30T09:45:00+07:00",
+      "vessel_or_service": "Thriving 16",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Rạch Giá",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-30T06:45:00+07:00",
+      "arrival_time": "2026-09-30T10:00:00+07:00",
+      "vessel_or_service": "Thriving 18",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
         "checked_at": "2026-09-21"
       }
     },
@@ -447,6 +570,62 @@
     },
     {
       "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Hà Tiên",
+      "departure_time": "2026-09-30T07:30:00+07:00",
+      "arrival_time": "2026-09-30T10:30:00+07:00",
+      "vessel_or_service": "Thriving 17",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Hà Tiên",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-30T07:30:00+07:00",
+      "arrival_time": "2026-09-30T10:10:00+07:00",
+      "vessel_or_service": "Thriving 20",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
       "mode": "FAST FERRY",
       "operator": "Superdong",
       "origin": "Phú Quốc",
@@ -479,6 +658,34 @@
         "currency": "VND",
         "contact_required": true,
         "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Hà Tiên",
+      "departure_time": "2026-09-30T08:30:00+07:00",
+      "arrival_time": "2026-09-30T11:30:00+07:00",
+      "vessel_or_service": "Thriving 3",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
         "checked_at": "2026-09-21"
       }
     },
@@ -610,6 +817,34 @@
         "currency": "VND",
         "contact_required": true,
         "contact_note": "Cần đăng ký trước vì chỗ nhận xe và hàng phụ thuộc tàu/chuyến.",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Hà Tiên",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-30T09:30:00+07:00",
+      "arrival_time": "2026-09-30T12:30:00+07:00",
+      "vessel_or_service": "Thriving 7",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
         "checked_at": "2026-09-21"
       }
     },
@@ -894,6 +1129,116 @@
     },
     {
       "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Rạch Giá",
+      "departure_time": "2026-09-30T10:45:00+07:00",
+      "arrival_time": "2026-09-30T13:45:00+07:00",
+      "vessel_or_service": "Thriving 18",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Rạch Giá",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-30T10:45:00+07:00",
+      "arrival_time": "2026-09-30T14:55:00+07:00",
+      "vessel_or_service": "Thriving 16",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Hà Tiên",
+      "departure_time": "2026-09-30T11:00:00+07:00",
+      "arrival_time": "2026-09-30T13:30:00+07:00",
+      "vessel_or_service": "Thriving 20",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Hà Tiên",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-30T11:30:00+07:00",
+      "arrival_time": "2026-09-30T14:30:00+07:00",
+      "vessel_or_service": "Thriving 17",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
       "mode": "FAST FERRY",
       "operator": "Phú Quốc Express",
       "origin": "Hà Tiên",
@@ -966,6 +1311,62 @@
         "adult": 185000,
         "currency": "VND",
         "checked_at": "2026-09-30"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Hà Tiên",
+      "departure_time": "2026-09-30T12:30:00+07:00",
+      "arrival_time": "2026-09-30T15:30:00+07:00",
+      "vessel_or_service": "Thriving 4",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Hà Tiên",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-30T12:30:00+07:00",
+      "arrival_time": "2026-09-30T15:30:00+07:00",
+      "vessel_or_service": "Thriving 3",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -1249,6 +1650,34 @@
     },
     {
       "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Hà Tiên",
+      "departure_time": "2026-09-30T14:00:00+07:00",
+      "arrival_time": "2026-09-30T16:45:00+07:00",
+      "vessel_or_service": "Thriving 7",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
       "mode": "FAST FERRY",
       "operator": "Phú Quốc Express",
       "origin": "Phú Quốc",
@@ -1305,6 +1734,144 @@
     {
       "type": "sea",
       "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Hà Tiên",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-30T14:30:00+07:00",
+      "arrival_time": "2026-09-30T17:10:00+07:00",
+      "vessel_or_service": "Thriving 20",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Rạch Giá",
+      "departure_time": "2026-09-30T14:45:00+07:00",
+      "arrival_time": "2026-09-30T18:00:00+07:00",
+      "vessel_or_service": "Thriving 16",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Rạch Giá",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-30T14:45:00+07:00",
+      "arrival_time": "2026-09-30T17:55:00+07:00",
+      "vessel_or_service": "Thriving 18",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 315000,
+        "vehicle": {
+          "motorbike": 165000,
+          "car_4_5_seat": 1500000,
+          "pickup_4_seat": 1550000
+        },
+        "vehicle_summary": "Xe máy 165.000đ · ô tô 4-5 chỗ từ 1.500.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Hà Tiên",
+      "departure_time": "2026-09-30T16:30:00+07:00",
+      "arrival_time": "2026-09-30T19:30:00+07:00",
+      "vessel_or_service": "Thriving 17",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Hà Tiên",
+      "departure_time": "2026-09-30T17:00:00+07:00",
+      "arrival_time": "2026-09-30T20:00:00+07:00",
+      "vessel_or_service": "Thriving 3",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
       "operator": "Bình An",
       "origin": "Phú Quốc",
       "destination": "Hà Tiên",
@@ -1342,6 +1909,62 @@
         "adult": 185000,
         "currency": "VND",
         "checked_at": "2026-09-30"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Phú Quốc",
+      "destination": "Hà Tiên",
+      "departure_time": "2026-09-30T18:00:00+07:00",
+      "arrival_time": "2026-09-30T20:30:00+07:00",
+      "vessel_or_service": "Thriving 20",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FERRY",
+      "operator": "Thạnh Thới",
+      "origin": "Hà Tiên",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-30T18:00:00+07:00",
+      "arrival_time": "2026-09-30T21:00:00+07:00",
+      "vessel_or_service": "Thriving 7",
+      "status": "Mở bán",
+      "data_kind": "operational_public",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "fare": {
+        "adult": 205000,
+        "vehicle": {
+          "motorbike": 95000,
+          "motorcycle": 240000,
+          "car_4_5_seat": 1000000,
+          "pickup_4_seat": 1300000
+        },
+        "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
+        "currency": "VND",
+        "checked_at": "2026-09-21"
       }
     }
   ],
@@ -1386,18 +2009,5 @@
       "verified_at": "2026-09-18"
     }
   ],
-  "alerts": [
-    {
-      "type": "data",
-      "title": "Nguồn dữ liệu cần kiểm tra",
-      "description": "Thạnh Thới: HTTPSConnectionPool(host='thanhthoi.vn', port=443): Max retries exceeded with url: /?lg=vi (Caused by ConnectTimeoutError(<HTTPSConnection(host='thanhthoi.vn', port=443) at 0x7fb7600a9d90>, 'Connection to tha",
-      "severity": "watch"
-    },
-    {
-      "type": "data",
-      "title": "Nguồn dữ liệu cần kiểm tra",
-      "description": "Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày.",
-      "severity": "watch"
-    }
-  ]
+  "alerts": []
 }
