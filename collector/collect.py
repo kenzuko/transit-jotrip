@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "network.json"
+HEALTH_PATH = ROOT / "data" / "health.json"
 BUS_CONFIG = ROOT / "config" / "bus_public.json"
 TZ = ZoneInfo("Asia/Ho_Chi_Minh")
 BINHAN_HISTORY_DIR = ROOT / "data" / "history" / "binhan"
@@ -919,6 +920,44 @@ def main():
     payload = sanitize_public_payload(payload)
     DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
     DATA_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    health_payload = {
+        "schema_version": "transit-health-v1",
+        "generated_at": payload["generated_at"],
+        "service_date": day,
+        "ready": payload["ready"],
+        "health": payload["health"],
+        "summary": {
+            "network": payload["summary"]["network"],
+            "sea": payload["summary"]["sea"],
+            "bus": payload["summary"]["bus"],
+            "active_routes": payload["summary"]["active_routes"],
+            "departures": len(payload["departures"]),
+            "services": len(payload["services"]),
+        },
+        "sources": {
+            key: {
+                field: value
+                for field, value in meta.items()
+                if field in {
+                    "label",
+                    "status",
+                    "records",
+                    "data_kind",
+                    "date_specific",
+                    "freshness",
+                    "checked_at",
+                    "last_success_at",
+                    "verified_at",
+                }
+            }
+            for key, meta in (payload.get("sources", {}).get("registry", {}) or {}).items()
+        },
+    }
+    HEALTH_PATH.write_text(
+        json.dumps(health_payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
     print(f"generated={payload['generated_at']}")
     print(f"departures={len(departures)} services={len(services)} health={health_status}")
