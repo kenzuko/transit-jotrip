@@ -1,10 +1,10 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-29T07:19:11.682953+07:00",
+  "generated_at": "2026-09-29T13:04:15.435298+07:00",
   "summary": {
     "network": {
-      "label": "PARTIAL DATA"
+      "label": "DATA ONLINE"
     },
     "sea": {
       "label": "Có dữ liệu",
@@ -35,24 +35,24 @@
       },
       "phu_quoc_express": {
         "label": "Tàu cao tốc",
-        "status": "error",
-        "records": 0,
+        "status": "ok",
+        "records": 3,
         "data_kind": "date_specific_official",
         "date_specific": true,
-        "freshness": "unavailable",
-        "last_success_at": null
+        "freshness": "fresh",
+        "checked_at": "2026-09-29T13:04:15.435298+07:00"
       },
       "superdong": {
         "label": "Tàu cao tốc",
         "status": "ok",
-        "records": 10,
+        "records": 4,
         "data_kind": "date_specific_official",
         "date_specific": true
       },
       "binh_an": {
         "label": "Phà",
         "status": "ok",
-        "records": 6,
+        "records": 2,
         "data_kind": "date_specific_official",
         "date_specific": true
       },
@@ -66,11 +66,9 @@
     }
   },
   "health": {
-    "status": "watch",
-    "description": "Một phần nguồn đang thiếu hoặc thay đổi cấu trúc. Không suy diễn trạng thái từ dữ liệu thiếu.",
-    "source_errors": [
-      "Một nguồn tàu cao tốc hiện chưa phản hồi."
-    ]
+    "status": "good",
+    "description": "Các nguồn chính đang đọc được. Chuyến theo ngày được tách khỏi lịch tham khảo.",
+    "source_errors": []
   },
   "departures": [
     {
@@ -241,43 +239,6 @@
     },
     {
       "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Phú Quốc",
-      "destination": "Rạch Giá",
-      "departure_time": "2026-09-29T07:20:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong XII",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 324000.0,
-        "adult_classes": {
-          "STANDARD": 324000.0
-        },
-        "child": 235636.0,
-        "senior": 274909.0,
-        "vip": null,
-        "currency": "VND",
-        "checked_at": "2026-09-29"
-      },
-      "vehicle_cargo": {
-        "accepted": true,
-        "booking_required": true,
-        "availability": "vessel_dependent",
-        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
-        "currency": "VND",
-        "contact_required": true,
-        "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
-        "checked_at": "2026-09-21"
-      }
-    },
-    {
-      "type": "sea",
       "mode": "FERRY",
       "operator": "Thạnh Thới",
       "origin": "Phú Quốc",
@@ -285,7 +246,7 @@
       "departure_time": "2026-09-29T07:30:00+07:00",
       "arrival_time": "2026-09-29T10:30:00+07:00",
       "vessel_or_service": "Thriving 17",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -313,7 +274,7 @@
       "departure_time": "2026-09-29T07:30:00+07:00",
       "arrival_time": "2026-09-29T10:10:00+07:00",
       "vessel_or_service": "Thriving 20",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -329,43 +290,6 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Phú Quốc",
-      "destination": "Hà Tiên",
-      "departure_time": "2026-09-29T08:00:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong V",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 225818.0,
-        "adult_classes": {
-          "STANDARD": 225818.0
-        },
-        "child": 157091.0,
-        "senior": 191455.0,
-        "vip": null,
-        "currency": "VND",
-        "checked_at": "2026-09-29"
-      },
-      "vehicle_cargo": {
-        "accepted": true,
-        "booking_required": true,
-        "availability": "vessel_dependent",
-        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
-        "currency": "VND",
-        "contact_required": true,
-        "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
         "checked_at": "2026-09-21"
       }
     },
@@ -378,7 +302,7 @@
       "departure_time": "2026-09-29T08:30:00+07:00",
       "arrival_time": "2026-09-29T11:30:00+07:00",
       "vessel_or_service": "Thriving 4",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -395,27 +319,6 @@
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
         "checked_at": "2026-09-21"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FERRY",
-      "operator": "Bình An",
-      "origin": "Phú Quốc",
-      "destination": "Hà Tiên",
-      "departure_time": "2026-09-29T08:50:00+07:00",
-      "arrival_time": "2026-09-29T11:50:00+07:00",
-      "vessel_or_service": "Phà Bình An",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 185000,
-        "currency": "VND",
-        "checked_at": "2026-09-29"
       }
     },
     {
@@ -427,7 +330,7 @@
       "departure_time": "2026-09-29T09:30:00+07:00",
       "arrival_time": "2026-09-29T12:15:00+07:00",
       "vessel_or_service": "Thriving 7",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -443,175 +346,6 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
-        "checked_at": "2026-09-21"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FERRY",
-      "operator": "Bình An",
-      "origin": "Hà Tiên",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-29T09:30:00+07:00",
-      "arrival_time": "2026-09-29T12:30:00+07:00",
-      "vessel_or_service": "Phà Bình An",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 185000,
-        "currency": "VND",
-        "checked_at": "2026-09-29"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Hà Tiên",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-29T10:00:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong V",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 225818.0,
-        "adult_classes": {
-          "STANDARD": 225818.0
-        },
-        "child": 157091.0,
-        "senior": 191455.0,
-        "vip": null,
-        "currency": "VND",
-        "checked_at": "2026-09-29"
-      },
-      "vehicle_cargo": {
-        "accepted": true,
-        "booking_required": true,
-        "availability": "vessel_dependent",
-        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
-        "currency": "VND",
-        "contact_required": true,
-        "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
-        "checked_at": "2026-09-21"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Phú Quốc",
-      "destination": "Rạch Giá",
-      "departure_time": "2026-09-29T10:10:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong IX",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 324000.0,
-        "adult_classes": {
-          "STANDARD": 324000.0
-        },
-        "child": 235636.0,
-        "senior": 274909.0,
-        "vip": null,
-        "currency": "VND",
-        "checked_at": "2026-09-29"
-      },
-      "vehicle_cargo": {
-        "accepted": true,
-        "booking_required": true,
-        "availability": "vessel_dependent",
-        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
-        "currency": "VND",
-        "contact_required": true,
-        "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
-        "checked_at": "2026-09-21"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Phú Quốc",
-      "destination": "Hà Tiên",
-      "departure_time": "2026-09-29T10:20:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong VII",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 225818.0,
-        "adult_classes": {
-          "STANDARD": 225818.0
-        },
-        "child": 157091.0,
-        "senior": 191455.0,
-        "vip": null,
-        "currency": "VND",
-        "checked_at": "2026-09-29"
-      },
-      "vehicle_cargo": {
-        "accepted": true,
-        "booking_required": true,
-        "availability": "vessel_dependent",
-        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
-        "currency": "VND",
-        "contact_required": true,
-        "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
-        "checked_at": "2026-09-21"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FAST FERRY",
-      "operator": "Superdong",
-      "origin": "Rạch Giá",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-29T10:30:00+07:00",
-      "arrival_time": null,
-      "vessel_or_service": "Superdong XII",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 324000.0,
-        "adult_classes": {
-          "STANDARD": 324000.0
-        },
-        "child": 235636.0,
-        "senior": 274909.0,
-        "vip": null,
-        "currency": "VND",
-        "checked_at": "2026-09-29"
-      },
-      "vehicle_cargo": {
-        "accepted": true,
-        "booking_required": true,
-        "availability": "vessel_dependent",
-        "price_label": "Có nhận xe/hàng · liên hệ hãng trước",
-        "currency": "VND",
-        "contact_required": true,
-        "contact_note": "Cần đăng ký trước để xác nhận chuyến nhận xe/hàng và mức cước hiện hành.",
         "checked_at": "2026-09-21"
       }
     },
@@ -624,7 +358,7 @@
       "departure_time": "2026-09-29T10:45:00+07:00",
       "arrival_time": "2026-09-29T13:45:00+07:00",
       "vessel_or_service": "Thriving 16",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -651,7 +385,7 @@
       "departure_time": "2026-09-29T10:45:00+07:00",
       "arrival_time": "2026-09-29T14:00:00+07:00",
       "vessel_or_service": "Thriving 18",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -678,7 +412,7 @@
       "departure_time": "2026-09-29T11:00:00+07:00",
       "arrival_time": "2026-09-29T13:30:00+07:00",
       "vessel_or_service": "Thriving 20",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -706,7 +440,7 @@
       "departure_time": "2026-09-29T11:30:00+07:00",
       "arrival_time": "2026-09-29T14:30:00+07:00",
       "vessel_or_service": "Thriving 17",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -728,34 +462,13 @@
     {
       "type": "sea",
       "mode": "FERRY",
-      "operator": "Bình An",
-      "origin": "Hà Tiên",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-29T12:25:00+07:00",
-      "arrival_time": "2026-09-29T15:25:00+07:00",
-      "vessel_or_service": "Phà Bình An",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 185000,
-        "currency": "VND",
-        "checked_at": "2026-09-29"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FERRY",
       "operator": "Thạnh Thới",
       "origin": "Phú Quốc",
       "destination": "Hà Tiên",
       "departure_time": "2026-09-29T12:30:00+07:00",
       "arrival_time": "2026-09-29T15:40:00+07:00",
       "vessel_or_service": "Thriving 3",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -783,7 +496,7 @@
       "departure_time": "2026-09-29T12:30:00+07:00",
       "arrival_time": "2026-09-29T15:40:00+07:00",
       "vessel_or_service": "Thriving 4",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -879,6 +592,61 @@
     {
       "type": "sea",
       "mode": "FAST FERRY",
+      "operator": "Phú Quốc Express",
+      "origin": "Phú Quốc",
+      "destination": "Rạch Giá",
+      "departure_time": "2026-09-29T13:20:00+07:00",
+      "arrival_time": null,
+      "vessel_or_service": "PQE27 - PHÚ QUỐC EXPRESS 27",
+      "harbor": "CẢNG BÃI VÒNG",
+      "status": "Cập nhật theo ngày",
+      "data_kind": "date_specific_official",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "fare": {
+        "adult": 315000,
+        "adult_classes": {
+          "ECO": 315000,
+          "VIP": 500000
+        },
+        "child_classes": {
+          "ECO": 225000,
+          "VIP": 500000
+        },
+        "senior_classes": {
+          "ECO": 265000,
+          "VIP": 500000
+        },
+        "currency": "VND",
+        "checked_at": "2026-09-29"
+      },
+      "vehicle_cargo": {
+        "accepted": true,
+        "booking_required": true,
+        "availability": "vessel_dependent",
+        "price_label": "Xe máy từ 90.000đ · hàng từ 20.000đ/kiện",
+        "motorbike": {
+          "manual": 90000,
+          "scooter": 100000,
+          "large_scooter": 120000,
+          "large_motorcycle": 150000
+        },
+        "cargo": {
+          "under_20kg": 20000,
+          "from_21_to_50kg": 40000,
+          "over_50kg": 90000
+        },
+        "currency": "VND",
+        "contact_required": true,
+        "contact_note": "Cần đăng ký trước vì chỗ nhận xe và hàng phụ thuộc tàu/chuyến.",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FAST FERRY",
       "operator": "Superdong",
       "origin": "Phú Quốc",
       "destination": "Hà Tiên",
@@ -952,13 +720,14 @@
     },
     {
       "type": "sea",
-      "mode": "FERRY",
-      "operator": "Bình An",
-      "origin": "Phú Quốc",
-      "destination": "Hà Tiên",
-      "departure_time": "2026-09-29T13:30:00+07:00",
-      "arrival_time": "2026-09-29T16:30:00+07:00",
-      "vessel_or_service": "Phà Bình An",
+      "mode": "FAST FERRY",
+      "operator": "Phú Quốc Express",
+      "origin": "Hà Tiên",
+      "destination": "Phú Quốc",
+      "departure_time": "2026-09-29T13:45:00+07:00",
+      "arrival_time": null,
+      "vessel_or_service": "PQE7 - PHÚ QUỐC EXPRESS 7",
+      "harbor": "BẾN TÀU HÀ TIÊN",
       "status": "Cập nhật theo ngày",
       "data_kind": "date_specific_official",
       "date_specific": true,
@@ -966,9 +735,42 @@
       "source_label": "Nguồn chính thức",
       "confidence": "high",
       "fare": {
-        "adult": 185000,
+        "adult": 216000,
+        "adult_classes": {
+          "ECO": 216000,
+          "VIP": 330000
+        },
+        "child_classes": {
+          "ECO": 148000,
+          "VIP": 330000
+        },
+        "senior_classes": {
+          "ECO": 182000,
+          "VIP": 330000
+        },
         "currency": "VND",
         "checked_at": "2026-09-29"
+      },
+      "vehicle_cargo": {
+        "accepted": true,
+        "booking_required": true,
+        "availability": "vessel_dependent",
+        "price_label": "Xe máy từ 90.000đ · hàng từ 20.000đ/kiện",
+        "motorbike": {
+          "manual": 90000,
+          "scooter": 100000,
+          "large_scooter": 120000,
+          "large_motorcycle": 150000
+        },
+        "cargo": {
+          "under_20kg": 20000,
+          "from_21_to_50kg": 40000,
+          "over_50kg": 90000
+        },
+        "currency": "VND",
+        "contact_required": true,
+        "contact_note": "Cần đăng ký trước vì chỗ nhận xe và hàng phụ thuộc tàu/chuyến.",
+        "checked_at": "2026-09-21"
       }
     },
     {
@@ -996,6 +798,61 @@
         },
         "vehicle_summary": "Xe máy 95.000đ · ô tô 4-5 chỗ từ 1.000.000đ",
         "currency": "VND",
+        "checked_at": "2026-09-21"
+      }
+    },
+    {
+      "type": "sea",
+      "mode": "FAST FERRY",
+      "operator": "Phú Quốc Express",
+      "origin": "Phú Quốc",
+      "destination": "Hà Tiên",
+      "departure_time": "2026-09-29T14:00:00+07:00",
+      "arrival_time": null,
+      "vessel_or_service": "PQE9 - PHÚ QUỐC EXPRESS 9",
+      "harbor": "CẢNG BÃI VÒNG",
+      "status": "Cập nhật theo ngày",
+      "data_kind": "date_specific_official",
+      "date_specific": true,
+      "service_date_basis": "date_specific",
+      "source_label": "Nguồn chính thức",
+      "confidence": "high",
+      "fare": {
+        "adult": 216000,
+        "adult_classes": {
+          "ECO": 216000,
+          "VIP": 330000
+        },
+        "child_classes": {
+          "ECO": 148000,
+          "VIP": 330000
+        },
+        "senior_classes": {
+          "ECO": 182000,
+          "VIP": 330000
+        },
+        "currency": "VND",
+        "checked_at": "2026-09-29"
+      },
+      "vehicle_cargo": {
+        "accepted": true,
+        "booking_required": true,
+        "availability": "vessel_dependent",
+        "price_label": "Xe máy từ 90.000đ · hàng từ 20.000đ/kiện",
+        "motorbike": {
+          "manual": 90000,
+          "scooter": 100000,
+          "large_scooter": 120000,
+          "large_motorcycle": 150000
+        },
+        "cargo": {
+          "under_20kg": 20000,
+          "from_21_to_50kg": 40000,
+          "over_50kg": 90000
+        },
+        "currency": "VND",
+        "contact_required": true,
+        "contact_note": "Cần đăng ký trước vì chỗ nhận xe và hàng phụ thuộc tàu/chuyến.",
         "checked_at": "2026-09-21"
       }
     },
@@ -1277,12 +1134,5 @@
       "verified_at": "2026-09-18"
     }
   ],
-  "alerts": [
-    {
-      "type": "data",
-      "title": "Nguồn dữ liệu cần kiểm tra",
-      "description": "Một nguồn tàu cao tốc hiện chưa phản hồi.",
-      "severity": "watch"
-    }
-  ]
+  "alerts": []
 }
