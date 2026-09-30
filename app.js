@@ -16,9 +16,18 @@ function fmtTime(v){
   return d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Ho_Chi_Minh'});
 }
 function ageInfo(iso){
-  if(!iso)return {label:'-',level:'loading'};
-  const min=Math.max(0,Math.round((Date.now()-new Date(iso).getTime())/60000));
-  return {label:min<1?'vừa cập nhật':min<60?`${min} phút`:`${Math.round(min/60)} giờ`,level:min<=10?'good':min<=30?'watch':'bad'};
+  const stamp=Date.parse(iso||'');
+  if(!Number.isFinite(stamp))return {label:'không rõ',level:'bad',minutes:Infinity};
+  const min=Math.max(0,Math.round((Date.now()-stamp)/60000));
+  // Expected collector cadence is 30 minutes. A missed multi-run
+  // window must be stale, not masked by an older stored WATCH flag.
+  return {label:min<1?'vừa cập nhật':min<60?`${min} phút`:`${Math.round(min/60)} giờ`,
+    level:min<=10?'good':min<=120?'watch':'bad',minutes:min};
+}
+function snapshotHealthLevel(ageLevel,sourceStatus){
+  if(ageLevel==='bad'||sourceStatus==='bad'||sourceStatus==='failed')return'bad';
+  if(ageLevel==='watch'||sourceStatus==='watch'||sourceStatus==='partial')return'watch';
+  return ageLevel==='good'&&sourceStatus==='good'?'good':'watch';
 }
 function sourceFreshnessNote(registry={}){
   const notes=[];
@@ -184,7 +193,8 @@ function renderAlerts(){
   host.innerHTML=alerts.map(a=>`<div class="watch-item"><div class="watch-icon">!</div><div><strong>${safe(a.title,'Service Watch')}</strong><p>${safe(a.description,'')}</p></div></div>`).join('');
 }
 function renderHealth(){
-  const d=state.data||{},age=ageInfo(d.generated_at),ready=!!d.ready,level=d.health?.status||age.level;
+  const d=state.data||{},age=ageInfo(d.generated_at),ready=!!d.ready,
+    level=snapshotHealthLevel(age.level,d.health?.status);
   setText('#updatedAt',ready?`Cập nhật ${age.label}`:'Đang chờ dữ liệu...');
   setText('#snapshotTime',d.generated_at?new Date(d.generated_at).toLocaleString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh'}):'-');
   setText('#seaSource',safe(d.sources?.sea?.label,'-'));
@@ -203,7 +213,8 @@ function renderHealth(){
   badge.className=`qa-badge ${good?'good':'bad'}`;badge.textContent=good?'GOOD':'CHECK';
   icon.className=`health-icon ${good?'good':level==='watch'?'watch':'bad'}`;icon.textContent=good?'✓':level==='watch'?'!':'×';
   setText('#healthTitle',good?'DATA FRESH':level==='watch'?'DATA DELAYED':'DATA STALE');
-  const summary=safe(d.health?.description,good?'Nguồn đang đủ mới để theo dõi.':'Cần kiểm tra nguồn.');
+  const summary=(age.level==='bad'?'Bản tổng hợp đã quá hạn cập nhật. Xác nhận chuyến trực tiếp với hãng trước khi đi. ':'')+
+    safe(d.health?.description,good?'Nguồn đang đủ mới để theo dõi.':'Cần kiểm tra nguồn.');
   const sourceNote=sourceFreshnessNote(d.sources?.registry);
   setText('#healthDescription',sourceNote?summary+' '+sourceNote:summary);
   setText('#boardStatus',good?'Board đang cập nhật':level==='watch'?'Một số nguồn cần kiểm tra':'Dữ liệu cũ');
