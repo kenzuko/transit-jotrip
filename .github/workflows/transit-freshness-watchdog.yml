@@ -1,0 +1,49 @@
+name: Transit Snapshot Freshness Watchdog
+
+on:
+  # Separate offset from the collector's schedule: if GitHub drops a collector
+  # tick, independently check age and wake the same collector. No duplicate engine.
+  schedule:
+    - cron: "22,52 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/transit-freshness-watchdog.yml"
+      - "scripts/transit-freshness-watchdog.mjs"
+      - "scripts/transit-freshness-watchdog.test.mjs"
+  pull_request:
+    paths:
+      - ".github/workflows/transit-freshness-watchdog.yml"
+      - "scripts/transit-freshness-watchdog.mjs"
+      - "scripts/transit-freshness-watchdog.test.mjs"
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: transit-watchdog
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify watchdog does not hallucinate fresh or duplicate collector
+        run: |
+          node --check scripts/transit-freshness-watchdog.mjs
+          node scripts/transit-freshness-watchdog.test.mjs
+      - name: Check published snapshot and wake the existing collector if overdue
+        if: github.event_name != 'pull_request'
+        env:
+          TRANSIT_ACTIONS_TOKEN: ${{ github.token }}
+        run: node scripts/transit-freshness-watchdog.mjs
