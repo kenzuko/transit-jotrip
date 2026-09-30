@@ -2,6 +2,10 @@ name: Update Transit Snapshot
 
 on:
   workflow_dispatch:
+  # External authenticated schedulers may use this event once explicitly authorized.
+  # GitHub schedule remains best-effort; data freshness is still independently fail-visible.
+  repository_dispatch:
+    types: [transit_refresh]
   pull_request:
     branches: [main]
     paths:
