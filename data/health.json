@@ -1,16 +1,18 @@
 {
   "schema_version": "transit-health-v1",
-  "generated_at": "2026-09-30T08:58:46.235970+07:00",
+  "generated_at": "2026-09-30T15:23:43.569826+07:00",
   "service_date": "2026-09-30",
   "ready": true,
   "health": {
-    "status": "good",
-    "description": "Các nguồn chính đang đọc được. Chuyến theo ngày được tách khỏi lịch tham khảo.",
-    "source_errors": []
+    "status": "watch",
+    "description": "Một phần nguồn đang thiếu hoặc thay đổi cấu trúc. Không suy diễn trạng thái từ dữ liệu thiếu.",
+    "source_errors": [
+      "Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày."
+    ]
   },
   "summary": {
     "network": {
-      "label": "DATA ONLINE"
+      "label": "PARTIAL DATA"
     },
     "sea": {
       "label": "Có dữ liệu",
@@ -21,7 +23,7 @@
       "description": "Tuyến VinBus công khai, hiện ở cấp Schedule/Frequency."
     },
     "active_routes": 7,
-    "departures": 44,
+    "departures": 34,
     "services": 3
   },
   "sources": {
@@ -34,24 +36,24 @@
     },
     "phu_quoc_express": {
       "label": "Tàu cao tốc",
-      "status": "ok",
+      "status": "cached",
       "records": 8,
       "data_kind": "date_specific_official",
       "date_specific": true,
-      "freshness": "fresh",
-      "checked_at": "2026-09-30T08:58:46.235970+07:00"
+      "freshness": "cached",
+      "last_success_at": "2026-09-30T08:58:46.235970+07:00"
     },
     "superdong": {
       "label": "Tàu cao tốc",
-      "status": "ok",
-      "records": 8,
+      "status": "empty",
+      "records": 0,
       "data_kind": "date_specific_official",
       "date_specific": true
     },
     "binh_an": {
       "label": "Phà",
       "status": "ok",
-      "records": 4,
+      "records": 2,
       "data_kind": "date_specific_official",
       "date_specific": true
     },
