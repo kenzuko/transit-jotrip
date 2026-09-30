@@ -28,18 +28,25 @@ class PQECacheProvenanceTests(unittest.TestCase):
         self.assertEqual(previous_operator_last_success(prior, "phu_quoc_express", DAY, NOW), ACTUAL)
 
     def test_repeated_cached_collections_never_renew_source_time(self):
-        prior = snapshot("cached", last_success_at=ACTUAL)
+        prior = snapshot("cached", last_success_at=ACTUAL, last_success_verified=True)
         for minute in (48, 49, 59):
             now = NOW.replace(minute=minute)
             observed = previous_operator_last_success(prior, "phu_quoc_express", DAY, now)
             self.assertEqual(observed, ACTUAL)
-            prior = snapshot("cached", last_success_at=observed)
+            prior = snapshot("cached", last_success_at=observed, last_success_verified=True)
             prior["generated_at"] = now.isoformat()
 
     def test_legacy_cache_does_not_borrow_recent_snapshot_generated_at(self):
         prior = snapshot("cached")
         self.assertIsNone(previous_operator_last_success(prior, "phu_quoc_express", DAY, NOW))
         self.assertNotEqual(prior["generated_at"], ACTUAL)
+
+    def test_legacy_caches_with_plausible_but_unverified_times_are_rejected(self):
+        # Old code used previous snapshot generation time for cached rows.
+        prior = snapshot("cached", last_success_at="2026-10-01T00:47:00+07:00")
+        self.assertIsNone(previous_operator_last_success(prior, "phu_quoc_express", DAY, NOW))
+        prior["sources"]["registry"]["phu_quoc_express"]["last_success_verified"] = False
+        self.assertIsNone(previous_operator_last_success(prior, "phu_quoc_express", DAY, NOW))
 
     def test_source_error_or_empty_never_claims_success(self):
         for status in ("error", "empty", "unknown"):
@@ -57,14 +64,14 @@ class PQECacheProvenanceTests(unittest.TestCase):
         for stamp in values:
             with self.subTest(stamp=stamp):
                 self.assertIsNone(previous_operator_last_success(
-                    snapshot("cached", last_success_at=stamp),
+                    snapshot("cached", last_success_at=stamp, last_success_verified=True),
                     "phu_quoc_express", DAY, NOW,
                 ))
 
     def test_iso_utc_timestamp_reuses_actual_same_day_time(self):
         actual_utc = "2026-09-30T17:12:00Z"
         self.assertEqual(previous_operator_last_success(
-            snapshot("cached", last_success_at=actual_utc),
+            snapshot("cached", last_success_at=actual_utc, last_success_verified=True),
             "phu_quoc_express", DAY, NOW,
         ), actual_utc)
 
