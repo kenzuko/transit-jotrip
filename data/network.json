@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-10-01T00:13:58.780024+07:00",
+  "generated_at": "2026-10-01T00:42:54.981436+07:00",
   "summary": {
     "network": {
       "label": "PARTIAL DATA"
@@ -40,7 +40,8 @@
         "data_kind": "date_specific_official",
         "date_specific": true,
         "freshness": "unavailable",
-        "last_success_at": null
+        "last_success_at": null,
+        "last_success_verified": false
       },
       "superdong": {
         "label": "Tàu cao tốc",
