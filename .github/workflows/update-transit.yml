@@ -10,6 +10,7 @@ on:
     branches: [main]
     paths:
       - "collector/**"
+      - "tests/**"
       - "config/**"
       - "requirements.txt"
       - ".github/workflows/update-transit.yml"
@@ -20,6 +21,7 @@ on:
     branches: [main]
     paths:
       - "collector/**"
+      - "tests/**"
       - "config/**"
       - "requirements.txt"
       - ".github/workflows/update-transit.yml"
@@ -43,6 +45,8 @@ jobs:
           python-version: "3.12"
           cache: "pip"
       - run: pip install -r requirements.txt
+      - name: Check cached operator provenance before any network collection
+        run: python -m unittest discover -s tests -p "test_*.py" -v
       - name: Collect public transit data
         run: python collector/collect.py
       - name: Validate snapshot
