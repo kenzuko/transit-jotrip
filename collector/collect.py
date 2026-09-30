@@ -215,6 +215,31 @@ def previous_operator_rows(snapshot, operator: str, day: str):
     return rows
 
 
+
+def previous_operator_last_success(snapshot, source_id: str, day: str, now: datetime):
+    """Preserve source acquisition time across cached reruns; never use snapshot rebuild time."""
+    meta = ((snapshot.get("sources") or {}).get("registry") or {}).get(source_id) or {}
+    status = meta.get("status")
+    if status == "ok":
+        candidate = meta.get("checked_at") or meta.get("last_success_at")
+    elif status == "cached":
+        candidate = meta.get("last_success_at")
+    else:
+        return None
+    if not isinstance(candidate, str) or not candidate:
+        return None
+    try:
+        observed = datetime.fromisoformat(candidate.replace("Z", "+00:00"))
+        if observed.tzinfo is None:
+            return None
+        local = observed.astimezone(TZ)
+        if local.strftime("%Y-%m-%d") != day or local > now:
+            return None
+    except (TypeError, ValueError, OverflowError):
+        return None
+    return candidate
+
+
 def collect_pqe_with_retry(day: str, attempts: int = 3):
     last_error = None
     for attempt in range(attempts):
@@ -783,7 +808,7 @@ def main():
             "data_kind": "date_specific_booking",
             "date_specific": True,
             "freshness": "cached" if cached_pqe else "unavailable",
-            "last_success_at": previous_snapshot.get("generated_at") if cached_pqe else None,
+            "last_success_at": previous_operator_last_success(previous_snapshot, "phu_quoc_express", day, now) if cached_pqe else None,
             "url": SOURCES["phu_quoc_express"],
         }
         errors.append("Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày." if cached_pqe else "Một nguồn tàu cao tốc hiện chưa phản hồi.")
