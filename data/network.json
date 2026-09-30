@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-10-01T06:13:56.278656+07:00",
+  "generated_at": "2026-10-01T06:44:11.065015+07:00",
   "summary": {
     "network": {
       "label": "DATA ONLINE"
@@ -40,7 +40,7 @@
         "data_kind": "date_specific_official",
         "date_specific": true,
         "freshness": "fresh",
-        "checked_at": "2026-10-01T06:13:56.278656+07:00",
+        "checked_at": "2026-10-01T06:44:11.065015+07:00",
         "last_success_verified": true
       },
       "superdong": {
