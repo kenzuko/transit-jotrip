@@ -1,6 +1,6 @@
 {
   "schema_version": "transit-health-v1",
-  "generated_at": "2026-09-30T15:23:43.569826+07:00",
+  "generated_at": "2026-09-30T21:44:52.518274+07:00",
   "service_date": "2026-09-30",
   "ready": true,
   "health": {
@@ -23,7 +23,7 @@
       "description": "Tuyến VinBus công khai, hiện ở cấp Schedule/Frequency."
     },
     "active_routes": 7,
-    "departures": 34,
+    "departures": 32,
     "services": 3
   },
   "sources": {
@@ -41,7 +41,7 @@
       "data_kind": "date_specific_official",
       "date_specific": true,
       "freshness": "cached",
-      "last_success_at": "2026-09-30T08:58:46.235970+07:00"
+      "last_success_at": "2026-09-30T15:23:43.569826+07:00"
     },
     "superdong": {
       "label": "Tàu cao tốc",
@@ -52,8 +52,8 @@
     },
     "binh_an": {
       "label": "Phà",
-      "status": "ok",
-      "records": 2,
+      "status": "empty",
+      "records": 0,
       "data_kind": "date_specific_official",
       "date_specific": true
     },

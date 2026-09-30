@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-09-30T15:23:43.569826+07:00",
+  "generated_at": "2026-09-30T21:44:52.518274+07:00",
   "summary": {
     "network": {
       "label": "PARTIAL DATA"
@@ -40,7 +40,7 @@
         "data_kind": "date_specific_official",
         "date_specific": true,
         "freshness": "cached",
-        "last_success_at": "2026-09-30T08:58:46.235970+07:00"
+        "last_success_at": "2026-09-30T15:23:43.569826+07:00"
       },
       "superdong": {
         "label": "Tàu cao tốc",
@@ -51,8 +51,8 @@
       },
       "binh_an": {
         "label": "Phà",
-        "status": "ok",
-        "records": 2,
+        "status": "empty",
+        "records": 0,
         "data_kind": "date_specific_official",
         "date_specific": true
       },
@@ -1104,7 +1104,7 @@
       "departure_time": "2026-09-30T17:00:00+07:00",
       "arrival_time": "2026-09-30T20:00:00+07:00",
       "vessel_or_service": "Thriving 17",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -1126,55 +1126,13 @@
     {
       "type": "sea",
       "mode": "FERRY",
-      "operator": "Bình An",
-      "origin": "Phú Quốc",
-      "destination": "Hà Tiên",
-      "departure_time": "2026-09-30T17:25:00+07:00",
-      "arrival_time": "2026-09-30T20:25:00+07:00",
-      "vessel_or_service": "Phà Bình An",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 185000,
-        "currency": "VND",
-        "checked_at": "2026-09-30"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FERRY",
-      "operator": "Bình An",
-      "origin": "Hà Tiên",
-      "destination": "Phú Quốc",
-      "departure_time": "2026-09-30T17:35:00+07:00",
-      "arrival_time": "2026-09-30T20:35:00+07:00",
-      "vessel_or_service": "Phà Bình An",
-      "status": "Cập nhật theo ngày",
-      "data_kind": "date_specific_official",
-      "date_specific": true,
-      "service_date_basis": "date_specific",
-      "source_label": "Nguồn chính thức",
-      "confidence": "high",
-      "fare": {
-        "adult": 185000,
-        "currency": "VND",
-        "checked_at": "2026-09-30"
-      }
-    },
-    {
-      "type": "sea",
-      "mode": "FERRY",
       "operator": "Thạnh Thới",
       "origin": "Phú Quốc",
       "destination": "Hà Tiên",
       "departure_time": "2026-09-30T18:00:00+07:00",
       "arrival_time": "2026-09-30T20:30:00+07:00",
       "vessel_or_service": "Thriving 20",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
