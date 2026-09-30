@@ -11,6 +11,7 @@ on:
       - "index.html"
       - "style.css"
       - "app.js"
+      - "scripts/**"
 
 permissions:
   contents: read
@@ -22,7 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check JavaScript syntax
-        run: node --check app.js
+        run: |
+          node --check app.js
+          node scripts/qa-snapshot-health.mjs
       - name: Check cached and unavailable source integrity
         run: node scripts/test-source-freshness.mjs
       - name: Check required UI anchors

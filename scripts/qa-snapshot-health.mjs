@@ -1,0 +1,24 @@
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+import vm from "node:vm";
+const src=readFileSync("app.js","utf8");
+const first=src.indexOf("function ageInfo("),last=src.indexOf("function sourceFreshnessNote(");
+assert(first>=0&&last>first,"snapshot health functions must be present");
+const now=Date.parse("2026-09-30T14:00:00Z");
+class Clock extends Date {static now(){return now}}
+const context={Date:Clock};
+vm.runInNewContext(src.slice(first,last)+"\nthis.check={ageInfo,snapshotHealthLevel};",context);
+const {ageInfo,snapshotHealthLevel}=context.check;
+const ago=min=>new Date(now-min*60000).toISOString();
+assert.equal(ageInfo(ago(8)).level,"good");
+assert.equal(ageInfo(ago(38)).level,"watch");
+assert.equal(ageInfo(ago(100)).level,"watch");
+assert.equal(ageInfo(ago(151)).level,"bad");
+assert.equal(ageInfo("").level,"bad");
+assert.equal(ageInfo("corrupt").level,"bad");
+assert.equal(snapshotHealthLevel("bad","watch"),"bad","old partial must not mask stale");
+assert.equal(snapshotHealthLevel("bad","good"),"bad","old ready must not mask stale");
+assert.equal(snapshotHealthLevel("good","watch"),"watch");
+assert.equal(snapshotHealthLevel("good","good"),"good");
+assert.equal(snapshotHealthLevel("watch","good"),"watch");
+console.log("PASS Transit source health cannot conceal an expired board");
