@@ -20,6 +20,23 @@ function ageInfo(iso){
   const min=Math.max(0,Math.round((Date.now()-new Date(iso).getTime())/60000));
   return {label:min<1?'vừa cập nhật':min<60?`${min} phút`:`${Math.round(min/60)} giờ`,level:min<=10?'good':min<=30?'watch':'bad'};
 }
+function sourceFreshnessNote(registry={}){
+  const notes=[];
+  const pqe=registry.phu_quoc_express||{},sd=registry.superdong||{};
+  if(pqe.status==='cached'){
+    const t=Date.parse(pqe.last_success_at||'');
+    const stamp=Number.isFinite(t)?new Intl.DateTimeFormat('vi-VN',{
+      timeZone:'Asia/Ho_Chi_Minh',day:'2-digit',month:'2-digit',hour:'2-digit',
+      minute:'2-digit',hour12:false
+    }).format(new Date(t)):'chưa rõ giờ';
+    notes.push('Phú Quốc Express: đang dùng lịch lưu '+stamp+', chưa phải trạng thái trực tiếp.');
+  }else if(pqe.status==='empty'||pqe.status==='error'){
+    notes.push('Phú Quốc Express: hiện chưa xác nhận được lịch.');
+  }
+  if(sd.status==='empty')notes.push('Superdong: chưa có lịch xác thực, không có nghĩa hãng ngừng chạy.');
+  else if(sd.status==='error')notes.push('Superdong: đang lỗi nguồn, cần xác nhận trực tiếp.');
+  return notes.join(' ');
+}
 function statusTone(v=''){
   const s=FOLD(v);
   if(/da xuat ben|departed|running|on time/.test(s))return'good';
@@ -186,7 +203,9 @@ function renderHealth(){
   badge.className=`qa-badge ${good?'good':'bad'}`;badge.textContent=good?'GOOD':'CHECK';
   icon.className=`health-icon ${good?'good':level==='watch'?'watch':'bad'}`;icon.textContent=good?'✓':level==='watch'?'!':'×';
   setText('#healthTitle',good?'DATA FRESH':level==='watch'?'DATA DELAYED':'DATA STALE');
-  setText('#healthDescription',safe(d.health?.description,good?'Nguồn đang đủ mới để theo dõi.':'Cần kiểm tra nguồn.'));
+  const summary=safe(d.health?.description,good?'Nguồn đang đủ mới để theo dõi.':'Cần kiểm tra nguồn.');
+  const sourceNote=sourceFreshnessNote(d.sources?.registry);
+  setText('#healthDescription',sourceNote?summary+' '+sourceNote:summary);
   setText('#boardStatus',good?'Board đang cập nhật':level==='watch'?'Một số nguồn cần kiểm tra':'Dữ liệu cũ');
   setText('#boardFootRight',d.generated_at?`Snapshot ${new Date(d.generated_at).toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Ho_Chi_Minh'})}`:'');
 }
@@ -206,7 +225,7 @@ function busStopPanel(routeId){
     const caution=s.review!=="osm_reference"?" · cần rà chiều đón":"";
     return '<a class="bus-stop-link" href="'+url+'" target="_blank" rel="noopener"><strong>'+title+'</strong><small>GPS OSM'+caution+' ↗</small></a>';
   }).join("");
-  return '<section class="bus-stops-reference"><h3>Điểm dừng theo tuyến '+String(routeId||"")+'</h3><p>GPS từ OpenStreetMap chỉ để tham khảo. Địa điểm hai chiều và trạm chưa xác nhận cần kiểm tra trên VinBus. <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors (ODbL)</a>.</p><div class="bus-stop-link-grid">'+(links||'<p>Chưa có GPS đối chiếu.</p>')+'</div><p><a href="https://maps.vinbus.vn/pq" target="_blank" rel="noopener">Bản đồ chính thức VinBus ↗</a> · <a href="https://cms.openphuquoc.com/bus/" target="_blank" rel="noopener">Tra theo danh sách điểm dừng ↗</a></p></section>';
+  return '<section class="bus-stops-reference"><h3>Điểm dừng theo tuyến '+String(routeId||"")+'</h3><p>GPS từ OpenStreetMap chỉ để tham khảo. Địa điểm hai chiều và trạm chưa xác nhận cần kiểm tra trên VinBus. <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors (ODbL)</a>.</p><div class="bus-stop-link-grid">'+(links||'<p>Chưa có GPS đối chiếu.</p>')+'</div><p><a href="https://maps.vinbus.vn/pq" target="_blank" rel="noopener">Bản đồ chính thức VinBus ↗</a> · <a href="https://openphuquoc.com/bus/" target="_blank" rel="noopener">Tra theo danh sách điểm dừng ↗</a></p></section>';
 }
 function openDrawer(r){
   const drawer=$('#detailDrawer'),back=$('#drawerBackdrop'),content=$('#drawerContent');
