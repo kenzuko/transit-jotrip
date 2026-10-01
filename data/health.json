@@ -1,6 +1,6 @@
 {
   "schema_version": "transit-health-v1",
-  "generated_at": "2026-10-02T01:51:50.785701+07:00",
+  "generated_at": "2026-10-02T04:25:25.771680+07:00",
   "service_date": "2026-10-02",
   "ready": true,
   "health": {
@@ -41,7 +41,7 @@
       "data_kind": "date_specific_official",
       "date_specific": true,
       "freshness": "fresh",
-      "checked_at": "2026-10-02T01:51:50.785701+07:00",
+      "checked_at": "2026-10-02T04:25:25.771680+07:00",
       "last_success_verified": true
     },
     "superdong": {
