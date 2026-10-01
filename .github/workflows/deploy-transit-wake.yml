@@ -1,0 +1,91 @@
+name: Deploy Dedicated Transit Wake
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "cloudflare/transit-wake-worker.js"
+      - "cloudflare/wrangler-transit-wake.toml"
+      - "cloudflare/package.json"
+      - "tests/transit-wake-worker.test.mjs"
+      - ".github/workflows/deploy-transit-wake.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "cloudflare/transit-wake-worker.js"
+      - "cloudflare/wrangler-transit-wake.toml"
+      - "cloudflare/package.json"
+      - "tests/transit-wake-worker.test.mjs"
+      - ".github/workflows/deploy-transit-wake.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify isolated scheduler policy
+        run: |
+          node --check cloudflare/transit-wake-worker.js
+          node --test tests/transit-wake-worker.test.mjs
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: 1a64a0a081ea758f72be8254030bdf11
+      TRANSIT_WAKE_TOKEN: ${{ secrets.TRANSIT_WAKE_GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check Cloudflare deployment authorization
+        id: cf
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Dedicated Transit wake code is verified but not deployed because CLOUDFLARE_API_TOKEN is absent in this repository."
+          fi
+      - name: Deploy isolated Transit wake Worker
+        if: steps.cf.outputs.ready == 'true'
+        working-directory: cloudflare
+        run: npx --yes wrangler@4 deploy --config wrangler-transit-wake.toml
+      - name: Bind isolated Transit GitHub credential
+        if: steps.cf.outputs.ready == 'true' && env.TRANSIT_WAKE_TOKEN != ''
+        working-directory: cloudflare
+        run: printf '%s' "$TRANSIT_WAKE_TOKEN" | npx --yes wrangler@4 secret put GITHUB_TRANSIT_WAKE_TOKEN --config wrangler-transit-wake.toml
+      - name: Report fail-closed credential state
+        if: steps.cf.outputs.ready == 'true' && env.TRANSIT_WAKE_TOKEN == ''
+        run: echo "::warning::Worker deployed fail-closed; add TRANSIT_WAKE_GITHUB_TOKEN before enabling GitHub dispatch."
+      - name: Smoke test scheduler health
+        if: steps.cf.outputs.ready == 'true'
+        run: |
+          node - <<'JS'
+          const url='https://jotrip-transit-wake.kenzuko.workers.dev/health?verify='+Date.now();
+          const pause=ms=>new Promise(r=>setTimeout(r,ms));
+          for(let i=1;i<=12;i++){
+            try{
+              const r=await fetch(url,{cache:'no-store'});
+              const j=await r.json();
+              if(!r.ok||j.service!=='jotrip-transit-wake'||j.role!=='scheduler_only') throw Error('unexpected health response');
+              console.log(JSON.stringify(j));
+              process.exit(0);
+            }catch(e){
+              if(i===12) throw e;
+              await pause(3000);
+            }
+          }
+          JS
