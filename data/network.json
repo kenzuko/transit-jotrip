@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "ready": true,
-  "generated_at": "2026-10-02T14:04:53.776119+07:00",
+  "generated_at": "2026-10-02T15:59:57.172105+07:00",
   "summary": {
     "network": {
       "label": "PARTIAL DATA"
@@ -802,7 +802,7 @@
       "departure_time": "2026-10-02T14:00:00+07:00",
       "arrival_time": "2026-10-02T16:45:00+07:00",
       "vessel_or_service": "Thriving 7",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -885,7 +885,7 @@
       "departure_time": "2026-10-02T14:30:00+07:00",
       "arrival_time": "2026-10-02T17:10:00+07:00",
       "vessel_or_service": "Thriving 20",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
@@ -940,7 +940,7 @@
       "departure_time": "2026-10-02T14:45:00+07:00",
       "arrival_time": "2026-10-02T17:45:00+07:00",
       "vessel_or_service": "Thriving 18",
-      "status": "Mở bán",
+      "status": "Đã xuất bến",
       "data_kind": "operational_public",
       "source_label": "Nguồn chính thức",
       "confidence": "high",
