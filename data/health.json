@@ -1,13 +1,13 @@
 {
   "schema_version": "transit-health-v1",
-  "generated_at": "2026-10-03T22:14:15.870828+07:00",
-  "service_date": "2026-10-03",
+  "generated_at": "2026-10-04T00:38:47.950272+07:00",
+  "service_date": "2026-10-04",
   "ready": true,
   "health": {
     "status": "watch",
     "description": "Một phần nguồn đang thiếu hoặc thay đổi cấu trúc. Không suy diễn trạng thái từ dữ liệu thiếu.",
     "source_errors": [
-      "Nguồn tàu cao tốc tạm dùng snapshot gần nhất trong ngày.",
+      "Một nguồn tàu cao tốc hiện chưa phản hồi.",
       "Bình An: HTTPSConnectionPool(host='www.binhanhatien.vn', port=443): Max retries exceeded with url: /dat-ve (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1010)')))"
     ]
   },
@@ -24,31 +24,31 @@
       "description": "Tuyến VinBus công khai, hiện ở cấp Schedule/Frequency."
     },
     "active_routes": 7,
-    "departures": 27,
+    "departures": 34,
     "services": 3
   },
   "sources": {
     "thanh_thoi": {
       "label": "Phà",
       "status": "ok",
-      "records": 24,
+      "records": 22,
       "data_kind": "operational_public",
       "date_specific": true
     },
     "phu_quoc_express": {
       "label": "Tàu cao tốc",
-      "status": "cached",
-      "records": 3,
+      "status": "error",
+      "records": 0,
       "data_kind": "date_specific_official",
       "date_specific": true,
-      "freshness": "cached",
-      "last_success_at": "2026-10-03T12:43:08.204882+07:00",
-      "last_success_verified": true
+      "freshness": "unavailable",
+      "last_success_at": null,
+      "last_success_verified": false
     },
     "superdong": {
       "label": "Tàu cao tốc",
-      "status": "empty",
-      "records": 0,
+      "status": "ok",
+      "records": 12,
       "data_kind": "date_specific_official",
       "date_specific": true
     },
